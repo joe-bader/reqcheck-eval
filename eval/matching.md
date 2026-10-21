@@ -22,7 +22,8 @@ Evidence quotes and suggested fixes are **not** compared in v1. A finding is a t
 - Recall = TP / (TP + FN): of the real defects, how many the agent found.
 - F1 = harmonic mean of the two. It is low if either one is low.
 - Reported overall and per category. **Overall is micro-averaged**: TP/FP/FN are pooled over all pairs before computing the ratios, so larger categories weigh more.
-- A metric with an empty denominator is reported as `n/a`, not 0 (for example, precision when the agent made no findings).
+- Precision or recall with an empty denominator is reported as `n/a`, not 0 (for example, precision when the agent made no findings).
+- F1 is computed as 2TP / (2TP + FP + FN), so it is 0 whenever there is at least one pair but no TP (an agent that flags nothing scores 0, not `n/a`). It is `n/a` only when there are no gold or predicted pairs at all.
 
 ## Known limits
 
@@ -34,3 +35,4 @@ Evidence quotes and suggested fixes are **not** compared in v1. A finding is a t
 ## Changelog
 
 - v1: initial rules.
+- v1.1: F1 is 0, not `n/a`, when the agent flags nothing or flags only in a category with no gold pairs.

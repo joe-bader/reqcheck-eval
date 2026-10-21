@@ -46,10 +46,11 @@ def load_predictions(path):
 
 
 def prf(tp, fp, fn):
-    """Precision, recall, F1. An empty denominator gives None, not 0, so it isn't mistaken for a bad score."""
+    """Precision, recall, F1. An empty denominator gives None for precision/recall. F1 is 0.0 unless there are no pairs at all."""
     p = tp / (tp + fp) if tp + fp else None
     r = tp / (tp + fn) if tp + fn else None
-    f1 = 2 * p * r / (p + r) if p and r else (0.0 if p is not None and r is not None else None)
+    # Same as 2PR/(P+R) but defined whenever there is anything to get wrong; only n/a if there are no pairs at all.
+    f1 = 2 * tp / (2 * tp + fp + fn) if tp + fp + fn else None
     return p, r, f1
 
 

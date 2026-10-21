@@ -17,7 +17,8 @@ class TestPRF(unittest.TestCase):
 
     def test_empty_denominators_are_none(self):
         self.assertEqual(S.prf(0, 0, 0), (None, None, None))
-        self.assertEqual(S.prf(0, 0, 3), (None, 0.0, None))
+        self.assertEqual(S.prf(0, 0, 3), (None, 0.0, 0.0))  # flagged nothing, missed 3: F1 is 0, not n/a
+        self.assertEqual(S.prf(0, 3, 0), (0.0, None, 0.0))  # flagged 3, none real, nothing to find
 
     def test_zero_tp_gives_zero_f1(self):
         self.assertEqual(S.prf(0, 2, 2), (0.0, 0.0, 0.0))
@@ -48,6 +49,7 @@ class TestScore(unittest.TestCase):
         m = S.score(self.truth, set())
         self.assertEqual(m["overall"]["recall"], 0.0)
         self.assertIsNone(m["overall"]["precision"])
+        self.assertEqual(m["overall"]["f1"], 0.0)
 
     def test_unknown_req_id_is_fp_and_reported(self):
         m = S.score(self.truth, {("T-99", "AMB")})
