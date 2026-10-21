@@ -14,4 +14,9 @@ def v0_user(req_id, text, related):
     )
 
 
-PROMPTS = {"v0": (V0_SYSTEM, v0_user)}
+V1_SYSTEM = V0_SYSTEM + (
+    " First write a short analysis of the requirement, then list findings. "
+    "If the requirement has no problems, return an empty findings list."
+)
+
+PROMPTS = {"v0": (V0_SYSTEM, v0_user), "v1": (V1_SYSTEM, v0_user)}

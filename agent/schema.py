@@ -14,3 +14,9 @@ class Review(BaseModel):
     # verdict comes first so the model commits to clean/defective before listing findings
     verdict: Literal["clean", "defective"]
     findings: list[Finding]
+
+
+class ReviewV1(BaseModel):
+    # analysis is written first so findings follow the reasoning; empty findings means clean
+    analysis: str
+    findings: list[Finding]

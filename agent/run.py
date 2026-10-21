@@ -12,20 +12,21 @@ from qdrant_client import QdrantClient
 
 from agent.index import QDRANT_URL, build_index, load_requirements, related
 from agent.prompts import PROMPTS
-from agent.schema import Review
+from agent.schema import Review, ReviewV1
 
 COLLECTION = "requirements_v1"
+SCHEMAS = {"v0": Review, "v1": ReviewV1}
 
 
-def review_one(model, system, user, num_ctx, temperature, seed, think):
+def review_one(schema, model, system, user, num_ctx, temperature, seed, think):
     resp = ollama.chat(
         model=model,
         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
-        format=Review.model_json_schema(),
+        format=schema.model_json_schema(),
         think=think,
         options={"temperature": temperature, "seed": seed, "num_ctx": num_ctx},
     )
-    return Review.model_validate_json(resp.message.content), resp
+    return schema.model_validate_json(resp.message.content), resp
 
 
 def main(argv=None):
@@ -52,15 +53,16 @@ def main(argv=None):
     t0 = time.time()
     for rid, text in reqs:
         ctx = related(client, COLLECTION, rid, text, args.k)
-        review, resp = review_one(args.model, system, make_user(rid, text, ctx), args.num_ctx,
+        review, resp = review_one(SCHEMAS[args.prompt], args.model, system, make_user(rid, text, ctx), args.num_ctx,
                                   args.temperature, args.seed, args.think)
-        if (review.verdict == "clean") != (not review.findings):
+        verdict = getattr(review, "verdict", "defective" if review.findings else "clean")
+        if (verdict == "clean") != (not review.findings):
             inconsistent += 1  # verdict disagrees with findings; findings are what get scored
         findings += [{"req_id": rid, **f.model_dump()} for f in review.findings]
-        raw.append({"req_id": rid, "verdict": review.verdict, "n_findings": len(review.findings),
+        raw.append({"req_id": rid, "verdict": verdict, "analysis": getattr(review, "analysis", None), "n_findings": len(review.findings),
                     "context": [c[0] for c in ctx], "prompt_tokens": resp.prompt_eval_count,
                     "seconds": (resp.total_duration or 0) / 1e9})
-        print(f"{rid}: {review.verdict:9} {[f.category for f in review.findings]}")
+        print(f"{rid}: {verdict:9} {[f.category for f in review.findings]}")
 
     ps = [m for m in ollama.ps().models if m.model == args.model]
     meta = {**vars(args), "n_requirements": len(reqs), "wall_seconds": round(time.time() - t0, 1),
