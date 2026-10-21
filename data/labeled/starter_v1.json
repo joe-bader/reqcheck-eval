@@ -68,6 +68,7 @@
       "labels": [
         { "category": "UNT", "evidence": "gracefully" }
       ]
+    },
     {
       "req_id": "REQ-011",
       "text": "After a successful checkout, the system shall display an order confirmation page containing the order number, the itemized total, and the estimated delivery date.",
