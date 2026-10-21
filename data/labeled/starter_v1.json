@@ -6,9 +6,10 @@
     {
       "req_id": "REQ-001",
       "text": "The system shall allow registered users to log in with an email address and password.",
-      "labels": "AMB",
-      "evidence": "an email address and password"
-    },
+      "labels": [
+        { "category": "AMB", "evidence": "email address and password" }
+      ]
+    },  
     {
       "req_id":"REQ-001",
       "text": "The system shall lock an account after five consecutive failed login attempts.",
@@ -17,26 +18,30 @@
     {
       "req_id": "REQ-003",
       "text": "A user session shall expire after 15 minutes of inactivity.",
-      "labels": "GAP",
-      "evidence": "inactivity"
+      "labels": [
+        { "category": "GAP", "evidence": "inactivity" }
+      ]
     },
     {
       "req_id": "REQ-004",
       "text": "Search results should be returned quickly.",
-      "labels": "AMB",
-      "evidence": "quickly"
+      "labels": [
+        { "category": "AMB", "evidence": "quickly" }
+      ]
     },
     {
       "req_id": "REQ-005",
       "text": "The system shall be user-friendly and intuitive.",
-      "labels": "UNT",
-      "evideence": "user-friendly and intuitive"
+      "labels": [
+        { "category": "UNT", "evidence": "user-friendly and intuitive" }
+      ]
     },
     {
       "req_id": "REQ-006",
       "text": "Exported reports shall use the standard timeout when generation takes too long.",
-      "labels": "GAP",
-      "evidence": "standard timeout"
+      "labels": [
+        { "category": "GAP", "evidence": "standard timeout" }
+      ]
     },
     {
       "req_id": "REQ-007",
@@ -46,21 +51,23 @@
     {
       "req_id": "REQ-008",
       "text": "Administrators shall be able to deactivate user accounts as appropriate.",
-      "labels": "AMB",
-      "evidence": "as appropriate"
+      "labels": [
+        { "category": "AMB", "evidence": "as appropriate" }
+      ]
     },
     {
       "req_id": "REQ-009",
       "text": "All passwords shall be stored using a salted hash.",
-      "labels": "GAP",
-      "evidence": "salted hash"
+      "labels": [
+        { "category": "GAP", "evidence": "salted hash" }
+      ]
     },
     {
       "req_id": "REQ-010",
       "text": "The system shall handle errors gracefully.",
-      "labels": "UNT",
-      "evideence": "gracefully"
-    },
+      "labels": [
+        { "category": "UNT", "evidence": "gracefully" }
+      ]
     {
       "req_id": "REQ-011",
       "text": "After a successful checkout, the system shall display an order confirmation page containing the order number, the itemized total, and the estimated delivery date.",
@@ -74,8 +81,9 @@
     {
       "req_id": "REQ-013",
       "text": "The system shall support all major web browsers.",
-      "labels": "AMB",
-      "evidence": "all major web browsers"
+      "labels": [
+        { "category": "AMB", "evidence": "all major web browsers" }
+      ]
     },
     {
       "req_id": "REQ-014",
@@ -90,20 +98,23 @@
     {
       "req_id": "REQ-016",
       "text": "The system shall process payments through the payment gateway and notify the user of the result.",
-      "labels": "GAP",
-      "evidence": "process payments through the payment gateway and notify the user of the result"
+      "labels": [
+        { "category": "GAP", "evidence": "process payments through the payment gateway and notify the user of the result" }
+      ]
     },
     {
       "req_id": "REQ-017",
       "text": "Product search results shall be sorted by relevance, with ties broken alphabetically by product name.",
-      "labels": "AMB",
-      "evidence": "sorted by relevance, with ties broken alphabetically by product name"
+      "labels": [
+        { "category": "AMB", "evidence": "sorted by relevance, with ties broken alphabetically by product name" }
+      ]
     },
     {
       "req_id": "REQ-018",
       "text": "The system shall be highly available.",
-      "labels": "AMB",
-      "evidence": "highly available"
+      "labels": [
+        { "category": "AMB", "evidence": "highly available" }
+      ]
     },
     {
       "req_id": "REQ-019",
@@ -113,20 +124,23 @@
     {
       "req_id": "REQ-020",
       "text": "The inventory count shall be updated in a timely manner after each sale.",
-      "labels": "AMB",
-      "evidence": "in a timely manner"
+      "labels": [
+        { "category": "AMB", "evidence": "in a timely manner" }
+      ]
     },
     {
       "req_id": "REQ-021",
       "text": "The system shall comply with applicable data protection regulations.",
-      "labels": "AMB",
-      "evidence": "applicable data protection regulations"
+      "labels": [
+        { "category": "AMB", "evidence": "applicable data protection regulations" }
+      ]
     },
     {
       "req_id": "REQ-022",
       "text": "Failed payment attempts shall be handled as described in the payment error handling section.",
-      "labels": "GAP",
-      "evidence": "as described in the payment error handling section"
+      "labels": [
+        { "category": "GAP", "evidence": "as described in the payment error handling section" }
+      ]
     },
     {
       "req_id": "REQ-023",
@@ -141,14 +155,16 @@
     {
       "req_id": "REQ-025",
       "text": "Uploaded photos shall be resized appropriately for display.",
-      "labels": "AMB",
-      "evidence": "resized appropriately for display"
+      "labels": [
+        { "category": "AMB", "evidence": "resized appropriately for display" }
+      ]
     },
     {
       "req_id": "REQ-026",
       "text": "The system shall encrypt sensitive data.",
-      "labels": "GAP",
-      "evidence": "encrypt sensitive data"
+      "labels": [
+        { "category": "GAP", "evidence": "encrypt sensitive data" }
+      ]
     },
     {
       "req_id": "REQ-027",
@@ -168,8 +184,9 @@
     {
       "req_id": "REQ-030",
       "text": "The system shall never lose customer data.",
-      "labels": "UNT",
-      "evidence": "never lose customer data"
+      "labels": [
+        { "category": "UNT", "evidence": "never lose customer data" }
+      ]
     }
   ]
 }
