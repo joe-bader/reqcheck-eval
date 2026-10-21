@@ -1,0 +1,362 @@
+[
+  {
+    "req_id": "REQ-001",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-012",
+      "REQ-005",
+      "REQ-030"
+    ],
+    "prompt_tokens": 141,
+    "seconds": 1.352563226
+  },
+  {
+    "req_id": "REQ-002",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-001",
+      "REQ-030",
+      "REQ-027"
+    ],
+    "prompt_tokens": 156,
+    "seconds": 0.19722433
+  },
+  {
+    "req_id": "REQ-003",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-027",
+      "REQ-029",
+      "REQ-008"
+    ],
+    "prompt_tokens": 159,
+    "seconds": 0.187430821
+  },
+  {
+    "req_id": "REQ-004",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-017",
+      "REQ-007",
+      "REQ-028"
+    ],
+    "prompt_tokens": 159,
+    "seconds": 0.241316432
+  },
+  {
+    "req_id": "REQ-005",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-018",
+      "REQ-010",
+      "REQ-030"
+    ],
+    "prompt_tokens": 121,
+    "seconds": 0.196451768
+  },
+  {
+    "req_id": "REQ-006",
+    "verdict": "defective",
+    "n_findings": 1,
+    "context": [
+      "REQ-029",
+      "REQ-027",
+      "REQ-023"
+    ],
+    "prompt_tokens": 171,
+    "seconds": 1.224243145
+  },
+  {
+    "req_id": "REQ-007",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-011",
+      "REQ-023",
+      "REQ-019"
+    ],
+    "prompt_tokens": 178,
+    "seconds": 0.198980298
+  },
+  {
+    "req_id": "REQ-008",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-029",
+      "REQ-003",
+      "REQ-001"
+    ],
+    "prompt_tokens": 146,
+    "seconds": 0.187458625
+  },
+  {
+    "req_id": "REQ-009",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-012",
+      "REQ-001",
+      "REQ-026"
+    ],
+    "prompt_tokens": 142,
+    "seconds": 0.185187976
+  },
+  {
+    "req_id": "REQ-010",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-005",
+      "REQ-030",
+      "REQ-018"
+    ],
+    "prompt_tokens": 121,
+    "seconds": 0.17801887
+  },
+  {
+    "req_id": "REQ-011",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-007",
+      "REQ-023",
+      "REQ-019"
+    ],
+    "prompt_tokens": 178,
+    "seconds": 0.184555911
+  },
+  {
+    "req_id": "REQ-012",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-001",
+      "REQ-002",
+      "REQ-009"
+    ],
+    "prompt_tokens": 148,
+    "seconds": 0.188020376
+  },
+  {
+    "req_id": "REQ-013",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-010",
+      "REQ-018",
+      "REQ-005"
+    ],
+    "prompt_tokens": 122,
+    "seconds": 0.176989357
+  },
+  {
+    "req_id": "REQ-014",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-011",
+      "REQ-016",
+      "REQ-030"
+    ],
+    "prompt_tokens": 158,
+    "seconds": 0.178095396
+  },
+  {
+    "req_id": "REQ-015",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-023",
+      "REQ-027",
+      "REQ-007"
+    ],
+    "prompt_tokens": 169,
+    "seconds": 0.186681303
+  },
+  {
+    "req_id": "REQ-016",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-022",
+      "REQ-005",
+      "REQ-007"
+    ],
+    "prompt_tokens": 147,
+    "seconds": 0.181002698
+  },
+  {
+    "req_id": "REQ-017",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-004",
+      "REQ-011",
+      "REQ-005"
+    ],
+    "prompt_tokens": 153,
+    "seconds": 0.182725172
+  },
+  {
+    "req_id": "REQ-018",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-005",
+      "REQ-010",
+      "REQ-030"
+    ],
+    "prompt_tokens": 121,
+    "seconds": 0.180929138
+  },
+  {
+    "req_id": "REQ-019",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-011",
+      "REQ-007",
+      "REQ-023"
+    ],
+    "prompt_tokens": 178,
+    "seconds": 0.177600994
+  },
+  {
+    "req_id": "REQ-020",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-023",
+      "REQ-011",
+      "REQ-027"
+    ],
+    "prompt_tokens": 186,
+    "seconds": 0.205913865
+  },
+  {
+    "req_id": "REQ-021",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-026",
+      "REQ-030",
+      "REQ-005"
+    ],
+    "prompt_tokens": 124,
+    "seconds": 0.194076099
+  },
+  {
+    "req_id": "REQ-022",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-016",
+      "REQ-002",
+      "REQ-010"
+    ],
+    "prompt_tokens": 142,
+    "seconds": 0.194105496
+  },
+  {
+    "req_id": "REQ-023",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-007",
+      "REQ-011",
+      "REQ-015"
+    ],
+    "prompt_tokens": 169,
+    "seconds": 0.191989772
+  },
+  {
+    "req_id": "REQ-024",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-025",
+      "REQ-028",
+      "REQ-001"
+    ],
+    "prompt_tokens": 165,
+    "seconds": 0.203514311
+  },
+  {
+    "req_id": "REQ-025",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-024",
+      "REQ-010",
+      "REQ-018"
+    ],
+    "prompt_tokens": 135,
+    "seconds": 0.196361546
+  },
+  {
+    "req_id": "REQ-026",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-021",
+      "REQ-030",
+      "REQ-005"
+    ],
+    "prompt_tokens": 124,
+    "seconds": 0.180292795
+  },
+  {
+    "req_id": "REQ-027",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-003",
+      "REQ-029",
+      "REQ-023"
+    ],
+    "prompt_tokens": 171,
+    "seconds": 0.188464802
+  },
+  {
+    "req_id": "REQ-028",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-013",
+      "REQ-007",
+      "REQ-023"
+    ],
+    "prompt_tokens": 167,
+    "seconds": 0.193671758
+  },
+  {
+    "req_id": "REQ-029",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-003",
+      "REQ-027",
+      "REQ-008"
+    ],
+    "prompt_tokens": 159,
+    "seconds": 0.185250395
+  },
+  {
+    "req_id": "REQ-030",
+    "verdict": "clean",
+    "n_findings": 0,
+    "context": [
+      "REQ-018",
+      "REQ-010",
+      "REQ-005"
+    ],
+    "prompt_tokens": 121,
+    "seconds": 0.191209334
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "findings": [
+    {
+      "req_id": "REQ-006",
+      "category": "UNT",
+      "evidence": "The requirement states that exported reports shall use the standard timeout when generation takes too long, but it does not define what 'too long' means or how the system will determine when the generation time exceeds the threshold. This makes the requirement untestable because there is no clear criterion for triggering the timeout.",
+      "suggested_fix": "Define a specific time threshold (e.g., 5 minutes) for when the timeout should be applied. Also, clarify how the system will detect that generation has taken too long."
+    }
+  ]
+}
