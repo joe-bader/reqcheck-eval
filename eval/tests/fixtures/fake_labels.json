@@ -1,0 +1,8 @@
+{
+  "requirements": [
+    {"req_id": "T-1", "text": "fake", "labels": [{"category": "AMB", "evidence": "x", "borderline": false, "note": ""}]},
+    {"req_id": "T-2", "text": "fake", "labels": [{"category": "UNT", "evidence": "x", "borderline": false, "note": ""}, {"category": "GAP", "evidence": "y", "borderline": false, "note": ""}]},
+    {"req_id": "T-3", "text": "fake", "labels": []},
+    {"req_id": "T-4", "text": "fake", "labels": [{"category": "GAP", "evidence": "x", "borderline": true, "note": "n"}]}
+  ]
+}
