@@ -1,0 +1,175 @@
+{
+  "document": "customer-order-portal",
+  "version": "starter-v1",
+  "note": "labels: null means not yet labeled; [] means labeled and clean. The agent must ignore the labels field.",
+  "requirements": [
+    {
+      "req_id": "REQ-001",
+      "text": "The system shall allow registered users to log in with an email address and password.",
+      "labels": "AMB",
+      "evidence": "an email address and password"
+    },
+    {
+      "req_id":"REQ-001",
+      "text": "The system shall lock an account after five consecutive failed login attempts.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-003",
+      "text": "A user session shall expire after 15 minutes of inactivity.",
+      "labels": "GAP",
+      "evidence": "inactivity"
+    },
+    {
+      "req_id": "REQ-004",
+      "text": "Search results should be returned quickly.",
+      "labels": "AMB",
+      "evidence": "quickly"
+    },
+    {
+      "req_id": "REQ-005",
+      "text": "The system shall be user-friendly and intuitive.",
+      "labels": "UNT",
+      "evideence": "user-friendly and intuitive"
+    },
+    {
+      "req_id": "REQ-006",
+      "text": "Exported reports shall use the standard timeout when generation takes too long.",
+      "labels": "GAP",
+      "evidence": "standard timeout"
+    },
+    {
+      "req_id": "REQ-007",
+      "text": "The system shall send a confirmation email within 60 seconds of order placement.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-008",
+      "text": "Administrators shall be able to deactivate user accounts as appropriate.",
+      "labels": "AMB",
+      "evidence": "as appropriate"
+    },
+    {
+      "req_id": "REQ-009",
+      "text": "All passwords shall be stored using a salted hash.",
+      "labels": "GAP",
+      "evidence": "salted hash"
+    },
+    {
+      "req_id": "REQ-010",
+      "text": "The system shall handle errors gracefully.",
+      "labels": "UNT",
+      "evideence": "gracefully"
+    },
+    {
+      "req_id": "REQ-011",
+      "text": "After a successful checkout, the system shall display an order confirmation page containing the order number, the itemized total, and the estimated delivery date.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-012",
+      "text": "Users should be able to reset their password using a link sent to their registered email address.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-013",
+      "text": "The system shall support all major web browsers.",
+      "labels": "AMB",
+      "evidence": "all major web browsers"
+    },
+    {
+      "req_id": "REQ-014",
+      "text": "The system shall calculate sales tax at checkout based on the shipping address.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-015",
+      "text": "Order history shall be retained for 7 years.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-016",
+      "text": "The system shall process payments through the payment gateway and notify the user of the result.",
+      "labels": "GAP",
+      "evidence": "process payments through the payment gateway and notify the user of the result"
+    },
+    {
+      "req_id": "REQ-017",
+      "text": "Product search results shall be sorted by relevance, with ties broken alphabetically by product name.",
+      "labels": "AMB",
+      "evidence": "sorted by relevance, with ties broken alphabetically by product name"
+    },
+    {
+      "req_id": "REQ-018",
+      "text": "The system shall be highly available.",
+      "labels": "AMB",
+      "evidence": "highly available"
+    },
+    {
+      "req_id": "REQ-019",
+      "text": "Customers should be able to cancel an order at any time before its status changes to Shipped.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-020",
+      "text": "The inventory count shall be updated in a timely manner after each sale.",
+      "labels": "AMB",
+      "evidence": "in a timely manner"
+    },
+    {
+      "req_id": "REQ-021",
+      "text": "The system shall comply with applicable data protection regulations.",
+      "labels": "AMB",
+      "evidence": "applicable data protection regulations"
+    },
+    {
+      "req_id": "REQ-022",
+      "text": "Failed payment attempts shall be handled as described in the payment error handling section.",
+      "labels": "GAP",
+      "evidence": "as described in the payment error handling section"
+    },
+    {
+      "req_id": "REQ-023",
+      "text": "The admin dashboard shall show the number of orders placed in the last 24 hours, refreshed every 5 minutes.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-024",
+      "text": "The system shall allow users to upload a profile photo in JPEG or PNG format of up to 5 MB.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-025",
+      "text": "Uploaded photos shall be resized appropriately for display.",
+      "labels": "AMB",
+      "evidence": "resized appropriately for display"
+    },
+    {
+      "req_id": "REQ-026",
+      "text": "The system shall encrypt sensitive data.",
+      "labels": "GAP",
+      "evidence": "encrypt sensitive data"
+    },
+    {
+      "req_id": "REQ-027",
+      "text": "When a user's session expires, the system shall redirect the user to the login page and preserve the shopping cart contents for 30 days.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-028",
+      "text": "The system shall support 10,000 concurrent users with a 95th percentile page load time under 2 seconds.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-029",
+      "text": "The admin console shall use the same inactivity timeout as user sessions.",
+      "labels": null
+    },
+    {
+      "req_id": "REQ-030",
+      "text": "The system shall never lose customer data.",
+      "labels": "UNT",
+      "evidence": "never lose customer data"
+    }
+  ]
+}
