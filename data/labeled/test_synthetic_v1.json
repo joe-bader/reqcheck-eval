@@ -1,0 +1,274 @@
+{
+  "document": "clinic-appointment-scheduler",
+  "version": "test-synthetic-v1",
+  "note": "SEALED TEST SET. Do not run the agent on this file until prompts and models are frozen. Requirements written and labeled by Claude (Sonnet 5.5) under eval/labeling-rules.md v1, labeled by construction (each defect was planted). These are NOT the repo owner's labels. The agent must ignore the labels field.",
+  "requirements": [
+    {
+      "req_id": "TST-001",
+      "text": "The system shall allow a patient to book an appointment with a clinician by selecting an available time slot.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-002",
+      "text": "A time slot shall be considered available if no other appointment for the same clinician overlaps it.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-003",
+      "text": "The system shall send a reminder SMS to the patient 24 hours before the appointment start time.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-004",
+      "text": "Patients shall be able to cancel an appointment up to 2 hours before its start time.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-005",
+      "text": "The system shall respond to appointment searches promptly.",
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "promptly",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-006",
+      "text": "The booking page shall be seamless and delightful for patients.",
+      "labels": [
+        {
+          "category": "UNT",
+          "evidence": "seamless and delightful",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-007",
+      "text": "The system shall retain appointment records for the required retention period.",
+      "labels": [
+        {
+          "category": "GAP",
+          "evidence": "the required retention period",
+          "borderline": false,
+          "note": "referent defined nowhere in the set"
+        }
+      ]
+    },
+    {
+      "req_id": "TST-008",
+      "text": "The system shall prevent new bookings for a clinician during any period the clinician has marked as leave.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-009",
+      "text": "If a patient does not arrive within 15 minutes of the start time, the receptionist may mark the appointment as a no-show.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-010",
+      "text": "The system shall always be available to patients.",
+      "labels": [
+        {
+          "category": "UNT",
+          "evidence": "always be available",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-011",
+      "text": "The system shall support a large number of concurrent users.",
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "a large number",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-012",
+      "text": "The system shall send the visit invoice to the patient's insurer.",
+      "labels": [
+        {
+          "category": "GAP",
+          "evidence": "send the visit invoice",
+          "borderline": true,
+          "note": "no trigger stated for when the invoice is sent"
+        }
+      ]
+    },
+    {
+      "req_id": "TST-013",
+      "text": "The system shall store appointment times in UTC and display them in the clinic's local time zone.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-014",
+      "text": "Audit logs shall be exported using the agreed format when they grow too big.",
+      "labels": [
+        {
+          "category": "GAP",
+          "evidence": "the agreed format",
+          "borderline": false,
+          "note": "format defined nowhere in the set"
+        },
+        {
+          "category": "AMB",
+          "evidence": "too big",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-015",
+      "text": "The system shall require clinicians to authenticate with a password of at least 12 characters and a one-time code.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-016",
+      "text": "The system shall be robust against invalid input.",
+      "labels": [
+        {
+          "category": "UNT",
+          "evidence": "robust",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-017",
+      "text": "Appointment confirmations shall be emailed in a timely manner.",
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "in a timely manner",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-018",
+      "text": "Appointment fee waivers shall be approved.",
+      "labels": [
+        {
+          "category": "GAP",
+          "evidence": "shall be approved",
+          "borderline": false,
+          "note": "no actor says who approves"
+        }
+      ]
+    },
+    {
+      "req_id": "TST-019",
+      "text": "The system shall display the clinician's next three available time slots on the search results page.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-020",
+      "text": "The system shall log every login attempt, and the log shall be easy to review.",
+      "labels": [
+        {
+          "category": "UNT",
+          "evidence": "easy to review",
+          "borderline": false,
+          "note": "first half is fine; label the defective half only"
+        }
+      ]
+    },
+    {
+      "req_id": "TST-021",
+      "text": "The system shall lock a patient account after several failed login attempts.",
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "several",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-022",
+      "text": "Appointment durations shall be configurable per appointment type in 5-minute increments.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-023",
+      "text": "Clinicians shall be able to override a booking only for appointments classified as urgent.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-024",
+      "text": "An appointment shall be classified as urgent when the triage nurse assigns it priority level 1 or 2.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-025",
+      "text": "Prescription refills shall follow the pharmacy workflow.",
+      "labels": [
+        {
+          "category": "GAP",
+          "evidence": "the pharmacy workflow",
+          "borderline": false,
+          "note": "workflow defined nowhere in the set"
+        }
+      ]
+    },
+    {
+      "req_id": "TST-026",
+      "text": "Patients shall receive notifications for major schedule changes.",
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "major",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-027",
+      "text": "The system shall reject any booking request that does not include a patient identifier, and shall return error code 400.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-028",
+      "text": "The patient portal shall be intuitive and load quickly.",
+      "labels": [
+        {
+          "category": "UNT",
+          "evidence": "intuitive",
+          "borderline": false,
+          "note": ""
+        },
+        {
+          "category": "AMB",
+          "evidence": "quickly",
+          "borderline": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "req_id": "TST-029",
+      "text": "Patient records shall be encrypted at rest using AES-256.",
+      "labels": []
+    },
+    {
+      "req_id": "TST-030",
+      "text": "The system shall notify the clinician by email when a patient cancels an appointment.",
+      "labels": []
+    }
+  ]
+}
