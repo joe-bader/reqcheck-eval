@@ -1,6 +1,6 @@
 # reqcheck-eval
 
-**Status: in progress.** The agent, scorer, model comparison and n8n workflow work. The judge calibration and the labeler self-consistency check are not done yet (see "How quality is scored").
+**Status: in progress.** The agent, scorer, model comparison, n8n workflow and judge calibration are done. The labeler self-consistency check is not done yet (see "How quality is scored").
 
 Self-hosted requirements-review agent (Ollama + Qdrant + n8n) that flags gaps, ambiguity, and untestable statements, with an eval harness that scores its output against hand-labeled ground truth.
 
@@ -78,7 +78,8 @@ The same pipeline exists as plain Python (`agent/run.py`) and as an n8n workflow
 
 ### LLM-as-judge (suggested-fix quality only)
 - Tooling is built ([eval/judge.py](eval/judge.py)): 20 true-positive fixes sampled into [data/calibration/fix_sheet.json](data/calibration/fix_sheet.json), graded 1 to 3. The judge (qwen3:8b, a different model from the one that wrote the fixes) writes its grades to a separate file so the human grades blind.
-- **Calibration: not done yet.** It needs my own grades of the 20 fixes. First look at the judge: it gave 19 of 20 fixes a 3, which suggests it does not discriminate. Until agreement with my grades is measured, no judge score is reported as a quality number.
+- **Calibration (20 fixes, my grades vs. the judge's):** exact agreement 0.65, within one grade 0.95, Cohen's kappa **0.15**. The judge gave a 3 to 19 of 20 fixes; I gave 3 to 12, a 2 to 7 and a 1 to 1. The raw agreement mostly reflects the judge answering 3 almost every time, which kappa corrects for. **The judge failed calibration, so no judge score is reported as a quality number.**
+- To retry, I would tighten the rubric or change the judge and re-check on a fresh sample of fixes, not on these 20 (tuning on them would just fit my grades).
 
 ### Run-to-run variance
 - At temperature 0 with a fixed seed, three repeats were identical for gemma4:e4b and qwen3:8b (sd 0.000) and varied for granite4.2:8b (F1 sd 0.040).
@@ -152,7 +153,7 @@ reqcheck-eval/
 
 ## Next steps
 
-- Finish the judge calibration with my own grades of the 20 fixes
+- Retry the fix-quality judge with a stricter rubric or different model, calibrated on a fresh sample
 - Re-label 10 requirements for the self-consistency check
 - Try `think=True` as a separate experiment and test the context-distraction hypothesis for the k=29 drop
 - Check the test set against real requirement text (for example sentences sampled from the public PURE dataset)
