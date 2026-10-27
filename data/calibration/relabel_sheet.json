@@ -6,52 +6,87 @@
     {
       "req_id": "REQ-011",
       "text": "After a successful checkout, the system shall display an order confirmation page containing the order number, the itemized total, and the estimated delivery date.",
-      "labels": null
+      "labels": []
     },
     {
       "req_id": "REQ-005",
       "text": "The system shall be user-friendly and intuitive.",
-      "labels": null
+      "labels": [
+        {
+          "category": "UNT",
+          "evidence": "user-friendly and intuitive",
+          "borderline": false,
+          "note": ""
+        }
+      ]
     },
     {
       "req_id": "REQ-013",
       "text": "The system shall support all major web browsers.",
-      "labels": null
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "all major web browsers",
+          "borderline": false,
+          "note": ""
+        }
+      ]
     },
     {
       "req_id": "REQ-021",
       "text": "The system shall comply with applicable data protection regulations.",
-      "labels": null
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "applicable data protection regulations",
+          "borderline": false,
+          "note": ""
+        }
+      ]
     },
     {
       "req_id": "REQ-002",
       "text": "The system shall lock an account after five consecutive failed login attempts.",
-      "labels": null
+      "labels": []
     },
     {
       "req_id": "REQ-003",
       "text": "A user session shall expire after 15 minutes of inactivity.",
-      "labels": null
+      "labels": []
     },
     {
       "req_id": "REQ-018",
       "text": "The system shall be highly available.",
-      "labels": null
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "highly available",
+          "borderline": false,
+          "note": ""
+        }
+      ]
     },
     {
       "req_id": "REQ-004",
       "text": "Search results should be returned quickly.",
-      "labels": null
+      "labels": [
+        {
+          "category": "AMB",
+          "evidence": "quickly",
+          "borderline": false,
+          "note": ""
+        }
+      ]
     },
     {
       "req_id": "REQ-012",
       "text": "Users should be able to reset their password using a link sent to their registered email address.",
-      "labels": null
+      "labels": []
     },
     {
       "req_id": "REQ-019",
       "text": "Customers should be able to cancel an order at any time before its status changes to Shipped.",
-      "labels": null
+      "labels": []
     }
   ]
 }
