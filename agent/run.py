@@ -8,6 +8,7 @@ import os
 import time
 
 import ollama
+from pydantic import ValidationError
 from qdrant_client import QdrantClient
 
 from agent.index import QDRANT_URL, build_index, load_requirements, related
@@ -18,15 +19,19 @@ COLLECTION = "requirements_v1"
 SCHEMAS = {"v0": Review, "v1": ReviewV1, "v2": ReviewV1}
 
 
-def review_one(schema, model, system, user, num_ctx, temperature, seed, think):
+def review_one(schema, model, system, user, num_ctx, temperature, seed, think, num_predict):
     resp = ollama.chat(
         model=model,
         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
         format=schema.model_json_schema(),
         think=think,
-        options={"temperature": temperature, "seed": seed, "num_ctx": num_ctx},
+        options={"temperature": temperature, "seed": seed, "num_ctx": num_ctx, "num_predict": num_predict},
     )
-    return schema.model_validate_json(resp.message.content), resp
+    try:
+        return schema.model_validate_json(resp.message.content), resp
+    except ValidationError:
+        # e.g. a free-text field that never closes and hits num_predict; scored as no findings
+        return None, resp
 
 
 def main(argv=None):
@@ -37,6 +42,7 @@ def main(argv=None):
     ap.add_argument("--out", required=True)
     ap.add_argument("--k", type=int, default=3, help="related requirements to retrieve")
     ap.add_argument("--num-ctx", type=int, default=8192)
+    ap.add_argument("--num-predict", type=int, default=1024, help="cap on generated tokens per requirement")
     ap.add_argument("--temperature", type=float, default=0.0)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--think", action="store_true", help="let the model reason first (slower)")
@@ -49,12 +55,18 @@ def main(argv=None):
     system, make_user = PROMPTS[args.prompt]
 
     os.makedirs(args.out, exist_ok=True)
-    findings, raw, inconsistent = [], [], 0
+    findings, raw, inconsistent, parse_failures = [], [], 0, 0
     t0 = time.time()
     for rid, text in reqs:
         ctx = related(client, COLLECTION, rid, text, args.k)
         review, resp = review_one(SCHEMAS[args.prompt], args.model, system, make_user(rid, text, ctx), args.num_ctx,
-                                  args.temperature, args.seed, args.think)
+                                  args.temperature, args.seed, args.think, args.num_predict)
+        if review is None:
+            parse_failures += 1
+            raw.append({"req_id": rid, "verdict": "parse_failure", "output_chars": len(resp.message.content or ""),
+                        "eval_tokens": resp.eval_count, "seconds": (resp.total_duration or 0) / 1e9})
+            print(f"{rid}: PARSE FAILURE ({resp.eval_count} tokens generated)")
+            continue
         verdict = getattr(review, "verdict", "defective" if review.findings else "clean")
         if (verdict == "clean") != (not review.findings):
             inconsistent += 1  # verdict disagrees with findings; findings are what get scored
@@ -66,7 +78,7 @@ def main(argv=None):
 
     ps = [m for m in ollama.ps().models if m.model == args.model]
     meta = {**vars(args), "n_requirements": len(reqs), "wall_seconds": round(time.time() - t0, 1),
-            "verdict_findings_mismatch": inconsistent,
+            "verdict_findings_mismatch": inconsistent, "parse_failures": parse_failures,
             "gpu_fraction": (ps[0].size_vram / ps[0].size) if ps and ps[0].size else None}
     for name, obj in (("findings.json", {"findings": findings}), ("per_requirement.json", raw), ("meta.json", meta)):
         with open(os.path.join(args.out, name), "w") as f:
