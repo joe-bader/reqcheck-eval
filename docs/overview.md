@@ -1,5 +1,7 @@
 # reqcheck-eval in one page
 
+Unfamiliar terms are defined in the [glossary](glossary.md).
+
 **What it is.** A requirements reviewer that runs on one workstation, with no data leaving the machine. It reads each software requirement and flags three defects, quoting the words at fault and suggesting a fix:
 
 | Defect | Meaning | Example |

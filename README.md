@@ -2,7 +2,7 @@
 
 A self-hosted agent that reviews software requirements and flags ambiguity, untestable wording and missing information, plus the evaluation harness that scores it against labels I wrote by hand. Runs on one workstation with Ollama, Qdrant and n8n. The harness is the point: every quality claim here is a measured number.
 
-One-page summary for non-engineers: [docs/overview.md](docs/overview.md). Setup and commands: [docs/running.md](docs/running.md).
+One-page summary for non-engineers: [docs/overview.md](docs/overview.md). Terms: [docs/glossary.md](docs/glossary.md). Setup and commands: [docs/running.md](docs/running.md).
 
 ## Results
 
