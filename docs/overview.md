@@ -1,6 +1,6 @@
 # reqcheck-eval: project overview
 
-**Status: proof of concept, in progress.** Every number in this document comes from a run recorded in [results/LOG.md](../results/LOG.md).
+**Status: proof of concept, complete.** Every number in this document comes from a run recorded in [results/LOG.md](../results/LOG.md).
 
 ## 1. The short version
 
@@ -138,7 +138,7 @@ An AI can grade the *quality of suggested fixes*, which have no exact right answ
 - **Small samples.** 30 requirements per set, 17 to 19 real defects. Results are directional, not statistically strong.
 - **Two different labelers.** The main set is labeled by me and the test set by Claude. A gap between the two sets can partly be labeler differences, not only model performance.
 - **Synthetic text.** Both sets are tidier than real project documents, so real-world scores would probably be lower.
-- **Not yet checked: my own label consistency.** Re-labeling 10 requirements after 48 hours is planned.
+- **My own labels are not perfectly stable.** Re-labeling 10 requirements blind five days later matched 29 of 30 decisions (Cohen's kappa 0.89). The one reversal was a judgment call about whether "inactivity" counts as an undefined term, the same kind of gap the agent finds hardest.
 - **One shared index.** Each run rebuilds a single Qdrant collection from the file it processes, so the collection reflects whichever requirements file was indexed last, and the n8n workflow retrieves from that. A production design would use one collection per document. This is a known shortcut.
 - **Set-level gaps are out of scope.** The agent checks each requirement; it cannot say "the document is missing a security section."
 - **Not production-ready:** no authentication, no monitoring, no handling of large documents or multiple users.

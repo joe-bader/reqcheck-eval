@@ -1,7 +1,5 @@
 # reqcheck-eval
 
-**Status: in progress.** Everything below works except one check: re-labeling a sample of my own labels to measure how consistent I was.
-
 A self-hosted agent that reviews software requirements and flags three kinds of defects: ambiguity, untestable wording, and missing information. It runs entirely on one workstation (Ollama, Qdrant, n8n). The main point of the project is the evaluation harness that scores the agent against labels I wrote by hand, so every claim about quality is backed by a number.
 
 For a plain-English walkthrough aimed at non-engineers and architects, see [docs/overview.md](docs/overview.md).
@@ -70,6 +68,8 @@ requirement -> embed (nomic-embed-text) -> Qdrant: 3 most similar other requirem
 - Three repeat runs were identical for gemma4 and qwen3, and varied slightly for granite.
 - The small number of labeled defects is a much bigger source of uncertainty than run-to-run noise.
 
+**My own consistency.** Five days after labeling, I re-labeled 10 randomly chosen dev requirements without looking at my first answers. I made the same call on 29 of 30 decisions (Cohen's kappa 0.89). The one change was REQ-003, "A user session shall expire after 15 minutes of inactivity": I first marked "inactivity" as an undefined term (a gap), and the second time I called it clean. This is the same kind of judgment call the agent finds hardest.
+
 **AI judge for fix quality.**
 - Suggested fixes have no single right answer, so I tried having a second model (qwen3:8b) grade them from 1 to 3.
 - I then graded the same 20 fixes myself without seeing its grades.
@@ -84,6 +84,7 @@ requirement -> embed (nomic-embed-text) -> Qdrant: 3 most similar other requirem
 - **I tuned on one model and one dataset**, and the test set exposed it: qwen3:8b fell from 0.553 to 0.391 while the other two models improved.
 - **Temperature 0 and a fixed seed didn't guarantee the same answer** on borderline cases in the first version.
 - **Ollama silently fell back to the CPU** after a kernel update left the NVIDIA driver module missing. Only `ollama ps` showed it. Every run now records how much of it ran on the GPU.
+- **My own labels weren't perfectly stable.** On re-labeling, I reversed one gap label (REQ-003, "inactivity"). Undefined-term gaps are the hardest category for me as well as for the agent. I left the original label in place, because my rules don't allow changing the answer key after the agent has run.
 
 ## Quickstart
 
@@ -140,7 +141,6 @@ docs/         plain-English project overview
 
 ## Next steps
 
-- Re-label 10 requirements to measure my own consistency
 - Retry the fix-quality judge with a stricter rubric, checked against a fresh sample
 - Test the model's built-in reasoning mode, and find out why more context hurt
 - Run against real requirement text, such as the public PURE dataset
@@ -148,4 +148,4 @@ docs/         plain-English project overview
 
 ## License
 
-TODO
+MIT. See [LICENSE](LICENSE).
