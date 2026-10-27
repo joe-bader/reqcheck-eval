@@ -57,4 +57,4 @@ The model reviews every requirement; retrieval only supplies context such as "is
 
 Small synthetic samples; one labeler per set (the test set was labeled by Claude, not me); five models, only one larger than ~9B; a single shared vector index; no security, monitoring or multi-user handling. It is a proof of concept.
 
-Method, design decisions and every number: [technical overview](docs/technical.md). Full run history: [results/LOG.md](results/LOG.md).
+Architecture, implementation and design decisions: [technical overview](docs/technical.md). Full run history: [results/LOG.md](results/LOG.md).
