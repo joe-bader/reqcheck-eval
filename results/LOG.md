@@ -51,3 +51,20 @@ Seconds per requirement (mean over 3 dev runs, includes model load amortized): g
 - Repeat runs at T=0, seed=0 were identical for qwen3 and gemma4, and varied for granite. The earlier non-determinism (v0, verdict-first schema) was on borderline inputs.
 - Test labels are Claude's, not Joe's, and the requirements are synthetic. Differences between dev and test can partly come from the labeler, not only the agent.
 - Third-party sources said gemma4:e4b was 9.6 GB; ollama list shows 6.6 GB.
+
+## System 1: Kev-9B (kev:9b-q4_K_M via Ollama /v1/systemone)
+
+The requested `kev:9b-nvfp4` tag is an MLX build (Apple Silicon runner) and NVFP4 has no hardware path on an RTX 3080 (Ampere), so the same model's q4_K_M GGUF was used. A local variant `kev-9b-8k` (agent/modelfiles/) caps context at Kev's validated 8,192 tokens; Ollama otherwise loaded it at 73,728 tokens and put 18% on CPU. Probabilities were identical with the cap.
+
+How it differs: one yes/no question per category per requirement, answered with a calibrated probability in one forward pass. No evidence quote, no suggested fix, no temperature or seed. Categories are answered independently, so the labeling rules' precedence can't be applied.
+
+| Run | Set | Threshold | P / R / F1 | Ranking (average precision) | Brier | s / req |
+|---|---|---|---|---|---|---|
+| s1-kev9b-k3 r1-r3 | dev | 0.45 (chosen on dev r1) | 0.400 / 0.842 / 0.542, 0.542, 0.561 | 0.555 | 0.175 | 0.15 |
+| test-s1-kev9b-k3-r1 | test | 0.45 (frozen) | 0.327 / 0.941 / 0.485 | 0.787 | 0.191 | 0.15 |
+
+- Not deterministic: probabilities moved by up to 0.05 between identical repeats, enough to flip a flag near the threshold (one dev run scored 0.561 instead of 0.542).
+- The F1 curve has a cliff: 0.542 at 0.45, 0.435 at 0.50. Many GAP probabilities sit between 0.44 and 0.51, so a small threshold change flips many flags. A threshold picked on 19 gold pairs is fragile.
+- Overconfident against these labels: pairs it rated 0.4-0.6 were real 26% of the time on dev and 5% on test.
+- GAP is the weak category (test: 20 false positives). AMB ranking is strong (test average precision 0.95).
+- About 5x faster than gemma4:e4b (0.15 s vs 0.71 s per requirement).

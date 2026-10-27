@@ -1,0 +1,12 @@
+{
+  "data": "data/labeled/test_synthetic_v1.json",
+  "model": "kev-9b-8k:latest",
+  "out": "results/test-s1-kev9b-k3-r1",
+  "k": 3,
+  "threshold": 0.45,
+  "limit": null,
+  "kind": "system1",
+  "n_requirements": 30,
+  "wall_seconds": 4.7,
+  "gpu_fraction": 1.0
+}

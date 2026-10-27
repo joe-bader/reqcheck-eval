@@ -1,0 +1,139 @@
+{
+  "findings": [
+    {
+      "req_id": "REQ-002",
+      "category": "GAP",
+      "probability": 0.5243299187889299
+    },
+    {
+      "req_id": "REQ-004",
+      "category": "AMB",
+      "probability": 0.8633886675602194
+    },
+    {
+      "req_id": "REQ-004",
+      "category": "UNT",
+      "probability": 0.7356440154548481
+    },
+    {
+      "req_id": "REQ-005",
+      "category": "UNT",
+      "probability": 0.8962589578560329
+    },
+    {
+      "req_id": "REQ-006",
+      "category": "AMB",
+      "probability": 0.7948578364651698
+    },
+    {
+      "req_id": "REQ-006",
+      "category": "GAP",
+      "probability": 0.6213073564232663
+    },
+    {
+      "req_id": "REQ-007",
+      "category": "GAP",
+      "probability": 0.5926815392158196
+    },
+    {
+      "req_id": "REQ-008",
+      "category": "AMB",
+      "probability": 0.7659457764370045
+    },
+    {
+      "req_id": "REQ-008",
+      "category": "GAP",
+      "probability": 0.5195165407066464
+    },
+    {
+      "req_id": "REQ-010",
+      "category": "GAP",
+      "probability": 0.6514041306884685
+    },
+    {
+      "req_id": "REQ-016",
+      "category": "GAP",
+      "probability": 0.5653421108037332
+    },
+    {
+      "req_id": "REQ-018",
+      "category": "AMB",
+      "probability": 0.7474982590953734
+    },
+    {
+      "req_id": "REQ-018",
+      "category": "UNT",
+      "probability": 0.8414081584537448
+    },
+    {
+      "req_id": "REQ-018",
+      "category": "GAP",
+      "probability": 0.6757006290443424
+    },
+    {
+      "req_id": "REQ-019",
+      "category": "AMB",
+      "probability": 0.5959996093033584
+    },
+    {
+      "req_id": "REQ-019",
+      "category": "GAP",
+      "probability": 0.5729296554272818
+    },
+    {
+      "req_id": "REQ-020",
+      "category": "AMB",
+      "probability": 0.9021137748462486
+    },
+    {
+      "req_id": "REQ-020",
+      "category": "UNT",
+      "probability": 0.8994974134742314
+    },
+    {
+      "req_id": "REQ-020",
+      "category": "GAP",
+      "probability": 0.7135094305380218
+    },
+    {
+      "req_id": "REQ-021",
+      "category": "UNT",
+      "probability": 0.6460552975535386
+    },
+    {
+      "req_id": "REQ-021",
+      "category": "GAP",
+      "probability": 0.68557931521406
+    },
+    {
+      "req_id": "REQ-022",
+      "category": "GAP",
+      "probability": 0.8543312097408355
+    },
+    {
+      "req_id": "REQ-025",
+      "category": "AMB",
+      "probability": 0.7461466869424069
+    },
+    {
+      "req_id": "REQ-025",
+      "category": "GAP",
+      "probability": 0.5843280026306964
+    },
+    {
+      "req_id": "REQ-029",
+      "category": "AMB",
+      "probability": 0.502079052037457
+    },
+    {
+      "req_id": "REQ-030",
+      "category": "UNT",
+      "probability": 0.8949361543338317
+    },
+    {
+      "req_id": "REQ-030",
+      "category": "GAP",
+      "probability": 0.5740842061590561
+    }
+  ]
+}
