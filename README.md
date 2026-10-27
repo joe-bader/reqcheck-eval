@@ -1,6 +1,6 @@
 # reqcheck-eval
 
-**[Technical overview](docs/technical.md)** · [Glossary](docs/glossary.md) · [Run log](results/LOG.md) · [Setup](docs/running.md)
+**[Technical overview](docs/technical.md)** · [Glossary](docs/glossary.md) · [Run log](results/LOG.md) · Try it: `make demo` ([setup](docs/running.md))
 
 **What it is.** A requirements reviewer that runs on one workstation, with no data leaving the machine. It reads each software requirement and flags three defects, quoting the words at fault and suggesting a fix:
 
