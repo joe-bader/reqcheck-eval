@@ -15,7 +15,7 @@ Best configuration so far: **gemma4:e4b (Q4_K_M), prompt v2, 3 related requireme
 | Recall (real issues the agent caught) | 0.579 | 0.941 |
 | F1 | 0.595 (3 identical runs) | 0.780 (1 run) |
 | Flag-everything baseline F1 | 0.349 | 0.318 |
-| Avg. time per requirement | 0.71 s | not recorded separately |
+| Avg. time per requirement | 0.71 s | 1.05 s |
 | Hardware | Ryzen 7 7800X3D, 32 GB RAM, RTX 3080 10 GB, 100% GPU | same |
 
 All three models, same prompt, same settings:
