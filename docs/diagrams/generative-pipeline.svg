@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1350" viewBox="0 0 1240 1350" role="img" aria-labelledby="title desc">
+<title id="title">Generative review</title><desc id="desc">Load requirement IDs and text without labels, then build the index over the full input. While requirements remain, retrieve context, build the prompt, call Ollama, and validate the reply. Valid replies append findings and a trace; invalid JSON or schema replies record parse failures with no findings. Both paths advance to the loop condition. Once exhausted, write all run artifacts.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111D31"/><stop offset="1" stop-color="#0B1120"/></linearGradient>
+<marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7F94AE" stroke-width="1.6"/></marker>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#86B6FF" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#74D7CE" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#C2ADFF" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#F1C17D" stroke-width="1.6"/></marker>
+</defs><style>text {font-family: Lato, "DejaVu Sans", sans-serif;} .mono {font-family: "DejaVu Sans Mono", monospace;}</style>
+<rect x="0" y="0" width="1240" height="1350" rx="0" fill="url(#bg)"/>
+<text x="48" y="42" fill="#86B6FF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="2">REQCHECK / 02</text>
+<text x="48" y="85" fill="#EDF3FC" font-size="32" font-weight="700" text-anchor="start" letter-spacing="0">Generative review</text>
+<text x="48" y="115" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">agent/run.py · V2 configuration · sequential execution</text>
+<rect x="60" y="155" width="480" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="183" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">ONCE PER RUN</text>
+<text x="82" y="214" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Load requirements</text>
+<text x="82" y="243" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">req_id + text only; labels excluded.</text>
+<rect x="650" y="155" width="530" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="672" y="183" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">ONCE PER RUN</text>
+<text x="672" y="214" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Rebuild the full input index</text>
+<text x="672" y="243" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">search_document: → embed → Qdrant (cosine)</text>
+<polyline points="540,212 650,212" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<polyline points="915,270 915,305 360,305 360,340" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<path d="M360 340.0 L470.0 390 L360 440.0 L250.0 390 Z" fill="#1B2A40" stroke="#86B6FF" stroke-width="1.4"/>
+<text x="360" y="396" fill="#EDF3FC" font-size="19" font-weight="700" text-anchor="middle" letter-spacing="0">More items?</text>
+<polyline points="470,390 750,390" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="553" y="376" fill="#74D7CE" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">no · loop complete</text>
+<rect x="750" y="334" width="430" height="180" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="772" y="362" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">AFTER THE LOOP</text>
+<text x="772" y="393" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Write run artifacts</text>
+<text x="772" y="422" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">findings.json · per_requirement.json</text>
+<text x="772" y="449" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">meta.json: args, timing, failures,</text>
+<text x="772" y="476" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">and GPU fraction.</text>
+<polyline points="360,440 360,490" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<text x="375" y="470" fill="#86B6FF" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">yes · next requirement</text>
+<rect x="120" y="490" width="480" height="105" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="142" y="518" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">01 / CONTEXT</text>
+<text x="142" y="549" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Retrieve neighbors</text>
+<text x="142" y="578" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">search_query: → embed → k+1 → drop self → k</text>
+<polyline points="360,595 360,630" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="120" y="630" width="480" height="105" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="142" y="658" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">02 / PROMPT</text>
+<text x="142" y="689" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Assemble messages</text>
+<text x="142" y="718" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">V2 rules + neighbors + target requirement</text>
+<polyline points="360,735 360,770" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="120" y="770" width="480" height="135" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="142" y="798" fill="#C2ADFF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">03 / GENERATION</text>
+<text x="142" y="829" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">ollama.chat</text>
+<text x="142" y="858" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">ReviewV1 schema · temperature 0 · seed 0</text>
+<text x="142" y="885" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">num_ctx 8192 · num_predict 1024</text>
+<polyline points="360,905 360,945" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<path d="M360 945.0 L490.0 995 L360 1045.0 L230.0 995 Z" fill="#1B2A40" stroke="#86B6FF" stroke-width="1.4"/>
+<text x="360" y="1001" fill="#EDF3FC" font-size="19" font-weight="700" text-anchor="middle" letter-spacing="0">Valid reply?</text>
+<text x="126" y="929" fill="#AABBD0" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">ReviewV1.model_validate_json</text>
+<polyline points="360,1045 360,1100" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="375" y="1078" fill="#74D7CE" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">yes</text>
+<rect x="120" y="1100" width="480" height="135" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="142" y="1128" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">04 / SUCCESS</text>
+<text x="142" y="1159" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Append findings + trace</text>
+<text x="142" y="1188" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">req_id, category, evidence, suggested_fix</text>
+<text x="142" y="1215" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Empty findings means clean.</text>
+<polyline points="490,995 750,995" fill="none" stroke="#F1C17D" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#amber)"/>
+<text x="529" y="978" fill="#F1C17D" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">no · JSON / schema</text>
+<rect x="750" y="940" width="430" height="135" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="772" y="968" fill="#F1C17D" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">04 / VALIDATION FAILURE</text>
+<text x="772" y="999" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Record parse_failure</text>
+<text x="772" y="1028" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Keep token count + duration.</text>
+<text x="772" y="1055" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Append no findings; continue.</text>
+<polyline points="360,1235 360,1288" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="965,1075 965,1288 60,1288 60,390" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="60,390 250,390" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<circle cx="360" cy="1288" r="3.5" fill="#7F94AE"/>
+<text x="77" y="1273" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">advance to the next iteration</text>
+<rect x="750" y="585" width="430" height="260" rx="12" fill="#101A2B" stroke="#30425A" stroke-width="1.2"/>
+<text x="776" y="620" fill="#C2ADFF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.5">REPLY CONTRACT</text>
+<text x="776" y="659" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">analysis → findings[]</text>
+<text x="776" y="695" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Reasoning is generated before findings.</text>
+<text x="776" y="722" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Categories are constrained to</text>
+<text x="776" y="749" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">AMB · UNT · GAP.</text>
+<text x="776" y="794" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">Validation failure is handled here;</text>
+<text x="776" y="818" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">transport and indexing errors propagate.</text>
+</svg>

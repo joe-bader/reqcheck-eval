@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1110" viewBox="0 0 1200 1110" role="img" aria-labelledby="title desc">
+<title id="title">System 1 decisions</title><desc id="desc">Rebuild the full requirement index once; for each requirement retrieve context without labels. Requirement state and independent noul questions for AMB, UNT and GAP go to Kev-9B in one systemone call. Keep raw probabilities and apply a threshold outside the model to collect findings. Write probs.json, findings.json and meta.json after processing the input.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111D31"/><stop offset="1" stop-color="#0B1120"/></linearGradient>
+<marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7F94AE" stroke-width="1.6"/></marker>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#86B6FF" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#74D7CE" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#C2ADFF" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#F1C17D" stroke-width="1.6"/></marker>
+</defs><style>text {font-family: Lato, "DejaVu Sans", sans-serif;} .mono {font-family: "DejaVu Sans Mono", monospace;}</style>
+<rect x="0" y="0" width="1200" height="1110" rx="0" fill="url(#bg)"/>
+<text x="48" y="42" fill="#86B6FF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="2">REQCHECK / 03</text>
+<text x="48" y="85" fill="#EDF3FC" font-size="32" font-weight="700" text-anchor="start" letter-spacing="0">System 1 decisions</text>
+<text x="48" y="115" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">agent/system1.py · shared retrieval · independent category probabilities</text>
+<rect x="60" y="155" width="1080" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="183" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">SHARED WITH THE GENERATIVE RUNNER</text>
+<text x="82" y="214" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Index once; retrieve for every requirement</text>
+<text x="82" y="243" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Labels excluded · search_document: for indexing · search_query: for top-k context</text>
+<polyline points="310,270 310,325" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<rect x="60" y="325" width="500" height="142" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="353" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">PER REQUIREMENT</text>
+<text x="82" y="384" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">State</text>
+<text x="82" y="413" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">requirement: &quot;REQ-nnn: text&quot;</text>
+<text x="82" y="440" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">related_requirements: [k neighbors]</text>
+<rect x="640" y="325" width="500" height="142" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="662" y="353" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">FIXED QUESTION DEFINITIONS</text>
+<text x="662" y="384" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">AMB · UNT · GAP</text>
+<text x="662" y="413" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Each question has type noul, instructions,</text>
+<text x="662" y="440" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">and true / false criteria.</text>
+<polyline points="310,467 310,505 890,505 890,467" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="600,505 600,545" fill="none" stroke="#C2ADFF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#purple)"/>
+<circle cx="600" cy="505" r="3.5" fill="#7F94AE"/>
+<rect x="350" y="545" width="500" height="145" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="372" y="573" fill="#C2ADFF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">OLLAMA · /V1/SYSTEMONE</text>
+<text x="372" y="604" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Kev-9B · one forward pass</text>
+<text x="372" y="633" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">One probability per independent question.</text>
+<text x="372" y="660" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">No evidence quote or suggested fix.</text>
+<polyline points="600,690 600,755" fill="none" stroke="#C2ADFF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#purple)"/>
+<rect x="350" y="755" width="500" height="54" rx="10" fill="#201F38" stroke="#494166" stroke-width="1.2"/>
+<text x="600" y="790" fill="#C2ADFF" font-size="20" font-weight="400" text-anchor="middle" letter-spacing="0" class="mono">{ AMB: p, UNT: p, GAP: p }</text>
+<polyline points="600,809 600,838 310,838" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="310,838 310,865" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<polyline points="600,838 890,838" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round"/>
+<polyline points="890,838 890,865" fill="none" stroke="#86B6FF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#blue)"/>
+<circle cx="600" cy="838" r="3.5" fill="#7F94AE"/>
+<rect x="60" y="865" width="500" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="893" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">COLLECT EVERY RAW PROBABILITY</text>
+<text x="82" y="924" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">probs.json</text>
+<text x="82" y="953" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">req_id · AMB · UNT · GAP · timing · context</text>
+<rect x="640" y="865" width="500" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="662" y="893" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">OUTSIDE THE MODEL · PER CATEGORY</text>
+<text x="662" y="924" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Apply p ≥ --threshold</text>
+<text x="662" y="953" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Collect (req_id, category, probability) findings.</text>
+<polyline points="890,980 890,1012" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<rect x="640" y="1015" width="500" height="52" rx="10" fill="#122D31" stroke="#2D5A60" stroke-width="1.2"/>
+<text x="890" y="1048" fill="#74D7CE" font-size="21" font-weight="400" text-anchor="middle" letter-spacing="0" class="mono">findings.json</text>
+<text x="60" y="1027" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Write both files and meta.json after the loop.</text>
+<text x="60" y="1054" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Threshold selected on dev; frozen for test.</text>
+</svg>

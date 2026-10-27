@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1375" viewBox="0 0 1200 1375" role="img" aria-labelledby="title desc">
+<title id="title">n8n orchestration</title><desc id="desc">At build time the selected prompt and ReviewV1 schema are imported into build_workflow.py to generate reqcheck.json for n8n. At runtime the host driver sends one request per requirement. n8n embeds, queries the prebuilt Qdrant index, builds the prompt, calls Ollama, parses JSON and returns the findings. The host driver collects responses and writes findings.json and meta.json after all requests.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111D31"/><stop offset="1" stop-color="#0B1120"/></linearGradient>
+<marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7F94AE" stroke-width="1.6"/></marker>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#86B6FF" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#74D7CE" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#C2ADFF" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#F1C17D" stroke-width="1.6"/></marker>
+</defs><style>text {font-family: Lato, "DejaVu Sans", sans-serif;} .mono {font-family: "DejaVu Sans Mono", monospace;}</style>
+<rect x="0" y="0" width="1200" height="1375" rx="0" fill="url(#bg)"/>
+<text x="48" y="42" fill="#86B6FF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="2">REQCHECK / 04</text>
+<text x="48" y="85" fill="#EDF3FC" font-size="32" font-weight="700" text-anchor="start" letter-spacing="0">n8n orchestration</text>
+<text x="48" y="115" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">workflows/ · generated definitions, request execution, and host-owned artifacts</text>
+<text x="60" y="159" fill="#AABBD0" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.6">BUILD TIME</text>
+<rect x="60" y="184" width="300" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="212" fill="#C2ADFF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">AGENT PACKAGE</text>
+<text x="82" y="243" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Prompt + schema</text>
+<text x="82" y="272" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">V2_SYSTEM · ReviewV1</text>
+<rect x="440" y="184" width="320" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="462" y="212" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">WORKFLOW GENERATOR</text>
+<text x="462" y="243" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">build_workflow.py</text>
+<text x="462" y="272" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Imports shared definitions.</text>
+<rect x="840" y="184" width="300" height="115" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="862" y="212" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">GENERATED ARTIFACT</text>
+<text x="862" y="243" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">reqcheck.json</text>
+<text x="862" y="272" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">Imported / published to n8n.</text>
+<polyline points="360,241 440,241" fill="none" stroke="#C2ADFF" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="5 6" marker-end="url(#purple)"/>
+<polyline points="760,241 840,241" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="5 6" marker-end="url(#teal)"/>
+<polyline points="990,299 990,385" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="5 6" marker-end="url(#teal)"/>
+<text x="1007" y="347" fill="#74D7CE" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">deploy</text>
+<text x="60" y="367" fill="#AABBD0" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.6">REQUEST EXECUTION</text>
+<rect x="420" y="385" width="720" height="879" rx="16" fill="#101A2B" stroke="#30425A" stroke-width="1.2"/>
+<text x="448" y="420" fill="#86B6FF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.5">N8N · DOCKER · :5678</text>
+<rect x="60" y="450" width="300" height="784" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="482" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.5">HOST · PYTHON DRIVER</text>
+<text x="82" y="520" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">run_via_n8n.py</text>
+<text x="82" y="557" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Load req_id + text.</text>
+<text x="82" y="584" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Send one POST for each</text>
+<text x="82" y="611" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">requirement, sequentially.</text>
+<text x="82" y="740" fill="#AABBD0" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.5">REQUEST</text>
+<text x="82" y="777" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0" class="mono">{req_id, text}</text>
+<text x="82" y="804" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0" class="mono">POST /webhook/reqcheck</text>
+<text x="82" y="960" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.4">AFTER ALL RESPONSES</text>
+<text x="82" y="998" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Collect returned findings.</text>
+<text x="82" y="1025" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Write findings.json</text>
+<text x="82" y="1052" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">and meta.json.</text>
+<text x="82" y="1169" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">No index is built here.</text>
+<rect x="460" y="450" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="472" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">01 / WEBHOOK</text>
+<text x="482" y="499" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Receive request</text>
+<text x="482" y="526" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">POST /webhook/reqcheck · {req_id, text}</text>
+<polyline points="780,546 780,563" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="460" y="564" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="586" fill="#C2ADFF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">02 / HTTP → OLLAMA</text>
+<text x="482" y="613" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Embed query</text>
+<text x="482" y="640" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">/api/embed · nomic-embed-text · search_query:</text>
+<polyline points="780,660 780,677" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="460" y="678" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="700" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">03 / HTTP → QDRANT</text>
+<text x="482" y="727" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Read existing context</text>
+<text x="482" y="754" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">requirements_v1 · /points/query · k+1 + payload</text>
+<polyline points="780,774 780,791" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="460" y="792" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="814" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">04 / CODE</text>
+<text x="482" y="841" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Build prompt</text>
+<text x="482" y="868" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">Drop self · take k · V2 rules + neighbors + target</text>
+<polyline points="780,888 780,905" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="460" y="906" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="928" fill="#C2ADFF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">05 / HTTP → OLLAMA</text>
+<text x="482" y="955" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Generate review</text>
+<text x="482" y="982" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">/api/chat · ReviewV1 schema · temperature 0 · seed 0</text>
+<polyline points="780,1002 780,1019" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="460" y="1020" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="1042" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">06 / CODE</text>
+<text x="482" y="1069" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Parse reply</text>
+<text x="482" y="1096" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">JSON.parse · attach req_id to findings (no Pydantic validation)</text>
+<polyline points="780,1116 780,1133" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="460" y="1134" width="640" height="96" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="482" y="1156" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">07 / RESPONSE</text>
+<text x="482" y="1183" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Respond to Webhook</text>
+<text x="482" y="1210" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">Return req_id, analysis, findings to the driver.</text>
+<polyline points="360,500 460,500" fill="none" stroke="#86B6FF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#blue)"/>
+<polyline points="460,1184 360,1184" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="60" y="1304" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Prerequisite: a Python runner has already built requirements_v1. The workflow only queries it.</text>
+<text x="60" y="1335" fill="#F1C17D" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">No num_predict cap or parse-failure recovery; a failed request also stops the host driver.</text>
+</svg>

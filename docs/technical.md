@@ -6,21 +6,7 @@ About 900 lines of Python in three packages, plus a generated n8n workflow. Ther
 
 ## System context
 
-```
-┌─────────────────────────────── one workstation (RTX 3080, 10 GB) ───────────────────────────────┐
-│                                                                                                  │
-│   data/labeled/*.json ──► agent/run.py ──────────┐            Ollama (host, :11434)              │
-│   (requirements + labels)  agent/system1.py ─────┼──────────► ├ nomic-embed-text  (embeddings)   │
-│                            workflows/run_via_n8n │            ├ gemma4, qwen3, granite, qwen3.6  │
-│                                  │               │            └ kev-9b (System 1 endpoint)       │
-│                                  ▼               │                                               │
-│                            n8n (Docker, :5678) ──┤            Qdrant (Docker, :6333)             │
-│                                                  └──────────► collection requirements_v1         │
-│                                                                                                  │
-│   results/<run>/{findings,meta,...}.json ──► eval/score.py, summarize.py, thresholds.py          │
-│                                                                                                  │
-└──────────────────────────────────────────────────────────────────────────────────────────────────┘
-```
+![Local architecture: Python runners rebuild and query Qdrant and call Ollama; the host n8n driver calls the n8n webhook, which queries the index and calls Ollama. Offline evaluation reads labels and run predictions.](diagrams/system-context.svg)
 
 | Component | Runs as | Role |
 |---|---|---|
@@ -54,30 +40,7 @@ Ollama runs on the host rather than in Docker so it has direct access to the GPU
 
 ## Generative pipeline (`agent/run.py`)
 
-```
-load requirements (labels stripped)
-   │
-   ▼
-build_index: embed all texts with "search_document: " prefix → drop + recreate Qdrant collection (cosine)
-   │
-   ▼  for each requirement
-related(): embed text with "search_query: " prefix → query k+1 → drop self → k neighbors
-   │
-   ▼
-messages = [system: V2 rules] + [user: neighbors + "Review this requirement: REQ-nnn: text"]
-   │
-   ▼
-ollama.chat(format = ReviewV1 JSON schema, temperature 0, seed 0, num_ctx 8192, num_predict 1024)
-   │
-   ▼
-ReviewV1.model_validate_json ──fail──► record parse_failure, contribute no findings, continue
-   │ ok
-   ▼
-append findings (req_id + category, evidence, suggested_fix) and per-requirement trace
-   │
-   ▼  after the loop
-write findings.json, per_requirement.json, meta.json (args, timings, parse failures, GPU fraction)
-```
+![Generative review: load text and rebuild the index, then loop through retrieval, prompting, generation, and validation. Both successful replies and recorded parse failures advance to the next iteration; write artifacts when the loop finishes.](diagrams/generative-pipeline.svg)
 
 Processing is sequential, one requirement per call. That is enough at 30 requirements per set, and it keeps timings per requirement clean.
 
@@ -108,13 +71,7 @@ Processing is sequential, one requirement per call. That is enough at 30 require
 
 Kev-9B is a decision model, not a text generator. Ollama exposes it through a separate `systemone` call:
 
-```
-state     = { requirement: "REQ-nnn: text", related_requirements: [k neighbors] }
-questions = { AMB: noul, UNT: noul, GAP: noul }   # each with instructions + true/false criteria
-   │
-   ▼  one forward pass
-answers   = { AMB: p, UNT: p, GAP: p }            # calibrated probabilities
-```
+![System 1 decisions: combine retrieved requirement context with independent category questions, call Kev-9B once, retain all probabilities, and apply a threshold outside the model to collect findings. Write artifacts after the loop.](diagrams/system1-pipeline.svg)
 
 - **Same retrieval, different contract.** Indexing and context are shared with the generative runner. The output is a probability per category, with no evidence quote, no suggested fix and no sampling settings.
 - **Independent questions.** The three questions are answered separately, so the rules' "one span, one label" precedence can't be enforced. That shows up as over-flagged GAPs.
@@ -124,15 +81,7 @@ answers   = { AMB: p, UNT: p, GAP: p }            # calibrated probabilities
 
 ## n8n pipeline (`workflows/`)
 
-```
-Webhook (POST /webhook/reqcheck {req_id, text})
-  → HTTP: Ollama /api/embed            ("search_query: " + text)
-  → HTTP: Qdrant /points/query          (limit k+1, payload)
-  → Code: build prompt                  (drop self, take k, same message layout)
-  → HTTP: Ollama /api/chat              (format = ReviewV1 schema, temperature 0, seed 0)
-  → Code: parse findings
-  → Respond to Webhook
-```
+![n8n orchestration: generate the workflow from shared prompt and schema definitions, then process each webhook through embedding, retrieval, prompting, generation, JSON parsing, and response. The host driver collects responses and writes artifacts.](diagrams/n8n-pipeline.svg)
 
 - **Generated, not hand-built.** `build_workflow.py` imports `V2_SYSTEM` and `ReviewV1.model_json_schema()` from `agent/` and writes them into the node definitions. The prompt and schema have one source of truth, so the two orchestrators can't drift.
 - **Parity was checked by score, not by inspection.** The n8n run produced the same 28 (req_id, category) pairs as the Python run with the same model.

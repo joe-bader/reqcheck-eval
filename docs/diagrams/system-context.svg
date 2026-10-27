@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1080" viewBox="0 0 1400 1080" role="img" aria-labelledby="title desc">
+<title id="title">Local architecture</title><desc id="desc">The Python runners rebuild and query Qdrant, and call Ollama for embeddings plus chat or System 1 decisions. The host n8n driver calls the Docker n8n webhook; n8n reads Qdrant and calls Ollama for embeddings and chat. Host CLIs write run artifacts. Offline evaluation reads both labels and predictions.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111D31"/><stop offset="1" stop-color="#0B1120"/></linearGradient>
+<marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7F94AE" stroke-width="1.6"/></marker>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#86B6FF" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#74D7CE" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#C2ADFF" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#F1C17D" stroke-width="1.6"/></marker>
+</defs><style>text {font-family: Lato, "DejaVu Sans", sans-serif;} .mono {font-family: "DejaVu Sans Mono", monospace;}</style>
+<rect x="0" y="0" width="1400" height="1080" rx="0" fill="url(#bg)"/>
+<text x="48" y="42" fill="#86B6FF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="2">REQCHECK / 01</text>
+<text x="48" y="85" fill="#EDF3FC" font-size="32" font-weight="700" text-anchor="start" letter-spacing="0">Local architecture</text>
+<text x="48" y="115" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">One workstation · RTX 3080 / 10 GB · service calls stay on localhost</text>
+<rect x="36" y="142" width="1328" height="546" rx="16" fill="#101A2B" stroke="#30425A" stroke-width="1.2"/>
+<text x="60" y="173" fill="#AABBD0" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.8">RUNTIME DEPENDENCIES</text>
+<text x="941" y="173" fill="#AABBD0" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">Arrows: caller → service</text>
+<polyline points="230,240 230,207 1140,207 1140,240" fill="none" stroke="#C2ADFF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#purple)"/>
+<text x="470" y="196" fill="#C2ADFF" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">embed (both) · chat (generative) · systemone (System 1)</text>
+<polyline points="400,310 500,310" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="416" y="296" fill="#74D7CE" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">index</text>
+<text x="416" y="336" fill="#74D7CE" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">query</text>
+<polyline points="665,480 665,410" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="683" y="449" fill="#74D7CE" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">query only</text>
+<polyline points="830,540 1140,540 1140,410" fill="none" stroke="#C2ADFF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#purple)"/>
+<text x="903" y="524" fill="#C2ADFF" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">embed + chat</text>
+<polyline points="400,540 500,540" fill="none" stroke="#86B6FF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#blue)"/>
+<text x="415" y="526" fill="#86B6FF" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">POST</text>
+<rect x="60" y="240" width="340" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="268" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">HOST · PYTHON</text>
+<text x="82" y="299" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Review runners</text>
+<text x="82" y="328" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">agent/run.py</text>
+<text x="82" y="355" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">agent/system1.py</text>
+<text x="82" y="382" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Write run artifacts.</text>
+<rect x="500" y="240" width="330" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="522" y="268" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">DOCKER · :6333</text>
+<text x="522" y="299" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Qdrant</text>
+<text x="522" y="328" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">requirements_v1</text>
+<text x="522" y="355" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Persistent qdrant_data volume</text>
+<text x="522" y="382" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Recreated by Python runners.</text>
+<rect x="940" y="240" width="400" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="962" y="268" fill="#C2ADFF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">HOST · :11434 · GPU</text>
+<text x="962" y="299" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Ollama</text>
+<text x="962" y="328" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">nomic-embed-text → embeddings</text>
+<text x="962" y="355" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">gemma4 · qwen3 · granite · qwen3.6</text>
+<text x="962" y="382" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">kev-9b → System 1 decisions</text>
+<rect x="60" y="480" width="340" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="508" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">HOST · PYTHON</text>
+<text x="82" y="539" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">n8n driver</text>
+<text x="82" y="568" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">workflows/run_via_n8n.py</text>
+<text x="82" y="595" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">One request per requirement.</text>
+<text x="82" y="622" fill="#AABBD0" font-size="16" font-weight="400" text-anchor="start" letter-spacing="0">Writes findings + metadata.</text>
+<rect x="500" y="480" width="330" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="522" y="508" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">DOCKER · :5678 · HOST NETWORK</text>
+<text x="522" y="539" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">n8n workflow</text>
+<text x="522" y="568" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">/webhook/reqcheck</text>
+<text x="522" y="595" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Returns analysis + findings.</text>
+<text x="522" y="622" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Reads the existing index.</text>
+<text x="60" y="727" fill="#AABBD0" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.8">FILE CONTRACT &amp; OFFLINE EVALUATION</text>
+<text x="60" y="758" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">All three host entry points read only req_id + text. Labels never enter retrieval or model calls.</text>
+<rect x="60" y="810" width="340" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="82" y="838" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">INPUT · JSON</text>
+<text x="82" y="869" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Labeled requirements</text>
+<text x="82" y="898" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">data/labeled/*.json</text>
+<text x="82" y="925" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">req_id · text · labels</text>
+<rect x="500" y="810" width="330" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="522" y="838" fill="#86B6FF" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">HOST · PYTHON</text>
+<text x="522" y="869" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Evaluation harness</text>
+<text x="522" y="898" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">score.py · summarize.py</text>
+<text x="522" y="925" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">thresholds.py (probabilities)</text>
+<text x="522" y="952" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Read truth + predictions.</text>
+<rect x="940" y="810" width="400" height="170" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="962" y="838" fill="#74D7CE" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.6">OUTPUT · JSON</text>
+<text x="962" y="869" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Run artifacts</text>
+<text x="962" y="898" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">results/&lt;run&gt;/</text>
+<text x="962" y="925" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">findings + metadata for all paths</text>
+<text x="962" y="952" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">traces / probabilities by runner</text>
+<polyline points="400,892 500,892" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="421" y="878" fill="#74D7CE" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">labels</text>
+<polyline points="940,892 830,892" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="841" y="878" fill="#74D7CE" font-size="15" font-weight="400" text-anchor="start" letter-spacing="0">predictions</text>
+<text x="60" y="1032" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Runtime arrows show requests; responses return to the caller. File arrows show data consumed by evaluation.</text>
+</svg>
