@@ -28,7 +28,7 @@ All three models, same prompt, same settings:
 
 Takeaway: gemma4:e4b was best on both sets and fastest, but with 19 and 17 gold pairs a single pair moves a score by 2 to 5 points, so only the large gaps (gemma vs. granite on dev, qwen's drop from dev to test) should be believed. The prompt was developed against qwen3:8b on the dev set, and qwen3:8b is the model that lost the most on the held-out test set.
 
-Full run history, including failed attempts: [results/LOG.md](results/LOG.md).
+Full run history, including failed attempts: [results/LOG.md](results/LOG.md). A plain-English overview for non-engineers and architects: [docs/overview.md](docs/overview.md).
 
 ## What it does
 
