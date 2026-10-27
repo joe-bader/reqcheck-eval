@@ -1,0 +1,392 @@
+[
+  {
+    "req_id": "TST-001",
+    "verdict": "clean",
+    "analysis": "The requirement TST-001 states that the system shall allow booking by selecting an 'available time slot'. While it references the concept of availability, it does not define what constitutes an 'available time slot' within this specific requirement text. However, looking at the related requirements provided in the context, TST-002 explicitly defines this: 'A time slot shall be considered available if no other appointment for the same clinician overlaps it.' Since the term is defined in a related requirement shown, it is not a GAP due to missing definition. The requirement is testable (selecting a slot that meets the criteria in TST-002 results in a booking) and unambiguous regarding the action. Therefore, there are no defects.",
+    "n_findings": 0,
+    "context": [
+      "TST-002",
+      "TST-019",
+      "TST-013"
+    ],
+    "prompt_tokens": 594,
+    "seconds": 6.426864827
+  },
+  {
+    "req_id": "TST-002",
+    "verdict": "defective",
+    "analysis": "The requirement defines 'available' based on overlap with 'other appointments'. However, it fails to specify which types of appointments count as existing bookings that would block a slot. For example, does a cancelled appointment still occupy the slot? Does a tentative or pending booking count? Without defining what constitutes a valid 'appointment' in this context (e.g., confirmed status, specific workflow states), a tester cannot objectively determine if a slot is available or not. This is a missing definition of a key term ('appointment') within the scope of availability logic.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-019",
+      "TST-008"
+    ],
+    "prompt_tokens": 596,
+    "seconds": 4.311599197
+  },
+  {
+    "req_id": "TST-003",
+    "verdict": "clean",
+    "analysis": "The requirement TST-003 specifies a clear action ('send a reminder SMS'), a specific recipient ('the patient'), and a precise timing condition ('24 hours before the appointment start time'). The term 'patient' is defined by the context of the related requirements (e.g., TST-004, TST-009). There are no vague quantifiers, subjective qualities, or missing preconditions that would prevent a tester from verifying if an SMS was sent at the correct time. Therefore, the requirement is testable and unambiguous.",
+    "n_findings": 0,
+    "context": [
+      "TST-004",
+      "TST-009",
+      "TST-030"
+    ],
+    "prompt_tokens": 599,
+    "seconds": 3.61300809
+  },
+  {
+    "req_id": "TST-004",
+    "verdict": "clean",
+    "analysis": "The requirement specifies a condition ('up to 2 hours before') which defines a clear boundary for the action of cancelling. The term 'up to' in this context implies that any cancellation occurring within the window from the current time until 2 hours prior to the appointment start is permitted, and cancellations after that point are not (or are handled differently). This creates a definite, measurable threshold (a specific time difference) against which a tester can verify pass/fail behavior. There is no ambiguity about the duration, nor is it subjective or untestable. The necessary context (what an appointment start time is) is generally understood in this domain and not flagged as missing information here.",
+    "n_findings": 0,
+    "context": [
+      "TST-030",
+      "TST-003",
+      "TST-009"
+    ],
+    "prompt_tokens": 599,
+    "seconds": 4.348165735
+  },
+  {
+    "req_id": "TST-005",
+    "verdict": "defective",
+    "analysis": "The requirement uses the adverb 'promptly' to describe the response time for appointment searches. This is a vague quantifier that lacks a specific numerical threshold (e.g., 'within 2 seconds'). Because two competent testers could interpret 'promptly' differently (one might consider 5 seconds prompt, another might require <1 second), it fits the definition of AMB. It does not fit UNT because a measurable outcome is implied (time), just undefined. It does not fit GAP because the term 'appointment searches' is clear enough in context and no specific missing actor or precondition is identified that would prevent writing a test if a time threshold were provided.",
+    "n_findings": 1,
+    "context": [
+      "TST-017",
+      "TST-007",
+      "TST-001"
+    ],
+    "prompt_tokens": 569,
+    "seconds": 5.087054275
+  },
+  {
+    "req_id": "TST-006",
+    "verdict": "defective",
+    "analysis": "The requirement TST-006 uses the terms 'seamless' and 'delightful'. These are subjective qualities that do not have objective, measurable thresholds for pass/fail testing. According to the guidelines, subjective qualities fall under the UNT (untestable) category. While 'seamless' could arguably be ambiguous, the primary defect is the lack of an objective outcome, making it untestable. The order of precedence dictates checking UNT after AMB, but since these terms define no measurable metric at all rather than just a vague one, they are fundamentally untestable.",
+    "n_findings": 1,
+    "context": [
+      "TST-028",
+      "TST-023",
+      "TST-027"
+    ],
+    "prompt_tokens": 578,
+    "seconds": 3.870359572
+  },
+  {
+    "req_id": "TST-007",
+    "verdict": "defective",
+    "analysis": "The requirement states that the system must retain records for a 'required retention period'. While it implies a duration, it does not specify what that duration is (e.g., 7 years, 10 years). This makes the requirement ambiguous because two competent testers could check for different retention lengths. It also contains missing information regarding which specific regulations or standards define this 'required' period, but per the priority rules, the lack of a specific value/definition falls under AMB first. The term 'required' is vague without a reference to a specific standard or number.",
+    "n_findings": 1,
+    "context": [
+      "TST-005",
+      "TST-017",
+      "TST-010"
+    ],
+    "prompt_tokens": 557,
+    "seconds": 3.447764148
+  },
+  {
+    "req_id": "TST-008",
+    "verdict": "defective",
+    "analysis": "The requirement states that the system must prevent bookings when a clinician is on 'leave'. While the action (preventing bookings) and the condition (clinician marked as leave) are clear, the term 'leave' is not defined in the provided related requirements. It is unclear what constitutes 'leave' (e.g., specific types like sick leave vs. vacation, or a generic status flag). Since 'leave' is a specific term referenced but not defined in the context, and it is not merely a vague quantifier (AMB) or subjective quality (UNT), this falls under GAP (missing information/definition).",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-023",
+      "TST-030"
+    ],
+    "prompt_tokens": 591,
+    "seconds": 3.725913579
+  },
+  {
+    "req_id": "TST-009",
+    "verdict": "defective",
+    "analysis": "The requirement uses the modal verb 'may', which indicates permission or optionality rather than a mandatory behavior. In software requirements engineering, 'may' is typically used to describe features that are optional and not part of the core system obligation unless explicitly stated as such in a non-functional context (e.g., performance). However, for a functional requirement defining system behavior regarding data state changes (marking as no-show), the absence of a mandatory trigger ('shall') makes it untestable as a definitive pass/fail criterion for compliance. A tester cannot verify if the system *must* allow this action or if it is just one of many possible options. While 'may' can sometimes imply ambiguity regarding whether the feature exists at all, the primary defect here is that it fails to specify an observable, mandatory outcome required for verification. According to the guidelines, subjective qualities or unbounded absolutes fall under UNT, but optional behavior without a clear scope of when it applies (vs. when it doesn't) often leans towards GAP if the actor/condition isn't fully constrained, or UNT if it's considered a lack of defined expected outcome. However, looking closely at the definitions: AMB is for vague measures/lists. UNT is for subjective/unbounded/no expected outcome. GAP is for missing info like triggers/preconditions. The trigger 'does not arrive within 15 minutes' is present. The actor 'receptionist' is present. The action 'mark as no-show' is present. The issue is the modality 'may'. If a requirement says 'The system may do X', it doesn't define a testable constraint because the system could choose not to do X and still comply. This makes it impossible to derive a definite expected result for a compliance test (i.e., does the system *have* to allow this?). Therefore, it is Untestable because no objective pass/fail can be derived for mandatory compliance. It is not AMB because '15 minutes' is precise. It is not GAP because the context of who/what/when is present, even if the obligation is weak.",
+    "n_findings": 1,
+    "context": [
+      "TST-004",
+      "TST-003",
+      "TST-001"
+    ],
+    "prompt_tokens": 603,
+    "seconds": 8.065364816
+  },
+  {
+    "req_id": "TST-010",
+    "verdict": "defective",
+    "analysis": "The requirement states that the system 'shall always be available'. The term 'always' is an unbounded absolute that implies 100% uptime without exception, which is practically impossible to test or guarantee in real-world systems (due to maintenance, hardware failures, etc.). Furthermore, 'available' is a subjective quality unless defined by specific metrics like uptime percentage (e.g., 99.9%) or maximum allowable downtime. Because it lacks a measurable threshold for availability and uses an absolute quantifier that prevents a realistic pass/fail test, it falls under UNT (untestable) due to the unbounded absolute and lack of objective outcome definition. It also touches on AMB because 'available' is vague without a definition, but per the priority rules, UNT takes precedence when subjective qualities or unbounded absolutes prevent an objective test.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-012",
+      "TST-005"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 4.254652075
+  },
+  {
+    "req_id": "TST-011",
+    "verdict": "defective",
+    "analysis": "The requirement uses the vague quantifier 'large' without providing a specific numerical threshold, percentage, or definition. This makes it impossible for testers to determine an objective pass/fail criterion (e.g., is 100 users 'large'? Is 10,000?). According to the AMB category triggers, vague quantifiers/adjectives with no threshold constitute an ambiguity defect.",
+    "n_findings": 1,
+    "context": [
+      "TST-010",
+      "TST-016",
+      "TST-020"
+    ],
+    "prompt_tokens": 562,
+    "seconds": 2.728677198
+  },
+  {
+    "req_id": "TST-012",
+    "verdict": "defective",
+    "analysis": "The requirement states that the system 'shall send the visit invoice to the patient's insurer.' While the action (sending) and the recipient (insurer) are identified, the specific trigger or condition for this action is missing. The related requirements do not define when an invoice should be sent (e.g., upon payment confirmation, at the end of a visit, etc.). Without knowing *when* this event occurs, a tester cannot determine if the system has failed to perform the action or if it simply hasn't been triggered yet. This is a missing precondition/trigger, which falls under GAP.",
+    "n_findings": 1,
+    "context": [
+      "TST-010",
+      "TST-001",
+      "TST-005"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 3.365193174
+  },
+  {
+    "req_id": "TST-013",
+    "verdict": "defective",
+    "analysis": "The requirement specifies that appointment times must be stored in UTC, which is a clear technical constraint. However, it instructs the system to 'display them in the clinic's local time zone' without defining what constitutes 'the clinic'. In the context of the related requirements (TST-001, TST-019), the focus is on the patient and clinician interaction, but no specific entity or data field identifies which 'clinic' is being referred to for a given appointment. Without knowing how the system determines the correct time zone for a specific appointment (e.g., via a linked clinic profile, a user preference, or a default setting), a tester cannot derive an expected result. This is not merely vague wording (AMB) because the concept of 'clinic' is missing entirely from the scope of the requirement's logic; it is a missing actor/context (GAP).",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-019",
+      "TST-003"
+    ],
+    "prompt_tokens": 595,
+    "seconds": 4.680490242
+  },
+  {
+    "req_id": "TST-014",
+    "verdict": "defective",
+    "analysis": "The requirement TST-014 contains two distinct defects based on the provided categories.\n\n1. **AMB (Ambiguity)**: The phrase 'agreed format' is vague because no specific format (e.g., CSV, JSON, XML) or standard is defined within the related requirements. A tester cannot verify compliance without knowing exactly which format is expected. Additionally, 'too big' is a vague quantifier with no threshold (e.g., size limit, age, or count) defining when the export should trigger.\n\n2. **GAP (Missing Information)**: The term 'agreed format' refers to an external agreement or definition that is not present in the provided related requirements. A tester would need to ask the author what this specific format is. This fits the GAP trigger for a term referred to but defined nowhere in the related requirements shown.\n\nNote: While 'too big' could also be seen as missing information (GAP) regarding the threshold, it primarily functions as an ambiguous qualifier (AMB). Per the priority rule (AMB > UNT > GAP), we flag it as AMB. The reference to 'agreed format' is a clear GAP because the definition is absent from the context.",
+    "n_findings": 2,
+    "context": [
+      "TST-020",
+      "TST-017",
+      "TST-007"
+    ],
+    "prompt_tokens": 571,
+    "seconds": 6.092923818
+  },
+  {
+    "req_id": "TST-015",
+    "verdict": "defective",
+    "analysis": "The requirement specifies a minimum length for the password ('at least 12 characters') and mandates the use of a 'one-time code'. While the password length is measurable, the term 'one-time code' lacks specific definition or constraints (e.g., length, character set, format, expiration time). This ambiguity means two competent testers could interpret the validation logic differently (e.g., one might check for exactly 6 digits, another for alphanumeric strings of variable length). According to the AMB category triggers, vague qualifiers and scope words without a specific list or definition constitute an ambiguity defect. It is not UNT because the outcome (authentication success/failure) is observable, nor GAP because 'one-time code' is a common term that can be defined by choosing a standard format, rather than missing a critical precondition or actor.",
+    "n_findings": 1,
+    "context": [
+      "TST-029",
+      "TST-021",
+      "TST-001"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 4.401162163
+  },
+  {
+    "req_id": "TST-016",
+    "verdict": "defective",
+    "analysis": "The requirement uses the term 'robust', which is a subjective quality describing how well the system handles errors or stress. It does not define what constitutes 'invalid input' (which specific types? formats?) nor does it specify the expected behavior when such input is received (e.g., error message, rejection, default value). Because 'robust' is a subjective adjective without a measurable threshold or defined outcome, it falls under UNT (untestable). While one could argue for GAP regarding the definition of invalid input, the primary defect is the untestable nature of 'robust'. Following the priority order, UNT takes precedence over GAP.",
+    "n_findings": 1,
+    "context": [
+      "TST-020",
+      "TST-005",
+      "TST-011"
+    ],
+    "prompt_tokens": 562,
+    "seconds": 4.131535525
+  },
+  {
+    "req_id": "TST-017",
+    "verdict": "defective",
+    "analysis": "The requirement TST-017 uses the term 'timely manner' to describe when appointment confirmations should be emailed. This is a vague quantifier/adjective without a specific threshold (e.g., within X minutes/hours). Two competent testers could interpret 'timely' differently (e.g., immediately vs. within 24 hours), making it ambiguous. It does not fit UNT because the outcome (email sent) is measurable, just the timing is vague. It does not fit GAP because the actor and action are clear; the issue is the lack of a specific value for the timing.",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-005",
+      "TST-003"
+    ],
+    "prompt_tokens": 573,
+    "seconds": 3.213815253
+  },
+  {
+    "req_id": "TST-018",
+    "verdict": "defective",
+    "analysis": "The requirement 'Appointment fee waivers shall be approved' states an obligation but fails to specify the expected outcome or condition for approval. It does not define who approves them, what criteria constitute approval, or what happens if they are not approved. This makes it impossible to derive a definite pass/fail test result because there is no observable behavior defined (e.g., 'system sends notification', 'status changes to approved'). It falls under UNT because it lacks an observable outcome. Additionally, it could be considered GAP because the actor ('who') and the criteria are missing, but per the priority order, UNT takes precedence as the primary defect is the lack of a testable expected result.",
+    "n_findings": 1,
+    "context": [
+      "TST-023",
+      "TST-017",
+      "TST-001"
+    ],
+    "prompt_tokens": 571,
+    "seconds": 3.690095828
+  },
+  {
+    "req_id": "TST-019",
+    "verdict": "defective",
+    "analysis": "The requirement specifies a quantity ('three') and an action ('display'), which makes it measurable and testable in principle. However, it fails to define what constitutes an 'available' time slot in this specific context. While TST-002 defines availability for the purpose of booking (no overlapping appointments), it does not explicitly state that the same definition applies to the display logic on the search results page. More critically, it does not specify the time range or source from which these slots are derived (e.g., 'for today', 'within the next week', 'for the selected date'). Without a defined time window or context for 'next', a tester cannot determine which slots to check against, making this a missing information issue (GAP) rather than just ambiguity. The term 'available' is also potentially ambiguous if not explicitly linked to TST-002's definition in this specific requirement, but the lack of temporal scope is the primary missing piece needed to write an expected result.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-002",
+      "TST-013"
+    ],
+    "prompt_tokens": 594,
+    "seconds": 4.894292248
+  },
+  {
+    "req_id": "TST-020",
+    "verdict": "defective",
+    "analysis": "The requirement contains two distinct issues. First, 'log every login attempt' is a clear obligation with a measurable outcome (the existence of a log entry for each attempt), so it is testable. Second, the phrase 'easy to review' describes a subjective quality without defining what constitutes 'easy'. This falls under UNT because there is no objective pass/fail criterion for 'ease'. It does not fit AMB because 'easy' is not a vague quantifier like 'fast' or 'large' that implies a missing number; it is a subjective adjective. It does not fit GAP because the term 'easy to review' is not a reference to an undefined external standard, but rather a vague internal requirement.",
+    "n_findings": 1,
+    "context": [
+      "TST-021",
+      "TST-016",
+      "TST-005"
+    ],
+    "prompt_tokens": 564,
+    "seconds": 4.087527467
+  },
+  {
+    "req_id": "TST-021",
+    "verdict": "defective",
+    "analysis": "The requirement states that the system shall lock an account after 'several' failed login attempts. The term 'several' is a vague quantifier without a specific numerical threshold or definition. This creates ambiguity because two competent testers could interpret 'several' differently (e.g., 3, 5, or 10 attempts) and thus check for different behaviors. According to the AMB category triggers, vague quantifiers with no threshold are defects. While it might also be considered untestable due to lack of a specific value, AMB takes precedence in the defect hierarchy.",
+    "n_findings": 1,
+    "context": [
+      "TST-020",
+      "TST-015",
+      "TST-010"
+    ],
+    "prompt_tokens": 578,
+    "seconds": 3.492884307
+  },
+  {
+    "req_id": "TST-022",
+    "verdict": "defective",
+    "analysis": "The requirement specifies that appointment durations must be 'configurable' and defines the granularity ('5-minute increments'). However, it fails to specify the valid range of these durations (e.g., minimum or maximum duration). Without a defined range, a tester cannot determine if a configuration value like '1 minute' or '1000 minutes' is valid or invalid. This constitutes a missing definition for the scope of the configurable values, which fits the GAP category as information needed to write an expected result (valid/invalid boundaries) is absent.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-009",
+      "TST-002"
+    ],
+    "prompt_tokens": 598,
+    "seconds": 3.535541851
+  },
+  {
+    "req_id": "TST-023",
+    "verdict": "clean",
+    "analysis": "The requirement states that clinicians can override bookings 'only for appointments classified as urgent.' The term 'urgent' is explicitly defined in the related requirement TST-024 ('An appointment shall be classified as urgent when the triage nurse assigns it priority level 1 or 2'). Since the definition is present in the provided context, the scope is clear and testable. There are no vague quantifiers (AMB), no subjective qualities or untestable outcomes (UNT), and no missing information regarding actors, preconditions, or failure behaviors that cannot be inferred from standard system behavior or other requirements (GAP). The requirement is precise.",
+    "n_findings": 0,
+    "context": [
+      "TST-008",
+      "TST-001",
+      "TST-024"
+    ],
+    "prompt_tokens": 596,
+    "seconds": 2.781125221
+  },
+  {
+    "req_id": "TST-024",
+    "verdict": "clean",
+    "analysis": "The requirement TST-024 defines a specific condition for classifying an appointment as 'urgent'. It references two specific, measurable values: 'priority level 1' and 'priority level 2'. The term 'urgent' is defined by the explicit list of priority levels. There are no vague quantifiers (AMB), no subjective qualities or unbounded absolutes (UNT), and no missing context regarding what happens if these conditions are met or how the priority level is determined within this specific sentence's scope (GAP). While TST-023 mentions 'urgent', it relies on the definition provided here. The requirement is precise and testable: a tester can verify if priority level 1 or 2 results in the 'urgent' classification.",
+    "n_findings": 0,
+    "context": [
+      "TST-023",
+      "TST-009",
+      "TST-001"
+    ],
+    "prompt_tokens": 603,
+    "seconds": 3.855302329
+  },
+  {
+    "req_id": "TST-025",
+    "verdict": "defective",
+    "analysis": "The requirement states that prescription refills 'shall follow the pharmacy workflow.' This phrase relies on an external or undefined concept ('the pharmacy workflow') without specifying what that workflow entails within the context of these requirements. It does not define the steps, rules, or outcomes expected. While it could be argued as ambiguous (AMB) because 'follow' is vague, the primary issue is that the reference point ('pharmacy workflow') is missing from the provided related requirements. According to the GAP definition, a term referred to but defined nowhere in the related requirements shown constitutes a missing information defect. Since the specific steps or criteria of the workflow are absent, a tester cannot determine what 'following' entails without asking the author. Therefore, this is a GAP finding.",
+    "n_findings": 1,
+    "context": [
+      "TST-028",
+      "TST-026",
+      "TST-010"
+    ],
+    "prompt_tokens": 553,
+    "seconds": 10.370599407
+  },
+  {
+    "req_id": "TST-026",
+    "verdict": "defective",
+    "analysis": "The requirement TST-026 states that patients shall receive notifications for 'major schedule changes'. The term 'major' is a vague adjective/quantifier without a defined threshold or list of what constitutes a 'major' change versus a minor one. This makes it ambiguous whether a specific change (e.g., a 5-minute shift vs. a full day cancellation) triggers the notification. According to the AMB definition, vague quantifiers/adjectives with no threshold trigger this defect. While one could argue about missing definitions (GAP), the primary issue is the ambiguity of the term 'major' itself, which takes precedence under the ordering rule (AMB > GAP).",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-003",
+      "TST-008"
+    ],
+    "prompt_tokens": 583,
+    "seconds": 7.707812905
+  },
+  {
+    "req_id": "TST-027",
+    "verdict": "clean",
+    "analysis": "The requirement TST-027 specifies a clear condition (missing patient identifier) and a specific, measurable outcome (return error code 400). The term 'patient identifier' is standard in this context and does not appear to be undefined or vague within the provided scope. There are no subjective qualities, unbounded absolutes, or missing preconditions that would prevent a tester from verifying the behavior objectively.",
+    "n_findings": 0,
+    "context": [
+      "TST-006",
+      "TST-023",
+      "TST-008"
+    ],
+    "prompt_tokens": 589,
+    "seconds": 4.249367087
+  },
+  {
+    "req_id": "TST-028",
+    "verdict": "defective",
+    "analysis": "The requirement TST-028 contains two distinct issues based on the provided categories.\n\n1. 'intuitive': This is a subjective quality. There is no objective metric or definition provided to determine if the portal is 'intuitive'. Two testers could have different interpretations of what constitutes 'intuitive'. This fits the UNT category (untestable) because it states a subjective quality with no expected outcome that can be objectively verified. It also touches on AMB, but UNT takes precedence as it cannot be tested at all without a definition.\n\n2. 'load quickly': This names a measurable attribute (load time) but uses a vague quantifier ('quickly') without providing a specific threshold (e.g., < 2 seconds). This fits the AMB category because competent testers could check for different values or standards of 'quick'.\n\nFollowing the priority order (AMB, then UNT, then GAP), I will list the findings. Note that while 'intuitive' is technically AMB due to vagueness, it is fundamentally UNT because it lacks any measurable definition entirely. However, the prompt says 'If one piece of text could fit several categories, use this order: AMB, then UNT'. 'Quickly' is clearly AMB. 'Intuitive' is arguably both, but often classified as UNT in strict testing contexts due to subjectivity. Let's look closer. 'Intuitive' has no threshold -> AMB? Or no objective pass/fail -> UNT? The definition of UNT says 'subjective qualities... so no objective pass/fail result can be derived'. This fits perfectly. The definition of AMB says 'names something measurable, but a value... is missing'. Is 'intuitiveness' measurable? Not inherently without a scale. So UNT is the stronger fit for 'intuitive'. For 'quickly', it implies a measure (time) but lacks the value, so AMB.\n\nTherefore:\n- 'intuitive': UNT\n- 'load quickly': AMB",
+    "n_findings": 2,
+    "context": [
+      "TST-006",
+      "TST-010",
+      "TST-001"
+    ],
+    "prompt_tokens": 567,
+    "seconds": 26.033029835
+  },
+  {
+    "req_id": "TST-029",
+    "verdict": "clean",
+    "analysis": "The requirement specifies a clear action ('encrypt at rest'), a specific algorithm ('AES-256'), and a state ('at rest'). The term 'AES-256' is a well-defined cryptographic standard, so no definition is missing (not GAP). The requirement is objective and testable by verifying the encryption method used for stored data (not UNT). There are no vague quantifiers or missing thresholds (not AMB). The requirement is precise and complete as written.",
+    "n_findings": 0,
+    "context": [
+      "TST-015",
+      "TST-021",
+      "TST-010"
+    ],
+    "prompt_tokens": 575,
+    "seconds": 3.402363435
+  },
+  {
+    "req_id": "TST-030",
+    "verdict": "clean",
+    "analysis": "The requirement TST-030 states that the system shall notify the clinician by email upon cancellation. It specifies the actor (the system), the action (notify), the recipient (clinician), the channel (email), and the trigger (patient cancels an appointment). The term 'email' is a standard, measurable format. There are no vague quantifiers like 'timely' or 'promptly' which would cause ambiguity regarding timing. There are no subjective qualities like 'seamless' or 'robust'. All necessary information for testing (who, what, how) is present. Therefore, the requirement is precise and testable.",
+    "n_findings": 0,
+    "context": [
+      "TST-004",
+      "TST-008",
+      "TST-017"
+    ],
+    "prompt_tokens": 583,
+    "seconds": 6.069636953
+  }
+]

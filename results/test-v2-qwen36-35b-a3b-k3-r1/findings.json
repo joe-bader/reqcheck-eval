@@ -1,0 +1,148 @@
+{
+  "findings": [
+    {
+      "req_id": "TST-002",
+      "category": "GAP",
+      "evidence": "no other appointment for the same clinician overlaps it",
+      "suggested_fix": "Define what constitutes an 'appointment' that blocks a slot (e.g., 'confirmed appointments only', excluding cancelled or tentative bookings)."
+    },
+    {
+      "req_id": "TST-005",
+      "category": "AMB",
+      "evidence": "promptly",
+      "suggested_fix": "Define 'promptly' with a specific time limit (e.g., 'within 2 seconds')."
+    },
+    {
+      "req_id": "TST-006",
+      "category": "UNT",
+      "evidence": "seamless and delightful",
+      "suggested_fix": "Define specific, measurable criteria for user experience (e.g., 'The booking page shall load in under 2 seconds and have a task completion rate of 95% in usability testing')."
+    },
+    {
+      "req_id": "TST-007",
+      "category": "AMB",
+      "evidence": "required retention period",
+      "suggested_fix": "Specify the exact duration (e.g., 'for 7 years') or reference the specific regulation defining the period."
+    },
+    {
+      "req_id": "TST-008",
+      "category": "GAP",
+      "evidence": "leave",
+      "suggested_fix": "Define 'leave' in the requirements glossary or specify the exact status/type that constitutes leave (e.g., 'any status marked as SICK, VACATION, or UNAVAILABLE')."
+    },
+    {
+      "req_id": "TST-009",
+      "category": "UNT",
+      "evidence": "may mark the appointment as a no-show",
+      "suggested_fix": "Change 'may' to 'shall' if this is a mandatory feature: 'The receptionist shall be able to mark...'"
+    },
+    {
+      "req_id": "TST-010",
+      "category": "UNT",
+      "evidence": "always be available",
+      "suggested_fix": "Define availability as a specific uptime percentage (e.g., 99.9%) over a defined period, or specify maximum allowable downtime."
+    },
+    {
+      "req_id": "TST-011",
+      "category": "AMB",
+      "evidence": "a large number",
+      "suggested_fix": "Define 'large' with a specific number (e.g., 'at least 1,000 concurrent users')."
+    },
+    {
+      "req_id": "TST-012",
+      "category": "GAP",
+      "evidence": "The system shall send the visit invoice to the patient's insurer.",
+      "suggested_fix": "Define the trigger for this action (e.g., 'Upon successful payment of the visit, the system shall...')."
+    },
+    {
+      "req_id": "TST-013",
+      "category": "GAP",
+      "evidence": "display them in the clinic's local time zone",
+      "suggested_fix": "Define how the system determines the 'clinic' for a specific appointment (e.g., '...in the time zone associated with the clinician's profile linked to the appointment.')"
+    },
+    {
+      "req_id": "TST-014",
+      "category": "AMB",
+      "evidence": "too big",
+      "suggested_fix": "Define a specific threshold for when logs are considered 'too big' (e.g., 'when log files exceed 100 MB')."
+    },
+    {
+      "req_id": "TST-014",
+      "category": "GAP",
+      "evidence": "agreed format",
+      "suggested_fix": "Specify the exact export format (e.g., 'CSV', 'JSON') or reference the specific document/standard that defines it."
+    },
+    {
+      "req_id": "TST-015",
+      "category": "AMB",
+      "evidence": "a one-time code",
+      "suggested_fix": "Define the specific format of the one-time code (e.g., 'a six-digit numeric code' or 'an alphanumeric code of length 8')."
+    },
+    {
+      "req_id": "TST-016",
+      "category": "UNT",
+      "evidence": "robust",
+      "suggested_fix": "Define specific invalid input scenarios and the exact expected system behavior (e.g., 'The system shall reject inputs with non-numeric characters in the age field and display an error message.') or replace 'robust' with measurable criteria (e.g., 'The system shall not crash when receiving malformed JSON payloads.')"
+    },
+    {
+      "req_id": "TST-017",
+      "category": "AMB",
+      "evidence": "timely manner",
+      "suggested_fix": "Define a specific time threshold (e.g., 'within 5 minutes')."
+    },
+    {
+      "req_id": "TST-018",
+      "category": "UNT",
+      "evidence": "Appointment fee waivers shall be approved.",
+      "suggested_fix": "Specify the observable outcome of the approval process (e.g., 'The system shall update the appointment status to 'Approved' and notify the patient')."
+    },
+    {
+      "req_id": "TST-019",
+      "category": "GAP",
+      "evidence": "next three available time slots",
+      "suggested_fix": "Define the time window for 'next' (e.g., 'for the selected date', 'within the next 7 days') and explicitly reference the definition of 'available' from TST-002 or define it here."
+    },
+    {
+      "req_id": "TST-020",
+      "category": "UNT",
+      "evidence": "easy to review",
+      "suggested_fix": "Define specific criteria for reviewing the log (e.g., 'The log shall be exportable to CSV format' or 'The log shall include timestamps and user IDs')."
+    },
+    {
+      "req_id": "TST-021",
+      "category": "AMB",
+      "evidence": "several failed login attempts",
+      "suggested_fix": "Specify the exact number of allowed failed attempts (e.g., 'after 5 failed login attempts')."
+    },
+    {
+      "req_id": "TST-022",
+      "category": "GAP",
+      "evidence": "Appointment durations shall be configurable per appointment type in 5-minute increments",
+      "suggested_fix": "Define the valid range for appointment durations (e.g., 'between 15 and 240 minutes')."
+    },
+    {
+      "req_id": "TST-025",
+      "category": "GAP",
+      "evidence": "follow the pharmacy workflow",
+      "suggested_fix": "Define the specific steps, rules, or states that constitute 'the pharmacy workflow' (e.g., 'Prescription refills shall be routed to the pharmacist for approval before dispensing')."
+    },
+    {
+      "req_id": "TST-026",
+      "category": "AMB",
+      "evidence": "major schedule changes",
+      "suggested_fix": "Define 'major schedule changes' explicitly (e.g., changes greater than 1 hour, or specific types of changes like cancellations or rescheduling to a different day)."
+    },
+    {
+      "req_id": "TST-028",
+      "category": "UNT",
+      "evidence": "intuitive",
+      "suggested_fix": "Define a specific usability metric or test scenario (e.g., 'The system shall allow a new user to complete a booking within 3 attempts without error')."
+    },
+    {
+      "req_id": "TST-028",
+      "category": "AMB",
+      "evidence": "load quickly",
+      "suggested_fix": "Specify the maximum acceptable load time (e.g., '...shall load in under 2 seconds')."
+    }
+  ]
+}

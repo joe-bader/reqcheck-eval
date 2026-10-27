@@ -68,3 +68,18 @@ How it differs: one yes/no question per category per requirement, answered with 
 - Overconfident against these labels: pairs it rated 0.4-0.6 were real 26% of the time on dev and 5% on test.
 - GAP is the weak category (test: 20 false positives). AMB ranking is strong (test average precision 0.95).
 - About 5x faster than gemma4:e4b (0.15 s vs 0.71 s per requirement).
+
+## qwen3.6:35b-a3b (mixture of experts, 35.5B total / ~3B active, Q4_K_M, 22 GB)
+
+Does not fit in 10 GB of VRAM; Ollama reports 97% GPU for the resident part while the expert weights sit in the page cache in system RAM. Prompt v2, k=3, T=0, num_predict 1024 (added after the crash below).
+
+| Run | Set | P / R / F1 | Note |
+|---|---|---|---|
+| v2-qwen36-35b-a3b-k3 r1-r3 | dev | 0.750 / 0.789 / 0.769 (sd 0.000) | 3 parse failures per run, the same requirements (REQ-016, 027, 029) |
+| test-v2-qwen36-35b-a3b-k3-r1 | test | 0.625 / 0.882 / 0.732 | 0 parse failures; GAP weakest (5 FP) |
+
+Mean 5.9 s per requirement (median 4.0), 8x slower than gemma4:e4b.
+
+- The first attempt crashed: on REQ-027 the model kept writing its analysis field (~30,000 characters) until the output limit, leaving invalid JSON. The runner now caps output at 1,024 tokens and records a parse failure as no findings, which counts as misses, not a crash. An earlier batch hid this error by sending output to /dev/null.
+- Best dev score of any model by about 4 defect pairs; tied with gemma4:e4b on test (1 to 2 pairs apart).
+- Same family as qwen3:8b, the model the prompt was tuned on, which may favor it on dev.

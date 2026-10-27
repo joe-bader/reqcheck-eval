@@ -1,0 +1,18 @@
+{
+  "data": "data/labeled/starter_v1.json",
+  "model": "qwen3.6:35b-a3b",
+  "prompt": "v2",
+  "out": "results/v2-qwen36-35b-a3b-k3-r3",
+  "k": 3,
+  "num_ctx": 8192,
+  "num_predict": 1024,
+  "temperature": 0.0,
+  "seed": 0,
+  "think": false,
+  "limit": null,
+  "n_requirements": 30,
+  "wall_seconds": 188.4,
+  "verdict_findings_mismatch": 0,
+  "parse_failures": 3,
+  "gpu_fraction": 0.9741083126131195
+}

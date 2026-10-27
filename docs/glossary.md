@@ -12,7 +12,9 @@
 | **Evaluation harness** | The code that runs the agent and scores its output against the answer key. |
 | **F1** | One score combining precision and recall. High only when both are high. |
 | **False alarm / miss** | A flag on something that isn't a defect / a real defect the agent didn't flag. |
-| **Gemma, Qwen, Granite** | Three open AI models (from Google, Alibaba and IBM) that were compared. |
+| **Gemma, Qwen, Granite, Kev** | The open AI models compared (from Google, Alibaba, IBM, and an open-source project built on Qwen). |
+| **Average precision** | How well a model's probabilities rank real defects above clean ones, without picking a threshold. 1 = perfect ranking. |
+| **Brier score** | How far stated probabilities are from what actually happened. 0 = perfect, 0.25 = coin flip. |
 | **Ground truth / labels** | The answer key: which defects each requirement really has, decided by a person in advance. |
 | **JSON schema** | A fixed data shape the model's answer must follow, like a typed API contract. |
 | **LLM** | Large language model: the kind of AI model that reads and writes text. |
@@ -29,5 +31,8 @@
 | **Retrieval** | Finding related text by meaning rather than keywords. |
 | **Sealed test set** | Labeled data kept unused until the setup is final, then run once, to check the tuning carries over. |
 | **Self-hosted** | Runs on your own hardware; no data goes to an outside service. |
+| **System 1 model** | A decision model that returns calibrated probabilities for fixed questions in one fast pass, instead of writing text. Named after Kahneman's fast, intuitive "System 1" thinking. |
+| **Mixture of experts (MoE)** | A large model that uses only a small part of itself per word (qwen3.6: 35B total, 3B active), so it runs faster than its size suggests. |
+| **Threshold** | The probability above which a System 1 answer counts as a flag. Chosen on the dev set, then frozen. |
 | **Temperature** | How random the model's output is. 0 = as repeatable as possible. |
-| **8B** | 8 billion parameters, a rough measure of model size. These are small models. |
+| **8B, 35B** | Billions of parameters, a rough measure of model size. 8B models are small; 35B is mid-sized. |

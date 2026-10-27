@@ -6,7 +6,7 @@ One-page summary for non-engineers: [docs/overview.md](docs/overview.md). Terms:
 
 ## Results
 
-Best setup: **gemma4:e4b**, prompt v2, 3 related requirements as context, temperature 0.
+Best accuracy: **qwen3.6:35b-a3b**. Best accuracy for the speed: **gemma4:e4b**. Both use prompt v2, 3 related requirements as context, temperature 0. The table below is gemma4:e4b.
 
 | | Dev set (my labels) | Sealed test set (Claude's labels) |
 |---|---|---|
@@ -17,13 +17,21 @@ Best setup: **gemma4:e4b**, prompt v2, 3 related requirements as context, temper
 | F1 of an agent that flags everything | 0.349 | 0.318 |
 | Time per requirement (RTX 3080) | 0.71 s | 1.05 s |
 
-| Model (Q4_K_M) | Dev F1 | Test F1 | s / req |
-|---|---|---|---|
-| gemma4:e4b | 0.595 | 0.780 | 0.71 |
-| qwen3:8b | 0.553 | 0.391 | 1.31 |
-| granite4.2:8b | 0.442 ±0.04 | 0.591 | 5.14 |
+| Model (all Q4_K_M) | Size | Dev F1 | Test F1 | s / req |
+|---|---|---|---|---|
+| qwen3.6:35b-a3b | 35B (3B active) | **0.769** | 0.732 | 5.91 |
+| gemma4:e4b | 7.5B | 0.595 | **0.780** | 0.71 |
+| qwen3:8b | 8.2B | 0.553 | 0.391 | 1.31 |
+| granite4.2:8b | 8.8B | 0.442 ±0.04 | 0.591 | 5.14 |
+| Kev-9B (System 1) | 9B | 0.542 | 0.485 | **0.15** |
 
-With under 20 real defects per set, one requirement moves a score by 2 to 5 points, so only large gaps mean much. The telling one: I tuned the prompt against qwen3:8b, and it is the model that fell on unseen text. Full run history in [results/LOG.md](results/LOG.md).
+With under 20 real defects per set, one requirement moves a score by 2 to 5 points, so only large gaps mean much:
+- **qwen3.6 vs. gemma4:** qwen3.6 is clearly ahead on dev, and the two are tied on test. qwen3.6 is about 4× larger, doesn't fit in 10 GB of VRAM (its experts run from system RAM), and is 8× slower.
+- **qwen3:8b on unseen text:** I tuned the prompt against qwen3:8b, and it is the model that fell on the test set. qwen3.6 is from the same family, which may have helped it on dev.
+
+Full run history in [results/LOG.md](results/LOG.md).
+
+**Kev-9B is a different kind of model.** It is a "System 1" decision model: no generated text, no quoted evidence and no fixes, just a calibrated probability for each defect type in one forward pass. Flags come from a probability threshold (0.45, chosen on dev and frozen for test). It's 5× faster than gemma4 but over-flags gaps, and its probabilities were overconfident against my labels. The requested NVFP4 build runs only on Apple Silicon, so I used the same model's Q4_K_M build.
 
 ## What it flags
 
@@ -64,8 +72,9 @@ requirement -> embed (nomic-embed-text) -> Qdrant: 3 most similar other requirem
 - **Adding the labeling rules to the prompt was the biggest gain** (0.320 to 0.553). I left out the rules' examples, which are worded like dev items and would leak answers.
 - **More context hurt.** All other requirements instead of 3 neighbors: 0.553 to 0.447, and gap recall fell to zero. Cause not isolated.
 - **Overfit to one model and one set.** qwen3:8b fell from 0.553 to 0.391 on the test set while the others rose.
+- **A run crashed on one bad answer.** qwen3.6 sometimes writes its analysis without ever closing it, until it hits the output limit, and the half-finished JSON crashed the whole run. It now caps output length and counts the bad answer as no findings (3 of 30 on dev, the same 3 every run).
 - **Ollama silently fell back to CPU** after a kernel update broke the NVIDIA module. Every run now records its GPU fraction.
 
 ## Limitations
 
-Small synthetic sets (under 20 real defects each). One labeler per set; the test set is Claude's, not mine. Three models, all ~8B at 4-bit. One shared Qdrant collection, rebuilt per run. Can't detect a missing requirement, only defects in existing ones.
+Small synthetic sets (under 20 real defects each). One labeler per set; the test set is Claude's, not mine. Five models, all 4-bit; only one larger than ~9B. One shared Qdrant collection, rebuilt per run. Can't detect a missing requirement, only defects in existing ones.

@@ -16,14 +16,20 @@ Unfamiliar terms are defined in the [glossary](glossary.md).
 
 ## Does it work?
 
-| | Dev set (my labels) | Sealed test set |
-|---|---|---|
-| Share of flags that were real (precision) | 61% | 67% |
-| Share of real defects caught (recall) | 58% | 94% |
-| F1 (one number combining both) | 0.60 | 0.78 |
-| Same score for an agent that flags everything | 0.35 | 0.32 |
+Five local models, same prompt and settings. F1 combines "share of flags that were real" (precision) and "share of real defects caught" (recall) into one number:
 
-Best of three local models: gemma4:e4b, at 0.7 seconds per requirement on an RTX 3080. Good enough as a first-pass assistant for a human reviewer; not good enough to run unattended.
+| Model | Dev set F1 (my labels) | Sealed test set F1 | Seconds per requirement |
+|---|---|---|---|
+| qwen3.6:35b-a3b (largest) | **0.77** | 0.73 | 5.9 |
+| gemma4:e4b | 0.60 | **0.78** | 0.7 |
+| qwen3:8b | 0.55 | 0.39 | 1.3 |
+| granite4.2:8b | 0.44 | 0.59 | 5.1 |
+| Kev-9B (System 1, see below) | 0.54 | 0.49 | **0.15** |
+| *An agent that flags everything* | *0.35* | *0.32* | |
+
+qwen3.6 is the most accurate on my own labels. gemma4:e4b matches it on the test set at an eighth of the time, so it is the practical pick for this hardware. Either is good enough as a first-pass assistant for a human reviewer, but not to run unattended.
+
+**Kev-9B works differently.** It's a "System 1" decision model: it writes no explanation or fix, only a probability for each defect type, in a fraction of a second. That makes it the fastest by far but the least precise here. It flagged too many gaps, and its probabilities were more confident than its accuracy justified.
 
 Two cautions. Each set has fewer than 20 real defects, so one requirement moves a score by several points; only the large gaps are meaningful. And both sets are synthetic, so real documents would score lower.
 
@@ -49,6 +55,6 @@ The model reviews every requirement; retrieval only supplies context such as "is
 
 ## Limits
 
-Small synthetic samples; one labeler per set (the test set was labeled by Claude, not me); three models of similar size; a single shared vector index; no security, monitoring or multi-user handling. It is a proof of concept.
+Small synthetic samples; one labeler per set (the test set was labeled by Claude, not me); five models, only one larger than ~9B; a single shared vector index; no security, monitoring or multi-user handling. It is a proof of concept.
 
 Details, every number, and the full run history: [README](../README.md), [results/LOG.md](../results/LOG.md).
