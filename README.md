@@ -42,12 +42,7 @@ Two cautions. Each set has fewer than 20 real defects, so one requirement moves 
 
 ## How it works
 
-```
-requirement -> find the 3 most similar other requirements (Qdrant vector DB)
-            -> prompt: labeling rules + those neighbors + this requirement
-            -> local model (Ollama), answer forced into a JSON schema
-            -> findings -> scorer -> precision / recall / F1
-```
+![Generative review: requirement text → retrieve three neighbors from Qdrant → build the prompt → Ollama returns structured findings. The scorer compares findings with reference labels to calculate precision, recall, and F1; labels never enter the model prompt.](docs/diagrams/how-it-works.svg)
 
 The model reviews every requirement; retrieval only supplies context such as "is this term defined elsewhere?" The same pipeline runs as plain Python and as an n8n workflow generated from the same prompt, and the two produced identical findings.
 

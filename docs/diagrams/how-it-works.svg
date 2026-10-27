@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="900" viewBox="0 0 1000 900" role="img" aria-labelledby="title desc">
+<title id="title">How a requirement is reviewed</title><desc id="desc">Read each requirement without reference labels. Retrieve the three nearest other requirements from Qdrant, combine them with labeling rules and the target, then call Ollama with a constrained JSON schema. Collect the defect category, evidence quote and suggested fix. A separate deterministic scorer compares the findings with reference labels to calculate precision, recall and F1. Every requirement is reviewed; retrieval only adds context.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111D31"/><stop offset="1" stop-color="#0B1120"/></linearGradient>
+<marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7F94AE" stroke-width="1.6"/></marker>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#86B6FF" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#74D7CE" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#C2ADFF" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#F1C17D" stroke-width="1.6"/></marker>
+</defs><style>text {font-family: "DejaVu Sans", sans-serif;} .mono {font-family: "DejaVu Sans Mono", monospace;}</style>
+<rect x="0" y="0" width="1000" height="900" rx="0" fill="url(#bg)"/>
+<text x="48" y="42" fill="#86B6FF" font-size="12" font-weight="700" text-anchor="start" letter-spacing="2">REQCHECK / HOW IT WORKS</text>
+<text x="48" y="85" fill="#EDF3FC" font-size="32" font-weight="700" text-anchor="start" letter-spacing="0">How a requirement is reviewed</text>
+<text x="48" y="115" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Generative path · Python or n8n · runs locally</text>
+<rect x="60" y="150" width="880" height="80" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="86" y="197" fill="#86B6FF" font-size="18" font-weight="700" text-anchor="start" letter-spacing="0">01</text>
+<text x="144" y="197" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Read requirement</text>
+<text x="460" y="197" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">ID + text only; no reference labels.</text>
+<polyline points="500,230 500,254" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="60" y="254" width="880" height="80" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="86" y="301" fill="#74D7CE" font-size="18" font-weight="700" text-anchor="start" letter-spacing="0">02</text>
+<text x="144" y="301" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Retrieve context</text>
+<text x="460" y="286" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Qdrant finds the 3 nearest</text>
+<text x="460" y="313" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">other requirements.</text>
+<polyline points="500,334 500,358" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="60" y="358" width="880" height="80" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="86" y="405" fill="#86B6FF" font-size="18" font-weight="700" text-anchor="start" letter-spacing="0">03</text>
+<text x="144" y="405" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Build prompt</text>
+<text x="460" y="390" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Labeling rules + retrieved context</text>
+<text x="460" y="417" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">+ the requirement being reviewed.</text>
+<polyline points="500,438 500,462" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="60" y="462" width="880" height="80" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="86" y="509" fill="#C2ADFF" font-size="18" font-weight="700" text-anchor="start" letter-spacing="0">04</text>
+<text x="144" y="509" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Review locally</text>
+<text x="460" y="494" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Ollama generates constrained JSON.</text>
+<text x="460" y="521" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Analysis first, then findings.</text>
+<polyline points="500,542 500,566" fill="none" stroke="#7F94AE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#line)"/>
+<rect x="60" y="566" width="880" height="80" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="86" y="613" fill="#C2ADFF" font-size="18" font-weight="700" text-anchor="start" letter-spacing="0">05</text>
+<text x="144" y="613" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Collect findings</text>
+<text x="460" y="598" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">Defect category, evidence quote,</text>
+<text x="460" y="625" fill="#AABBD0" font-size="18" font-weight="400" text-anchor="start" letter-spacing="0">and suggested fix.</text>
+<text x="60" y="700" fill="#74D7CE" font-size="12" font-weight="700" text-anchor="start" letter-spacing="1.6">OFFLINE EVALUATION</text>
+<polyline points="500,646 500,730" fill="none" stroke="#C2ADFF" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#purple)"/>
+<rect x="60" y="730" width="250" height="118" rx="12" fill="#101A2B" stroke="#30425A" stroke-width="1.2"/>
+<text x="84" y="769" fill="#EDF3FC" font-size="21" font-weight="700" text-anchor="start" letter-spacing="0">Reference labels</text>
+<text x="84" y="804" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Used for scoring only.</text>
+<rect x="400" y="730" width="540" height="118" rx="12" fill="#152238" stroke="#30425A" stroke-width="1.2"/>
+<text x="426" y="769" fill="#EDF3FC" font-size="23" font-weight="700" text-anchor="start" letter-spacing="0">Score findings against labels</text>
+<text x="426" y="806" fill="#74D7CE" font-size="20" font-weight="400" text-anchor="start" letter-spacing="0">Precision · recall · F1</text>
+<polyline points="310,789 400,789" fill="none" stroke="#74D7CE" stroke-width="1.8" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="60" y="881" fill="#AABBD0" font-size="17" font-weight="400" text-anchor="start" letter-spacing="0">Every requirement is reviewed; retrieval only adds context.</text>
+</svg>
