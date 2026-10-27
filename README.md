@@ -2,7 +2,7 @@
 
 A self-hosted agent that reviews software requirements and flags ambiguity, untestable wording and missing information, plus the evaluation harness that scores it against labels I wrote by hand. Runs on one workstation with Ollama, Qdrant and n8n. The harness is the point: every quality claim here is a measured number.
 
-One-page summary for non-engineers: [docs/overview.md](docs/overview.md).
+One-page summary for non-engineers: [docs/overview.md](docs/overview.md). Setup and commands: [docs/running.md](docs/running.md).
 
 ## Results
 
@@ -66,36 +66,6 @@ requirement -> embed (nomic-embed-text) -> Qdrant: 3 most similar other requirem
 - **Overfit to one model and one set.** qwen3:8b fell from 0.553 to 0.391 on the test set while the others rose.
 - **Ollama silently fell back to CPU** after a kernel update broke the NVIDIA module. Every run now records its GPU fraction.
 
-## Quickstart
-
-```bash
-for m in nomic-embed-text gemma4:e4b; do ollama pull $m; done
-docker run -d -p 6333:6333 qdrant/qdrant
-python -m venv .venv && .venv/bin/pip install ollama qdrant-client pydantic
-
-.venv/bin/python -m agent.run --data data/labeled/starter_v1.json --model gemma4:e4b --prompt v2 --out results/my-run
-.venv/bin/python -m eval.score --labels data/labeled/starter_v1.json --findings results/my-run/findings.json
-.venv/bin/python -m unittest discover -s eval/tests -t .
-```
-
-n8n path: `workflows/build_workflow.py` generates the workflow; `workflows/run_via_n8n.py` drives it. Run n8n with `--network host` so it reaches Ollama and Qdrant on localhost.
-
-## Layout
-
-```
-agent/     prompts, schema, retrieval, runner        eval/      scorer, rules, judge, consistency, tests
-data/      dev set, sealed test set, grading sheets  workflows/ n8n workflow, generator, driver
-results/   one folder per run, LOG.md               docs/      one-page overview
-```
-
 ## Limitations
 
 Small synthetic sets (under 20 real defects each). One labeler per set; the test set is Claude's, not mine. Three models, all ~8B at 4-bit. One shared Qdrant collection, rebuilt per run. Can't detect a missing requirement, only defects in existing ones.
-
-## Next
-
-Stricter judge rubric checked on fresh fixes; run against real text (PURE dataset); test the model's reasoning mode; find out why more context hurt; generate test cases from accepted requirements.
-
-## License
-
-MIT. See [LICENSE](LICENSE).
