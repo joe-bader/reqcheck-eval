@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/joe/Projects/reqcheck-eval
+cd "$(dirname "$0")/../.."
 for r in 1 2 3; do
   .venv/bin/python -u -m agent.run --data data/labeled/starter_v1.json --prompt v2 --model qwen3.6:35b-a3b --out results/v2-qwen36-35b-a3b-k3-r$r > results/logs/v2-qwen36-r$r.log 2>&1
 done
