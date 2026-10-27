@@ -1,0 +1,16 @@
+{
+  "data": "data/labeled/starter_v1.json",
+  "model": "qwen3:8b",
+  "prompt": "v2",
+  "out": "results/v2-qwen3-8b-k29-r2",
+  "k": 29,
+  "num_ctx": 8192,
+  "temperature": 0.0,
+  "seed": 0,
+  "think": false,
+  "limit": null,
+  "n_requirements": 30,
+  "wall_seconds": 37.6,
+  "verdict_findings_mismatch": 0,
+  "gpu_fraction": 1.0
+}

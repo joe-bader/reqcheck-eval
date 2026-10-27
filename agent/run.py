@@ -15,7 +15,7 @@ from agent.prompts import PROMPTS
 from agent.schema import Review, ReviewV1
 
 COLLECTION = "requirements_v1"
-SCHEMAS = {"v0": Review, "v1": ReviewV1}
+SCHEMAS = {"v0": Review, "v1": ReviewV1, "v2": ReviewV1}
 
 
 def review_one(schema, model, system, user, num_ctx, temperature, seed, think):
