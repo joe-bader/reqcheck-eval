@@ -1,0 +1,186 @@
+{
+  "name": "reqcheck",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "reqcheck",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "reqcheck-webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: \"nomic-embed-text\", input: \"search_query: \" + $json.body.text }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "name": "Embed query",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:6333/collections/requirements_v1/points/query",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ query: $json.embeddings[0], limit: 4, with_payload: true }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "name": "Search Qdrant",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $('Webhook').first().json.body;\nconst hits = $input.first().json.result.points\n  .map(p => [p.payload.req_id, p.payload.text])\n  .filter(([id]) => id !== body.req_id)\n  .slice(0, 3);\nconst ctx = hits.map(([id, t]) => `- ${id}: ${t}`).join('\\n');\nconst user = `Related requirements for context:\\n${ctx}\\n\\nReview this requirement:\\n${body.req_id}: ${body.text}`;\nreturn [{ json: {\n  model: \"qwen3:8b\",\n  messages: [{ role: 'system', content: \"You review software requirements for defects. Check the requirement against three categories.\\n\\nAMB (ambiguity): the requirement names something measurable, but a value, list or definition is missing or vague.\\n  Test: could two competent testers check for different things? Fix: make a choice (a number, a list, a definition).\\n  Triggers: vague quantifiers/adjectives with no threshold (e.g. promptly, large, adequate), vague qualifiers (e.g. as needed, where necessary), scope words with no list behind them (e.g. etc.).\\n\\nUNT (untestable): the text states a subjective quality, an unbounded absolute, or no expected outcome, so no objective pass/fail result can be derived.\\n  Test: can you write a test with one definite expected result? If the text names no measure and implies none, it is UNT.\\n  Triggers: subjective qualities (e.g. pleasant, seamless, robust), unbounded absolutes (always, never, under all circumstances), an obligation with no observable outcome.\\n\\nGAP (missing information): information a tester needs is absent and it is not a vague term.\\n  Test: what would you have to ask the author before you could write the expected result? Questions like \\\"what is X / what happens when Y / who does Z\\\" mean GAP; \\\"how much / how fast\\\" means AMB.\\n  Triggers: a term, section or standard referred to but defined nowhere in the related requirements shown, a missing trigger or precondition, missing failure behavior, a missing actor.\\n  A term counts as defined if one of the related requirements shown defines it.\\n\\nIf one piece of text could fit several categories, use this order: AMB, then UNT, then GAP. A requirement with several separate problems gets several findings.\\n\\nDo NOT flag: the words shall/should/may on their own; grammar or passive voice; a requirement that is precise and testable as written; wanting more detail without a specific missing fact. Most requirements are fine. If there is no defect, return an empty findings list.\\n\\nFirst write a short analysis, then list findings. Quote the exact words that triggered each finding as evidence.\" }, { role: 'user', content: user }],\n  format: {\"$defs\": {\"Finding\": {\"properties\": {\"category\": {\"enum\": [\"AMB\", \"UNT\", \"GAP\"], \"title\": \"Category\", \"type\": \"string\"}, \"evidence\": {\"title\": \"Evidence\", \"type\": \"string\"}, \"suggested_fix\": {\"title\": \"Suggested Fix\", \"type\": \"string\"}}, \"required\": [\"category\", \"evidence\", \"suggested_fix\"], \"title\": \"Finding\", \"type\": \"object\"}}, \"properties\": {\"analysis\": {\"title\": \"Analysis\", \"type\": \"string\"}, \"findings\": {\"items\": {\"$ref\": \"#/$defs/Finding\"}, \"title\": \"Findings\", \"type\": \"array\"}}, \"required\": [\"analysis\", \"findings\"], \"title\": \"ReviewV1\", \"type\": \"object\"},\n  think: false,\n  stream: false,\n  options: { temperature: 0, seed: 0, num_ctx: 8192 },\n} }];"
+      },
+      "name": "Build prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:11434/api/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "name": "Ollama review",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $('Webhook').first().json.body;\nconst review = JSON.parse($input.first().json.message.content);\nreturn [{ json: {\n  req_id: body.req_id,\n  analysis: review.analysis,\n  findings: review.findings.map(f => ({ req_id: body.req_id, ...f })),\n} }];"
+      },
+      "name": "Parse findings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {}
+      },
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Embed query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embed query": {
+      "main": [
+        [
+          {
+            "node": "Search Qdrant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Qdrant": {
+      "main": [
+        [
+          {
+            "node": "Build prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build prompt": {
+      "main": [
+        [
+          {
+            "node": "Ollama review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama review": {
+      "main": [
+        [
+          {
+            "node": "Parse findings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse findings": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
