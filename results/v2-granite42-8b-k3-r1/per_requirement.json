@@ -1,0 +1,392 @@
+[
+  {
+    "req_id": "REQ-001",
+    "verdict": "clean",
+    "analysis": "REQ-001 states that the system shall allow registered users to log in with an email address and password. Given the related requirements, REQ-001 appears precise and testable: it defines a clear functional capability (login with email+password). No vague terms, no subjective language, no missing essential facts (e.g., no definition of 'registered users', but REQ-012 mentions 'registered email address', and REQ-030 mentions 'customer data', but those are not directly needed for testing REQ-001). However, we must check for ambiguity or missing information that would require clarification from the author. The phrase 'registered users' might be ambiguous if not defined elsewhere. REQ-012 says 'registered email address', REQ-030 says 'customer data', but REQ-001 does not define what 'registered users' means. However, REQ-012 provides context: users should reset password via link sent to registered email. That implies users have a registered email. But REQ-001 does not specify that the email must be registered (i.e., must exist in the system). However, the requirement says 'registered users', which likely means users who have registered (i.e., have an account). Since REQ-012 talks about 'registered email address', it's reasonable that 'registered users' refers to users who have a registered account. No missing actionable fact; it's a normal term. The requirement is testable: we can test that a user with a valid registered account can log in using their email and password; a user without a registered account cannot log in using an email that is not registered. However, the requirement does not specify that the login must validate that the email is registered (i.e., exists in the system). But that is implied by 'registered users'. The phrase 'registered users' might be ambiguous if the system allows login with any email (even unregistered) as long as password matches? That would be a security issue. But the requirement is minimal; it doesn't forbid login with non-registered email. However, typical interpretation: login with email and password for registered users. The requirement is likely fine. No vague quantifiers, no subjective language. No missing essential information like 'how' or 'under what conditions'. Therefore, no defect. Return empty findings.",
+    "n_findings": 0,
+    "context": [
+      "REQ-012",
+      "REQ-005",
+      "REQ-030"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 9.432119124
+  },
+  {
+    "req_id": "REQ-002",
+    "verdict": "clean",
+    "analysis": "The requirement states that the system shall lock an account after five consecutive failed login attempts. It is specific about the number (five), the action (lock an account), and the condition (five consecutive failed login attempts). No obvious vagueness, subjectivity, or missing information about actors, failure behavior, or external references. It appears precise and testable: given five consecutive failed login attempts, the account should be locked; after that, further login attempts should be denied or blocked. However, we should check for subtle triggers: 'lock an account' might be ambiguous if not defined (e.g., what does 'lock' mean? Is it a permanent lock, temporary lock with timeout, etc.). But the requirement does not define 'lock', and the related requirements do not define it either. However, 'lock' is a common term; but per GAP definition, a term referred to but not defined in related requirements counts as GAP if it is not defined elsewhere. Since REQ-001 mentions login, REQ-030 mentions data loss, REQ-027 mentions session expiry and shopping cart preservation. None define 'lock'. So we have a missing definition of 'lock' which could lead to test uncertainty. However, GAP is about missing information a tester needs; if the term 'lock' is not defined, a tester might need to ask what 'lock' entails (e.g., duration, method). That qualifies as GAP. But also AMB could apply if 'lock' is vague (e.g., lock meaning could be ambiguous). However, AMB is about vague quantifiers/adjectives with no threshold; 'lock' is a noun describing an action, not a vague quantifier. AMB typically applies to missing value/list/definition. Since 'lock' is not defined, it could be considered ambiguous if the meaning is not precise. However, the instruction says: 'If one piece of text could fit several categories, use this order: AMB, then UNT, then GAP.' We need to decide which category best fits. Let's examine triggers: AMB triggers include vague quantifiers/adjectives with no threshold, vague qualifiers, scope words with no list. 'Lock' is not a vague quantifier; it's a term that may be ambiguous if not defined. But AMB is specifically about 'the requirement names something measurable, but a value, list or definition is missing or vague.' Here the requirement names 'lock an account' which is measurable? Possibly yes, but missing definition of what 'lock' entails (e.g., permanent lock, temporary lock with timeout). That could be considered a missing definition. However, UNT triggers include subjective qualities, unbounded absolutes, obligation with no observable outcome. 'Lock' is not subjective or absolute. GAP triggers include a term referred to but defined nowhere in related requirements. That seems to fit: 'lock' is a term not defined in related requirements. So GAP is appropriate. But we must ensure that the term is indeed referred to but not defined. REQ-001 mentions login, REQ-030 mentions data loss, REQ-027 mentions session expiry and shopping cart. None define 'lock'. So GAP applies. However, the instruction says: 'A term counts as defined if one of the related requirements shown defines it.' Since none define 'lock', it's undefined. Therefore GAP is a valid finding. However, we should also consider if the requirement is testable without definition. A tester could test that after five consecutive failed login attempts, the account cannot be used to log in (i.e., login fails). That might be observable. But the exact behavior (e.g., lock lasts forever, lock lasts 15 minutes, lock requires admin unlock) is not specified. That missing information could affect test design: the tester would need to know the lock duration and unlock procedure. So GAP is appropriate. Let's see if AMB could also apply: 'five consecutive' is precise; no vagueness there. So AMB unlikely. UNT unlikely. Thus GAP is the best category. We'll produce a GAP finding referencing the undefined term 'lock'. We'll quote the exact words that triggered the finding: 'lock an account'. But we need to phrase the finding: missing definition of what 'lock' means (e.g., duration, method). However, the instruction says to quote the exact words that triggered each finding as evidence. So we'll quote 'lock an account'. We'll also note that related requirements do not define 'lock'. We'll output a list with one finding: GAP. Let's follow format: first short analysis, then list findings. We'll output JSON? The prompt says: ",
+    "n_findings": 0,
+    "context": [
+      "REQ-001",
+      "REQ-030",
+      "REQ-027"
+    ],
+    "prompt_tokens": 581,
+    "seconds": 9.289258879
+  },
+  {
+    "req_id": "REQ-003",
+    "verdict": "clean",
+    "analysis": "The requirement REQ-003 states: \"A user session shall expire after 15 minutes of inactivity.\" It appears precise and testable at first glance. However, we need to check against the three categories. It mentions '15 minutes' which is a concrete number, so not ambiguous in the sense of missing a value. It defines a clear measurable condition: session expires after 15 minutes of inactivity. No subjective language, no unbounded absolute like 'always'. It seems complete. However, we must consider related requirements: REQ-027 mentions preserving shopping cart for 30 days after session expiry; REQ-029 says admin console uses same inactivity timeout as user sessions; REQ-008 about deactivating user accounts. REQ-003 defines the inactivity timeout for user sessions as 15 minutes. REQ-029 references 'same inactivity timeout as user sessions', which would be consistent if REQ-003 is the definition. But REQ-029 does not define the value; it just says same. That's fine. There's no missing information about what happens after expiry (e.g., redirect to login, preserve cart). REQ-027 already covers redirect and preserve cart for 30 days. So REQ-003 alone seems fine. However, we need to check if any vagueness exists: 'inactivity' could be ambiguous if not defined (e.g., what counts as user activity? mouse movement, keystrokes, page navigation?). But the requirement only says 'after 15 minutes of inactivity' without definition. However, the trigger for AMB is vague quantifiers/adjectives with no threshold. 'Inactivity' might be vague if not defined, but it's a term that could be operationalized. However, the requirement does not define what constitutes activity; but that might be considered a missing definition that could affect testability? The requirement is about when the session expires; if we don't know what counts as activity, a test might be ambiguous. However, the AMB trigger includes vague qualifiers like 'where necessary', etc. 'Inactivity' is a normal term; it's not vague in the sense of lacking a threshold; it's a condition. Usually 'inactivity' means no user interaction within a period. That might be acceptable. But we need to see if it's missing a definition that a tester would need. The related requirements do not define 'inactivity' either. However, REQ-029 says admin console uses same inactivity timeout as user sessions, implying consistency. That's fine. The requirement is likely testable: we can simulate 15 minutes of no activity and verify session expires. However, waiting 15 minutes for a test is impractical but we can test logic or configuration. But the requirement is about behavior; we could test that after 15 minutes of simulated inactivity, the session expires. That's testable if we can simulate time or check timeout setting. So likely no defect. But we must check if any missing information: what exactly triggers expiration? Does it expire exactly at 15 minutes mark or after 15 minutes of no activity? That's clear. So no GAP. Thus no finding. However, we should double-check if the requirement conflicts with REQ-029? Not necessarily; REQ-029 just says use same timeout. That's fine. So the requirement appears correct. Therefore, findings list empty.",
+    "n_findings": 0,
+    "context": [
+      "REQ-027",
+      "REQ-029",
+      "REQ-008"
+    ],
+    "prompt_tokens": 583,
+    "seconds": 6.753452692
+  },
+  {
+    "req_id": "REQ-004",
+    "verdict": "defective",
+    "analysis": "REQ-004 states 'Search results should be returned quickly.' This is vague and lacks measurable criteria. It uses the adjective 'quickly' without a threshold or definition. While related requirements provide concrete performance targets (e.g., REQ-028 mentions 95th percentile page load time under 2 seconds), REQ-004 does not reference them. The phrase 'should be returned quickly' is subjective and lacks an objective pass/fail criterion. It could be interpreted differently by testers. Therefore, it falls under AMB (ambiguity) because it names a measurable concept ('returned quickly') but omits a specific value/definition. It does not meet UNT because it is not purely subjective (though vague); it is ambiguous about the threshold. It is not GAP because the missing information is a threshold value that can be defined (e.g., referencing REQ-028). However, since the requirement itself is ambiguous, AMB is the primary category. UNT would apply if it were purely subjective like 'pleasant search results', but 'quickly' is a common vague quantifier. Thus, AMB is appropriate.",
+    "n_findings": 1,
+    "context": [
+      "REQ-017",
+      "REQ-007",
+      "REQ-028"
+    ],
+    "prompt_tokens": 580,
+    "seconds": 3.001650622
+  },
+  {
+    "req_id": "REQ-005",
+    "verdict": "defective",
+    "analysis": "The requirement states 'The system shall be user-friendly and intuitive.' These are subjective qualities (user-friendly, intuitive) without measurable criteria, thresholds, or observable outcomes. No test can be written that yields a definite pass/fail result because 'user-friendly' and 'intuitive' are not defined and are inherently subjective. Therefore it falls under UNT (untestable). It does not clearly miss a specific piece of information (like a definition of a term) that would make it GAP; it's not ambiguous in the sense of missing a numeric threshold (e.g., 'at least X% of users find it intuitive'), nor does it refer to undefined terms. Thus the primary category is UNT. AMB might also be considered because 'intuitive' is vague, but UNT takes precedence when subjective quality is present. However, the instruction says if multiple categories apply, use order AMB then UNT then GAP. Since UNT is about subjective qualities, and AMB is about vague quantifiers/adjectives with no threshold, 'intuitive' could be seen as a vague adjective. But the definition of AMB includes 'vague quantifiers/adjectives with no threshold', while UNT includes 'subjective qualities (e.g., pleasant, seamless, robust)'. 'Intuitive' is arguably both vague and subjective. However, the requirement does not mention a measurable value or list; it's purely qualitative. The safest classification given the instruction to prioritize AMB then UNT then GAP is to check if it could be considered AMB. AMB triggers include vague adjectives with no threshold. 'Intuitive' is vague without a threshold (e.g., 'intuitive for at least 80% of users'). So it could be AMB. But UNT is more directly about subjective qualities that prevent objective pass/fail. Since the requirement lacks any measurable outcome, it is untestable. The instruction says: if one piece of text could fit several categories, use this order: AMB, then UNT, then GAP. So we must first check if AMB applies. AMB: 'the requirement names something measurable, but a value, list or definition is missing or vague.' Does the requirement name something measurable? 'User-friendly and intuitive' are not inherently measurable; they are qualitative. The phrase 'names something measurable' suggests the requirement attempts to specify a measurable property but fails to provide a concrete value. Here, it does not even attempt to be measurable; it's just a subjective claim. Thus AMB may not apply because it doesn't name something measurable; it names a quality that is not measurable by default. However, the trigger for AMB includes vague quantifiers/adjectives with no threshold. That could apply. But the instruction says 'the requirement names something measurable' \u2013 if it doesn't name something measurable, it might be UNT. Let's interpret strictly: AMB is for when the requirement tries to specify a measurable property but lacks a concrete value/definition. 'User-friendly' is not obviously a measurable property; it's vague. UNT is for subjective qualities. I think UNT is the most accurate. However, to follow the order, we should first evaluate AMB. If AMB applies, we flag as AMB; otherwise UNT. Let's see if AMB applies: 'user-friendly' and 'intuitive' are vague adjectives without thresholds. They could be considered vague quantifiers/adjectives with no threshold. But AMB requires that the requirement names something measurable. Is 'user-friendly' something measurable? Possibly yes if we consider user satisfaction as measurable, but the requirement doesn't specify. It's ambiguous. Given the context of other requirements (highly available, handle errors gracefully, never lose customer data), REQ-005 is clearly subjective. Thus UNT is appropriate. I'll classify as UNT.",
+    "n_findings": 1,
+    "context": [
+      "REQ-018",
+      "REQ-010",
+      "REQ-030"
+    ],
+    "prompt_tokens": 548,
+    "seconds": 8.46154997
+  },
+  {
+    "req_id": "REQ-006",
+    "verdict": "defective",
+    "analysis": "The requirement mentions 'standard timeout' without defining what that timeout value is, nor how long 'too long' is. It references REQ-029 ('same inactivity timeout as user sessions') but does not explicitly tie the report export timeout to that standard. The phrase 'when generation takes too long' is vague (no threshold). This fits AMB (ambiguity) because it names a measurable concept ('standard timeout') but lacks a concrete value/definition. It does not clearly state a subjective quality or unbounded absolute that would make it untestable without clarification; it is ambiguous about what 'standard timeout' refers to and what 'too long' means. It is not GAP because the missing information is not a question like 'what happens when Y'; it's a missing definition that can be resolved by specifying the timeout value or threshold. Thus AMB is the primary category.",
+    "n_findings": 2,
+    "context": [
+      "REQ-029",
+      "REQ-027",
+      "REQ-023"
+    ],
+    "prompt_tokens": 595,
+    "seconds": 3.0967541
+  },
+  {
+    "req_id": "REQ-007",
+    "verdict": "defective",
+    "analysis": "The requirement states the system shall send a confirmation email within 60 seconds of order placement. The phrase 'within 60 seconds' is a precise time bound (60 seconds) and the action (send a confirmation email) is clear. However, the requirement does not specify what constitutes a 'confirmation email' (e.g., content, format, subject line), nor does it reference any standard or definition. While the time bound is precise, the email content could be ambiguous if not defined. However, the primary trigger is the time bound which is precise; the missing definition of 'confirmation email' might be a GAP if the term is not defined elsewhere. Checking related requirements: REQ-011 mentions 'order confirmation page' but not email; REQ-023 and REQ-019 are unrelated. No related requirement defines 'confirmation email'. Thus, the term 'confirmation email' is not defined in the provided related requirements. This could be a GAP (missing information) because the tester would need to know what exactly the email should contain to verify correctness. However, the requirement is otherwise precise and testable regarding timing. Since GAP is about missing observable outcome (e.g., what happens when), and the term is not defined, it qualifies as GAP. But AMB and UNT do not apply because 'within 60 seconds' is a bounded absolute (60 seconds) and not vague; 'confirmation email' is a named measurable thing but missing definition could be considered vague? The definition is missing but not necessarily vague; it's a concrete term that needs definition. According to triggers: GAP includes a term referred to but defined nowhere in related requirements. Yes, 'confirmation email' is a term referred to but not defined in related requirements. So GAP applies. However, the requirement might be considered fine if the term is obvious? The instruction says: do NOT flag wanting more detail without a specific missing fact. But GAP is about missing information a tester needs. The tester would need to know what the email should contain to test it. So GAP is appropriate. But also check if it's ambiguous (AMB): 'confirmation email' could be vague if not defined; but AMB triggers are vague quantifiers/adjectives with no threshold. 'Confirmation email' is not a vague quantifier; it's a named thing. So AMB does not apply. UNT does not apply because it's objective. Therefore, the finding should be GAP. However, the instruction says: If one piece of text could fit several categories, use order AMB, then UNT, then GAP. So we must first check if AMB could apply. Could 'confirmation email' be ambiguous? Possibly, but not due to vague quantifier; it's a term that needs definition. AMB triggers include vague quantifiers/adjectives with no threshold; 'confirmation' might be considered vague? No, it's a noun phrase. So AMB likely does not apply. Thus GAP is the correct category. We'll quote the exact words that triggered GAP: the phrase 'confirmation email' because it's not defined elsewhere. But the trigger for GAP is a term referred to but defined nowhere in related requirements. So we should quote the requirement text that includes the undefined term. We'll quote the whole requirement or the phrase 'confirmation email'? The instruction: quote the exact words that triggered each finding as evidence. So we'll quote 'The system shall send a confirmation email within 60 seconds of order placement.' That includes the undefined term. However, we might want to quote just the term? The evidence should be the exact words that triggered the finding. Since the finding is GAP due to undefined term 'confirmation email', we can quote the whole requirement. We'll do that.\n",
+    "n_findings": 1,
+    "context": [
+      "REQ-011",
+      "REQ-023",
+      "REQ-019"
+    ],
+    "prompt_tokens": 602,
+    "seconds": 8.058706048
+  },
+  {
+    "req_id": "REQ-008",
+    "verdict": "defective",
+    "analysis": "REQ-008 states that administrators can deactivate user accounts 'as appropriate'. The phrase 'as appropriate' is vague and lacks a clear definition or criteria for when deactivation is allowed. While the requirement is not inherently subjective or unbounded in a way that prevents testing (we could test that admins can deactivate a user), the vagueness around 'appropriateness' introduces ambiguity about what conditions trigger deactivation. However, the requirement does not state a subjective quality (e.g., 'easy', 'pleasant'), nor does it claim an absolute like 'always'. Thus it is primarily ambiguous (AMB) rather than untestable (UNT) or a missing piece of information (GAP). The requirement lacks a definition for 'appropriately' that would guide implementation or testing of edge cases. Therefore, it fits AMB: a measurable action (deactivate user accounts) but missing a clear value/list/definition for 'as appropriate'.",
+    "n_findings": 1,
+    "context": [
+      "REQ-029",
+      "REQ-003",
+      "REQ-001"
+    ],
+    "prompt_tokens": 571,
+    "seconds": 2.696283274
+  },
+  {
+    "req_id": "REQ-009",
+    "verdict": "defective",
+    "analysis": "REQ-009 states that all passwords shall be stored using a salted hash. The requirement references 'salted hash' without defining what algorithm, what salt characteristics, or how the hash is formed. While 'salted hash' is a common security practice, the requirement lacks specifics that would allow a test to verify the exact method (e.g., which hash function, salt generation method, iteration count). However, the requirement does not express a subjective quality (e.g., 'secure'), nor does it claim an unbounded absolute (e.g., 'always encrypted'). It also does not omit essential information like 'who', 'what happens when', etc. Therefore, it is primarily ambiguous (AMB) because it leaves measurable details (algorithm, salt method, iteration count) unspecified. It is not untestable because a test could be written with an expectation (e.e., verify that stored password representation includes a per-user salt and uses a strong hash like SHA-256 or bcrypt). It is not a GAP because the missing details are not about a referenced term without definition; they are about implementation specifics not defined elsewhere. Thus, the finding is AMB.",
+    "n_findings": 1,
+    "context": [
+      "REQ-012",
+      "REQ-001",
+      "REQ-026"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 3.720045504
+  },
+  {
+    "req_id": "REQ-010",
+    "verdict": "defective",
+    "analysis": "The requirement 'REQ-10: The system shall handle errors gracefully.' is vague. It lacks a measurable definition of what 'gracefully' means in this context. It does not specify what types of errors, what user experience or system behavior is expected, nor does it provide thresholds or criteria. As written, it is subjective and unobservable. However, it could be interpreted as implying a need for error handling (which is generally expected), but the phrase 'gracefully' is ambiguous and not testable without further definition. This falls under UNT (untestable) because it states a subjective quality ('graceful') without an objective outcome. It also touches on AMB (ambiguity) because 'gracefully' is vague, but UNT takes precedence when the text states a subjective quality. The requirement does not reference undefined terms or missing actors, so GAP is less likely. Therefore, the primary finding is UNT. No other distinct findings apply.",
+    "n_findings": 1,
+    "context": [
+      "REQ-005",
+      "REQ-030",
+      "REQ-018"
+    ],
+    "prompt_tokens": 548,
+    "seconds": 3.065349587
+  },
+  {
+    "req_id": "REQ-011",
+    "verdict": "clean",
+    "analysis": "The requirement is clear and precise: it names measurable elements (order number, itemized total, estimated delivery date) that must appear on the order confirmation page after successful checkout. No vague quantifiers, subjective terms, or missing definitions are present. It directly states what the page must contain. There is no ambiguity about what constitutes the page content, nor is it untestable (e.g., no subjective quality like 'pleasant'). It does not reference undefined terms (e.g., 'estimated delivery date' might be ambiguous if not defined elsewhere, but the requirement only says 'estimated delivery date' without definition; however, the term is likely defined in other requirements or domain knowledge. Since the requirement only mentions the term without definition, but the term is not a placeholder like 'etc.', it could be considered a missing definition if the term is not defined in related requirements. Let's examine related requirements: REQ-007 mentions 'order placement', REQ-023 mentions 'orders placed', REQ-019 mentions 'cancel an order'. None define 'estimated delivery date'. However, 'estimated delivery date' is a concrete piece of information that can be verified (e.g., a date displayed). The requirement does not ask for a calculation method; it just says the page shall display the estimated delivery date. That is testable: check that the page shows a date field labeled or displayed as estimated delivery date. The term 'estimated delivery date' might be ambiguous if the system could show a range or a single date; but the requirement says 'the estimated delivery date' singular, which suggests a single date. However, without definition, a tester might need to know what constitutes a valid estimated delivery date (e.g., must be within X days of actual shipping date). But the requirement does not specify validation rules; it only requires display. So the test can simply verify that the page displays a date that is labeled or presented as estimated delivery date. That is objective. Therefore, the requirement is likely fine. No AMB, UNT, or GAP? Let's check GAP: does the requirement leave out necessary information a tester needs? The tester needs to know what constitutes 'estimated delivery date' (e.g., format, calculation). However, the requirement only says 'display the estimated delivery date'. If the system calculates it based on internal logic, the tester can check that the date is displayed correctly according to the system's logic (which is defined elsewhere). Since related requirements do not define it, but the term is not a reference to a standard or missing actor; it's a piece of data that the system must show. The tester can verify presence of a date field; they don't need to know the exact value unless the requirement also says it must be accurate. It does not say 'accurate' or 'correct'. So the tester can check that the page contains a date that is presented as estimated delivery date. That seems testable. Thus no defect. However, we must check if 'estimated delivery date' is ambiguous in the sense of vague quantifier? It's not vague; it's a specific piece of information. So likely no defect. Therefore findings list empty.",
+    "n_findings": 0,
+    "context": [
+      "REQ-007",
+      "REQ-023",
+      "REQ-019"
+    ],
+    "prompt_tokens": 602,
+    "seconds": 6.238412129
+  },
+  {
+    "req_id": "REQ-012",
+    "verdict": "defective",
+    "analysis": "The requirement mentions a password reset mechanism via email link but does not specify critical details such as link expiration time, validation steps, security constraints, or failure behavior. While generally testable in principle, the vagueness around timing and security leaves room for interpretation. The phrase 'should' is not a defect per instruction (we ignore modal verbs). The main issue is ambiguity around measurable thresholds (e. REQ-012: Users should be able to reset their password using a link sent to their registered email address.",
+    "n_findings": 1,
+    "context": [
+      "REQ-001",
+      "REQ-002",
+      "REQ-009"
+    ],
+    "prompt_tokens": 574,
+    "seconds": 1.924395852
+  },
+  {
+    "req_id": "REQ-013",
+    "verdict": "defective",
+    "analysis": "The requirement states the system shall support all major web browsers. This is vague because 'major' is not defined (no list or threshold). It could be interpreted differently by testers (e.g., Chrome, Firefox, Safari, Edge vs. including mobile browsers). However, the phrase 'support all major web browsers' is measurable in principle (support means functional compatibility), but lacks a concrete list or definition of what counts as 'major'. This fits AMB (ambiguity) because it names something measurable (support browsers) but missing a specific value/list/definition for 'major'. It does not express a subjective quality (e.g., pleasant), nor an unbounded absolute (e.g., always). It also does not leave out a necessary piece of information like a reference to a standard; the term 'major' is vague but within the requirement itself. Thus AMB is appropriate. UNT and GAP do not apply because the requirement is testable in principle with a defined list; the missing piece is just the list. Therefore the finding is AMB.",
+    "n_findings": 1,
+    "context": [
+      "REQ-010",
+      "REQ-018",
+      "REQ-005"
+    ],
+    "prompt_tokens": 549,
+    "seconds": 3.06633261
+  },
+  {
+    "req_id": "REQ-014",
+    "verdict": "clean",
+    "analysis": "The requirement states that the system shall calculate sales tax at checkout based on the shipping address. It appears precise and testable at first glance. However, we need to examine for ambiguity, untestability, or missing information. The phrase 'calculate sales tax' could be ambiguous if the tax rules (rates, thresholds, local exemptions) are not defined. But the requirement does not mention any missing list or definition; it simply says the system shall calculate tax based on shipping address. This could be considered ambiguous if the tax calculation logic is not fully specified (e.g., which jurisdiction rules apply). However, the requirement does not use vague quantifiers like 'large' or 'promptly'. It names a measurable outcome: calculate sales tax at checkout based on shipping address. The requirement references 'shipping address' which is presumably defined elsewhere (REQ-011 mentions order confirmation page containing order number, itemized total, estimated delivery date; REQ-016 mentions payment gateway; REQ-030 mentions never lose customer data). There's no explicit definition of 'sales tax' or 'shipping address' in related requirements. However, 'shipping address' is likely a standard term used in the system; but if the requirement refers to a term that is not defined in related requirements, that could be a GAP if the term is not defined. However, the trigger for GAP is a term referred to but defined nowhere in the related requirements shown. Let's check: REQ-011 mentions 'order confirmation page', 'order number', 'itemized total', 'estimated delivery date' \u2013 no mention of 'shipping address'. REQ-016 mentions 'payment gateway' \u2013 no. REQ-030 mentions 'customer data' \u2013 no. So 'shipping address' is not defined in related requirements. But is that a missing piece a tester needs? Possibly, but a tester could ask what constitutes a shipping address (e.g., street, city, state, ZIP). However, that might be considered vague? The requirement likely expects that the system already has a shipping address field; the tester would know what a shipping address is. The missing definition might not be essential for testing the calculation of sales tax; the test would need to know the correct tax rate for a given address. That depends on external tax rules. The requirement does not specify that the system must use a particular tax database or rule set; it just says calculate sales tax based on shipping address. That could be ambiguous because the tax calculation method (rates, local exemptions) is not defined. However, the trigger for AMB includes vague quantifiers/adjectives with no threshold, but 'calculate sales tax' is a standard operation; it might be considered ambiguous if the exact tax rates and rules are not specified. But the requirement might be considered testable if we have a known address and expected tax amount. However, without a defined tax rule set, a tester cannot know the expected tax amount without external reference. That could be a GAP: the tester needs to know what the correct tax rate is for a given shipping address. But the requirement says 'calculate sales tax at checkout based on the shipping address.' If the system uses a tax calculation engine that pulls rates from a reliable source, the test could verify that the tax amount matches the expected rate for that address (which would require knowing the correct rate). That might be considered a missing piece: the test needs to know the correct tax amount. However, the requirement might be considered fine if the system is expected to compute tax correctly according to applicable law. But without a defined rule set, it's ambiguous what 'correct' means. However, the AMB trigger includes 'a value, list or definition is missing or vague.' The phrase 'sales tax' could be vague if the jurisdiction-specific rules are not defined. But the requirement might be considered acceptable if the system follows local tax regulations. However, the instruction says: ",
+    "n_findings": 0,
+    "context": [
+      "REQ-011",
+      "REQ-016",
+      "REQ-030"
+    ],
+    "prompt_tokens": 584,
+    "seconds": 7.601610682
+  },
+  {
+    "req_id": "REQ-015",
+    "verdict": "defective",
+    "analysis": "REQ-015 states that order history shall be retained for 7 years. The requirement is precise about the duration (7 years) and does not include vague qualifiers. However, it lacks details about what constitutes 'order history' (e.g., which order fields), where it is stored, retention policy conditions (e.g., what happens after 7 years), and who is responsible for deletion/archival. These missing specifics could affect implementation and verification. The requirement is not ambiguous in the sense of a missing numeric threshold (the number 7 is given), nor subjective (no quality like 'complete' or 'easy'). It is also testable in principle: one could verify that order records older than 7 years are not accessible or are archived according to policy. However, the requirement as written does not specify the definition of 'order history', storage location, or post-retention behavior, which are necessary for a concrete test. Thus it falls under GAP (missing information) because the questions 'what is order history?', 'where is it stored?', 'what happens after 7 years?' are not answerable from the requirement alone. It does not fit AMB (since the numeric value 7 is given) nor UNT (no subjective quality). Therefore the finding is GAP.",
+    "n_findings": 1,
+    "context": [
+      "REQ-023",
+      "REQ-027",
+      "REQ-007"
+    ],
+    "prompt_tokens": 592,
+    "seconds": 3.793268414
+  },
+  {
+    "req_id": "REQ-016",
+    "verdict": "defective",
+    "analysis": "REQ-016 says the system shall process payments through the payment gateway and notify the user of the result. It references a payment gateway (external system) and a notification to the user. However, it does not specify how the notification is delivered (e.g., email, in-app message), what constitutes 'result' (e.g., success, failure, pending), or any timing constraints. It also does not define failure handling beyond referencing REQ-022. While REQ-022 provides handling for failed payments, REQ-016 does not mention success notification details. The requirement is fairly precise but lacks some operational detail that could affect testability (e.g., what exactly is notified, format, channel). However, it is not obviously ambiguous in a vague quantifier sense (no vague terms like 'promptly', 'large'), nor subjective (no 'user-friendly' language), nor missing a defined term (the payment gateway is referenced but not defined in related reqs). Since REQ-022 defines failed payment handling, but REQ-016 does not specify success notification, this could be considered a missing piece of information (what exactly should be notified on success?). However, the requirement says 'notify the user of the result' \u2013 'result' is vague but measurable? It could be interpreted as success/failure. That might be acceptable if the definition of result is implied by the payment gateway response. But without a definition, a tester might need to know what exactly constitutes the result to verify notification content. This leans toward AMB (ambiguous because 'result' is vague) or GAP (missing definition of 'result'). Let's examine triggers: 'result' is a term not defined in related requirements. REQ-022 talks about handling failed payments, not success result. REQ-007 mentions confirmation email within 60 seconds for order placement, but that's separate. So 'result' is undefined. However, the requirement says 'notify the user of the result' \u2013 a tester could test by checking that a notification is sent with appropriate content based on gateway response. But without knowing what content is expected (e.g., 'Payment successful'), the test may be ambiguous. This is borderline. Given the instruction: if one piece of text could fit several categories, use order AMB then UNT then GAP. Let's see if AMB applies: vague quantifiers/adjectives? No. Vague qualifiers? No. Scope words with no list? No. 'result' is a term that could be vague but not necessarily a vague quantifier; it's a placeholder for a value. Since it's not defined, it could be considered ambiguous (missing definition). However, AMB is about 'the requirement names something measurable, but a value, list or definition is missing or vague.' 'Result' is measurable? Possibly yes, but missing definition. So AMB could apply. UNT: does it state a subjective quality? No. Unbounded absolute? No. GAP: missing information like what exactly is the result? The term 'result' is not defined in related requirements, so a tester would need to ask what constitutes the result (e.g., success, failure, pending). That fits GAP. Which category is more appropriate? The instruction says: if one piece of text could fit several categories, use order AMB, then UNT, then GAP. So we should first check if AMB applies. AMB requires a vague quantifier/adjective with no threshold. 'Result' is not a vague quantifier; it's a noun term. However, the requirement names something measurable (the result of payment processing) but a definition is missing. That could be considered ambiguous. But AMB triggers include 'a value, list or definition is missing or vague.' 'Result' is vague because it could be success, failure, pending, etc. So yes, AMB could apply. However, GAP also applies because the term 'result' is not defined in related requirements. Which one to pick? The instruction says use order: AMB then UNT then GAP. So if AMB applies, we should flag as AMB. Let's see if AMB definitely applies: The requirement says 'notify the user of the result.' Without definition of what 'result' means (e.g., success message, failure reason), it's ambiguous. A competent tester might interpret differently. So AMB seems appropriate. UNT does not apply because it's not subjective or unbounded. GAP also applies but AMB takes precedence. Therefore we should flag as AMB. However, we need to quote the exact words that triggered each finding. The triggering phrase could be 'notify the user of the result' because 'result' is undefined/vague. But also 'process payments through the payment gateway' references an external system; but that's not necessarily ambiguous if the gateway interface is defined elsewhere. The main vague part is 'result'. Let's decide: flag AMB with evidence 'notify the user of the result'. We'll also consider if there is any other ambiguity like notification channel. But 'notify the user' could be via email or in-app; not specified. That could also be ambiguous. However, REQ-007 says send confirmation email within 60 seconds for order placement; but that's for order placement, not payment result. So notification channel for payment result is unspecified. That could be another ambiguity. But we should stick to one finding per category? The instruction says a requirement with several separate problems gets several findings. We can list multiple AMB findings if multiple vague elements. But we should keep it concise. Let's identify two vague elements: 'result' and 'notify the user' (channel unspecified). However, 'notify the user' might be considered vague because it doesn't specify channel. But 'notify' could be implemented via existing notification mechanisms; maybe defined elsewhere. Since we only have related requirements, we cannot assume. So we could flag both. But to avoid over-flagging, we can flag the most central ambiguity: 'notify the user of the result' where 'result' is undefined. We'll produce one AMB finding. Let's draft.",
+    "n_findings": 1,
+    "context": [
+      "REQ-022",
+      "REQ-005",
+      "REQ-007"
+    ],
+    "prompt_tokens": 573,
+    "seconds": 12.938322796
+  },
+  {
+    "req_id": "REQ-017",
+    "verdict": "defective",
+    "analysis": "The requirement states that product search results shall be sorted by relevance, with ties broken alphabetically by product name. The term 'relevance' is not defined in the related requirements. While 'alphabetically by product name' is clear, 'relevance' is vague: it lacks a measurable definition, list of factors, or threshold. However, the requirement does not express a subjective quality (e.g., pleasant), nor does it state an unbounded absolute (e.g., always). It also does not omit a necessary piece of information like a referenced standard or actor; it simply uses a term that is not defined elsewhere. Therefore, this is an AMB (ambiguity) issue because 'relevance' is a measurable concept that should have a concrete definition or list of sorting criteria. It is not UNT because a definite expected outcome can be derived if we know how relevance is determined (e.g., match score, user ratings). It is not GAP because the missing definition is not a term referred to elsewhere without definition; it is defined implicitly by the requirement itself but not elaborated. Thus, the primary defect is AMB.",
+    "n_findings": 1,
+    "context": [
+      "REQ-004",
+      "REQ-011",
+      "REQ-005"
+    ],
+    "prompt_tokens": 580,
+    "seconds": 11.359433308
+  },
+  {
+    "req_id": "REQ-018",
+    "verdict": "defective",
+    "analysis": "REQ-018 says 'the system shall be highly available.' The term 'highly available' is vague: it lacks a measurable threshold (e.g., uptime percentage, maximum downtime). Without a specific availability target (e.g., 99.9% uptime), the requirement is ambiguous (AMB). It does not express a subjective quality (e.g., pleasant) nor an unbounded absolute like 'always' that would make it untestable without measurement; it is measurable in principle but missing the precise value. It also does not refer to undefined terms (e.g., a standard not defined elsewhere). Thus it fits AMB best. UNT is less appropriate because 'highly' is a vague adjective but not inherently subjective; however AMB covers vague quantifiers. GAP does not apply because no missing actor or precondition is referenced. Therefore the finding is AMB.",
+    "n_findings": 1,
+    "context": [
+      "REQ-005",
+      "REQ-010",
+      "REQ-030"
+    ],
+    "prompt_tokens": 548,
+    "seconds": 2.443800434
+  },
+  {
+    "req_id": "REQ-019",
+    "verdict": "clean",
+    "analysis": "The requirement states customers should be able to cancel an order at any time before its status changes to Shipped. This is ambiguous because 'any time' is vague (no explicit time window beyond 'before status changes to Shipped'). However, 'any time' typically means as long as the order status is not yet Shipped, which is measurable via status field. The phrase 'at any time' could be interpreted differently by testers (e.g., within a certain period after placement vs. indefinite). But the main issue is that it does not specify who can cancel (only customers), but that seems implied. The requirement lacks a clear definition of 'order status changes to Shipped' \u2013 does it include transitions like Pending \u2192 Shipped? It also lacks a precise UI/flow detail (e.g., where the cancel button appears, under what conditions). However, the most straightforward ambiguity is the vague 'any time' \u2013 but 'any time before status changes to Shipped' is essentially a conditional based on status, which is measurable. Still, 'any time' could be interpreted as 'immediately after placement' vs 'up to some deadline'. Since the requirement does not specify a deadline or restriction other than status, it is ambiguous in the sense that testers might check different things (e. permissiveness). However, it might be considered testable if we define the status condition. But the phrase 'any time' is vague; a tester might test that cancellation is possible when status is Pending, but not when status is Shipped or in transit. That seems consistent. However, the requirement also omits mention of what happens when the order is already Shipped \u2013 presumably cannot cancel. That's implied. The bigger gap might be missing information about the actor (customer) and the mechanism (where to cancel, what UI elements). But GAP triggers require a term, section, or standard referred to but undefined. Here, 'order status changes to Shipped' might be ambiguous if the system uses multiple statuses (e.g., Created, Pending, Processing, Shipped). The requirement says 'before its status changes to Shipped' \u2013 that suggests once the status becomes Shipped, cancellation is no longer allowed. That is measurable if we know the status values. However, the requirement does not define what constitutes 'status changes to Shipped' \u2013 e.g., is it only when status is exactly Shipped, or when it transitions to Shipped? That's a subtle but important detail for testing (can you cancel when status is Processing? Yes, because not yet Shipped). So testers might interpret differently. Thus AMB seems appropriate: vague quantifier 'any time' and undefined status transition logic. UNT? No, because it's not subjective; it's a conditional. GAP? Possibly missing definition of 'status changes to Shipped' but that could be resolved by referring to status values defined elsewhere. Since related requirements mention order confirmation page and delivery date, but not status values. REQ-011 mentions order number, itemized total, estimated delivery date \u2013 no status. REQ-007 email, REQ-023 dashboard. So status definition is not provided in related requirements. Thus GAP might apply: term 'status changes to Shipped' is not defined in related requirements. However, the requirement says 'before its status changes to Shipped' \u2013 it refers to a status value 'Shipped'. If 'Shipped' is a known status value (likely), but the related requirements don't define status values. However, GAP trigger: a term, section or standard referred to but defined nowhere in the related requirements shown. 'Shipped' might be defined elsewhere not shown. But we only have related requirements shown; we must assume definitions are only within shown related requirements. Since 'Shipped' is not defined in any of REQ-011, REQ-007, REQ-023, it could be considered undefined. However, 'Shipped' is a common status; but per instruction, a term counts as defined if one of the related requirements shown defines it. Since none define status values, 'Shipped' is undefined in context. Thus GAP may apply. But the instruction says: ",
+    "n_findings": 0,
+    "context": [
+      "REQ-011",
+      "REQ-007",
+      "REQ-023"
+    ],
+    "prompt_tokens": 602,
+    "seconds": 8.194702608
+  },
+  {
+    "req_id": "REQ-020",
+    "verdict": "defective",
+    "analysis": "The requirement states 'The inventory count shall be updated in a timely manner after each sale.' It lacks a measurable threshold for 'timely'. The phrase 'timely' is vague and lacks a concrete interval or condition (e.g., within 5 minutes). Without a threshold, testers cannot define an objective pass/fail test (e.AMB). It does not express a subjective quality (e.g., seamless) or an unbounded absolute (e.never), so it is not UNT. It also does not refer to undefined terms or missing actors/preconditions that would make it GAP; it simply omits a concrete definition for 'timely'. Therefore, the primary defect is AMB (ambiguity).",
+    "n_findings": 1,
+    "context": [
+      "REQ-023",
+      "REQ-011",
+      "REQ-027"
+    ],
+    "prompt_tokens": 610,
+    "seconds": 2.152585653
+  },
+  {
+    "req_id": "REQ-021",
+    "verdict": "defective",
+    "analysis": "REQ-021 states the system shall comply with applicable data protection regulations. This is a reference to external standards/laws without defining what those regulations are, nor specifying how compliance is verified. It lacks concrete measurable criteria (e.g., which regulations, specific requirements like GDPR, CCPA, etc.). It is vague about scope (applicable regulations could vary by jurisdiction). It does not define failure behavior or verification method. Therefore it falls under GAP (missing information) because the tester needs to know which regulations apply, what compliance entails for the system, and how to verify compliance. It is not clearly ambiguous (no missing numeric value or list) nor untestable (it references an objective standard, but the standard is not specified). The requirement references external authorities; without knowing which regulations, a test cannot be written with a definite expected result. Hence GAP is the primary category.",
+    "n_findings": 1,
+    "context": [
+      "REQ-026",
+      "REQ-030",
+      "REQ-005"
+    ],
+    "prompt_tokens": 551,
+    "seconds": 2.731998705
+  },
+  {
+    "req_id": "REQ-022",
+    "verdict": "defective",
+    "analysis": "REQ-022 refers to a 'payment error handling section' that is not included in the provided related requirements. The requirement does not define what 'handled as described' means; it relies on external documentation (the section) that is not present. This is a GAP: the tester needs to know what the payment error handling section says to determine expected behavior. It is not ambiguous (no vague value/list missing in the statement itself) nor untestable (it references a concrete section). Therefore, the primary defect is GAP.",
+    "n_findings": 1,
+    "context": [
+      "REQ-016",
+      "REQ-002",
+      "REQ-010"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 1.934510923
+  },
+  {
+    "req_id": "REQ-023",
+    "verdict": "defective",
+    "analysis": "The requirement states that the admin dashboard shall show the number of orders placed in the last 24 hours, refreshed every 5 minutes. It appears precise and testable at first glance. However, we need to examine for triggers of AMB, UNT, or GAP. The phrase 'number of orders placed' is measurable (count), but the requirement does not specify how the count is determined (e.g., orders placed by whom? all orders? filtered by status?). The phrase 'refreshed every 5 minutes' is precise (5 minutes interval). However, 'number of orders placed in the last 24 hours' could be ambiguous regarding inclusion of orders placed exactly 24 hours ago vs less than 24 hours. Also, the requirement does not define what constitutes an 'order placed' (e.g., order placed and confirmed, or order placed and pending). Since REQ-007 and REQ-011 define order placement confirmation, we might infer that 'order placed' refers to orders that have been placed (i.e., after checkout). But the requirement does not explicitly reference those definitions. However, the ambiguity is about the definition of 'order placed' within the admin dashboard context. This could be considered an AMB because the value/definition of 'order placed' is missing or vague relative to other requirements. However, we need to see if it's testable without clarification. A tester could check that the dashboard shows some number and that it refreshes every 5 minutes, but they would need to know what counts as an order placed to verify correctness. Without a definition, the test could be ambiguous. Thus it likely falls under AMB (ambiguity) because the requirement names something measurable (number of orders) but lacks a clear definition of what qualifies as an order placed for this metric. The phrase 'in the last 24 hours' is typical and usually clear, but the inclusion boundary (e.g., orders placed exactly 24 hours ago) might be ambiguous. However, that's a minor detail; the bigger gap is the definition of 'order placed' consistent with other requirements. Since REQ-007 and REQ-011 talk about order placement confirmation and order confirmation page, we might assume that 'order placed' means an order that has been successfully placed (i.e., after checkout and confirmation). But the requirement does not specify. Therefore AMB is appropriate. UNT is not applicable because it's not subjective. GAP might also apply if the requirement refers to 'orders placed' without defining what qualifies; but the missing information could be resolved by asking what defines an order placed for this metric. However, the requirement is likely ambiguous rather than missing a specific piece like 'who does Z'. The trigger is a vague term 'order placed' that could be interpreted differently. Thus AMB is the primary category. We'll flag AMB with evidence phrase 'number of orders placed in the last 24 hours'.",
+    "n_findings": 1,
+    "context": [
+      "REQ-007",
+      "REQ-011",
+      "REQ-015"
+    ],
+    "prompt_tokens": 593,
+    "seconds": 6.662202869
+  },
+  {
+    "req_id": "REQ-024",
+    "verdict": "clean",
+    "analysis": "The requirement states that users can upload a profile photo in JPEG or PNG format with a maximum size of 5 MB. The format list (JPEG or PNG) is explicit, and the size limit (5 MB) is a concrete number. No vague terms like 'appropriately', 'promptly', etc., are present. The requirement appears precise and testable: check that only JPEG and PNG files are accepted, and that files larger than 5 MB are rejected. However, we should verify if any missing information could cause a test gap. For example, does the requirement implicitly depend on REQ-025 (resizing)? REQ-025 says 'Uploaded photos shall be resized appropriately for display.' REQ-024 mentions uploading a profile photo; REQ-025 may impose additional constraints (e.g., max dimensions). But REQ-024 does not mention resizing; it only says 'allow users to upload'. The requirement does not specify what 'appropriately' means for resizing, but that is covered by REQ-025, not REQ-024. Since REQ-024 only concerns upload acceptance criteria (format and size), it seems complete. No ambiguity about format (explicit list), no vagueness about size (exact 5 MB). No subjective language. No missing actor (users are defined). No reference to undefined terms. Thus, the requirement is likely free of AMB, UNT, GAP. However, we must check if 'up to 5 MB' could be ambiguous regarding inclusive/exclusive? Usually 'up to 5 MB' means \u22645 MB. That's clear enough. So no defect.",
+    "n_findings": 0,
+    "context": [
+      "REQ-025",
+      "REQ-028",
+      "REQ-001"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 3.343207436
+  },
+  {
+    "req_id": "REQ-025",
+    "verdict": "defective",
+    "analysis": "The requirement states that uploaded photos shall be resized appropriately for display. It lacks specifics about what 'appropriately' means (e.g., target dimensions, max width/height, aspect ratio, quality settings, or use cases like web vs mobile). Without measurable criteria, testers cannot verify if resizing is done correctly. This falls under AMB (ambiguity) because it names a measurable action (resizing) but omits a concrete value/definition for 'appropriately'. It does not express a subjective quality (so not UNT) nor does it refer to undefined terms (so not GAP). The phrase 'appropriately' is vague and lacks thresholds.",
+    "n_findings": 1,
+    "context": [
+      "REQ-024",
+      "REQ-010",
+      "REQ-018"
+    ],
+    "prompt_tokens": 561,
+    "seconds": 2.311942593
+  },
+  {
+    "req_id": "REQ-026",
+    "verdict": "defective",
+    "analysis": "REQ-026 states the system shall encrypt sensitive data. The requirement is generally clear and testable if we know what qualifies as 'sensitive data' and what encryption standard/method is required. However, 'sensitive data' is not defined in the related requirements. REQ-021 mentions data protection regulations, REQ-030 mentions never losing customer data, and REQ-005 mentions user-friendly. The term 'sensitive data' is used without definition. This could lead to ambiguity about which data must be encrypted (e.s., personal data vs. all data). Since the requirement does not specify a list or definition, it is ambiguous (AMB). It is not subjective (so not UNT) and not missing a necessary piece like who does what (so not GAP). The primary defect is ambiguity around the scope of 'sensitive data'.",
+    "n_findings": 1,
+    "context": [
+      "REQ-021",
+      "REQ-030",
+      "REQ-005"
+    ],
+    "prompt_tokens": 551,
+    "seconds": 2.488461548
+  },
+  {
+    "req_id": "REQ-027",
+    "verdict": "defective",
+    "analysis": "The requirement mentions 'preserve the shopping cart contents for 30 days.' This is a measurable statement (30 days) but the phrase 'preserve' is vague: preserve how? Where? Under what conditions? Does it mean the cart is retained automatically for 30 days regardless of user activity? The requirement does not specify whether the cart is retained for returning users only, or for all users whose session expires. It also does not define what constitutes 'shopping cart contents' (e.g., items, quantities, promotions). However, the phrase 'preserve the shopping cart contents for 30 days' is not inherently ambiguous in a threshold sense (like 'large'), but it lacks operational detail needed for testing (e.g., where stored, retrieval mechanism, expiration on login). Since the requirement references session expiration (REQ-003) and admin console timeout (REQ-029), it aligns with those. The main issue is that 'preserve' is vague and the storage/retrieval behavior is not defined, making it difficult to write an objective test. However, the phrase 'for 30 days' is precise. Because the requirement does not specify failure behavior (e.g., what happens after 30 days), nor does it specify how to retrieve (login redirect), it falls under GAP (missing information) because the tester needs to know: what exactly constitutes preserved cart data, how it is stored/linked to the user (e.g., by email/session ID), and what happens after 30 days (delete or keep?). It could also be considered AMB if we interpret 'preserve' as vague, but AMB typically involves missing value/list/definition; here the value (30 days) is present, but the definition of 'preserve' is missing. However, GAP is more appropriate because the missing information is not a vague term but a concrete operational detail needed for testing. UNT is not applicable because there is an objective outcome (redirect to login page) and a time bound (30 days). Thus, the primary finding is GAP.",
+    "n_findings": 1,
+    "context": [
+      "REQ-003",
+      "REQ-029",
+      "REQ-023"
+    ],
+    "prompt_tokens": 594,
+    "seconds": 5.323183529
+  },
+  {
+    "req_id": "REQ-028",
+    "verdict": "defective",
+    "analysis": "The requirement states a measurable target (10,000 concurrent users, 95th percentile page load time under 2 seconds). However, 'concurrent users' is ambiguous because it does not define what constitutes a 'user' in this context (e.g., authenticated session, active request, etc.). Also, '95th percentile page load time' is measurable but the threshold 'under 2 seconds' is precise. The main ambiguity lies in the definition of 'concurrent users' \u2013 the requirement does not specify whether it refers to unique users, active sessions, or a specific user model. Without a definition, testers cannot consistently measure or verify the claim. This falls under AMB because it names something measurable (concurrent users) but lacks a clear definition/value/list. UNT does not apply because the requirement is not subjective or unbounded; it includes a concrete threshold. GAP does not apply because the missing definition is not a factual gap like 'who does Z' but a definitional ambiguity. Therefore, the primary defect is AMB.",
+    "n_findings": 1,
+    "context": [
+      "REQ-013",
+      "REQ-007",
+      "REQ-023"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 2.948992484
+  },
+  {
+    "req_id": "REQ-029",
+    "verdict": "defective",
+    "analysis": "REQ-029 states that the admin console shall use the same inactivity timeout as user sessions. Given the context, user sessions expire after 15 minutes of inactivity (REQ-003). However, REQ-029 does not specify whether the admin console's timeout should match the user session timeout (15 minutes) or if it should follow any other rule. The phrase 'the same inactivity timeout as user sessions' is ambiguous because it does not explicitly reference the defined timeout value (15 minutes) nor clarify if admin sessions are considered 'user sessions' or if there are separate admin session rules. The requirement lacks a concrete value or definition for the admin console's timeout, making it measurable but vague. It could be interpreted differently by testers (e.g., matching user session timeout exactly, or matching the concept regardless of value). Therefore, it falls under AMB (ambiguity) because a specific value or list is missing. It does not express a subjective quality or unbounded absolute that would make it untestable; it is measurable but vague. It also does not have a missing piece of information that would require a question (e.g., what is the timeout?), because the timeout value is already defined elsewhere (REQ-003). However, the requirement could be clarified by referencing the exact timeout value or stating that admin console sessions use the same timeout as user sessions (i.e., 15 minutes). No UNT or GAP applies because the requirement is not subjective and does not omit essential observable outcomes. Thus, the primary finding is AMB.",
+    "n_findings": 1,
+    "context": [
+      "REQ-003",
+      "REQ-027",
+      "REQ-008"
+    ],
+    "prompt_tokens": 583,
+    "seconds": 3.839281195
+  },
+  {
+    "req_id": "REQ-030",
+    "verdict": "clean",
+    "analysis": "The requirement states 'never lose customer data.' This uses an absolute term 'never' (unbounded absolute), which makes it untestable because it is impossible to guarantee 100% data loss avoidance under all possible failure scenarios (e.g., hardware failure, natural disaster, malicious deletion). A competent tester cannot write a test with a definite expected result (pass/fail) because they cannot verify that no data loss ever occurs across all possible circumstances. Additionally, the requirement lacks specifics about what constitutes 'customer data' (though that might be considered a vague term, but the primary issue is the absolute). However, the dominant trigger is the unbounded absolute 'never', which fits UNT (unbounded absolute). It does not clearly miss a specific piece of information (like 'who does Z') that would make it GAP; it's more about the impossibility of testing the absolute. Thus, the primary category is UNT. However, note that 'never' could also be considered ambiguous if the threshold for 'never' is missing, but the definition of ambiguity (missing value/list/definition) is less precise than the unbounded absolute trigger. Since UNT takes precedence over AMB when both could apply? The instruction says: if one piece of text could fit several categories, use this order: AMB, then UNT, then GAP. So we must first check if AMB applies. AMB triggers include vague quantifiers/adjectives with no threshold. 'never' is a vague quantifier? It is an absolute with no threshold; but AMB typically refers to vague quantifiers like 'large', 'promptly', etc. 'never' is more clearly an unbounded absolute, which is a UNT trigger. However, the instruction says: 'vague quantifiers/adjectives with no threshold (e.g., promptly, large, adequate)' and 'unbounded absolutes (always, never, under all circumstances)'. So 'never' is explicitly listed under UNT triggers. Therefore, it is UNT. Also, the requirement does not define 'customer data' precisely, but that might be a GAP if the term is not defined elsewhere. However, among the related requirements, REQ-005 mentions 'user-friendly', REQ-010 'handle errors gracefully', REQ-018 'highly available'. None define 'customer data'. But the requirement itself says 'customer data' without definition; however, testers might infer from context. Since the requirement is primarily about never losing data, the missing definition of 'customer data' could be considered a GAP if it's not defined in related requirements. But the instruction says: 'a term, section or standard referred to but defined nowhere in the related requirements shown' counts as GAP. 'customer data' is not defined in any of the related requirements shown (REQ-018, REQ-010, REQ-005). However, it might be considered obvious or part of the system's domain. But the instruction says: 'A term counts as defined if one of the related requirements shown defines it.' None define it, so it could be GAP. However, the primary issue is the absolute 'never', which makes it untestable. The instruction says to assign categories in order: AMB, then UNT, then GAP. So we should first check if AMB applies. Is 'never' considered ambiguous? AMB triggers include vague quantifiers with no threshold. 'never' is an absolute with no threshold, but it's also listed under UNT triggers. The instruction explicitly separates them: vague quantifiers/adjectives with no threshold (e.g., promptly, large, adequate) vs unbounded absolutes (always, never, under all circumstances). So 'never' is UNT, not AMB. Therefore, the first applicable category in order would be UNT (since AMB does not apply because 'never' is not a vague adjective like 'large' but an unbounded absolute). However, we need to check if AMB could apply due to missing definition of 'customer data'. That would be a vague term? 'customer data' might be measurable but missing definition could be ambiguous. But the instruction says: 'the requirement names something measurable, but a value, list or definition is missing or vague.' 'customer data' is something measurable? Possibly yes, but the missing definition could be considered ambiguous. However, the primary defect is the absolute 'never', which makes it untestable. Given the instruction to prioritize AMB over UNT over GAP, we should check if AMB applies first. Let's examine: ",
+    "n_findings": 0,
+    "context": [
+      "REQ-018",
+      "REQ-010",
+      "REQ-005"
+    ],
+    "prompt_tokens": 548,
+    "seconds": 9.102668596
+  }
+]

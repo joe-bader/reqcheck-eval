@@ -1,0 +1,392 @@
+[
+  {
+    "req_id": "TST-001",
+    "verdict": "defective",
+    "analysis": "The requirement is generally clear, but it lacks detail regarding the process or constraints of the booking action itself. Specifically, it doesn't define what happens if the selection fails or what the system must do after a successful selection, which could be considered missing information for a complete test case.",
+    "n_findings": 1,
+    "context": [
+      "TST-002",
+      "TST-019",
+      "TST-013"
+    ],
+    "prompt_tokens": 593,
+    "seconds": 10.157244188
+  },
+  {
+    "req_id": "TST-002",
+    "verdict": "defective",
+    "analysis": "The requirement defines the condition for a time slot being available. It uses the term 'overlaps' but does not define what constitutes an overlap (e.g., does it include the start/end times, or must it be strictly within the slot?). This lack of definition makes it ambiguous regarding the exact boundary conditions for overlap.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-019",
+      "TST-008"
+    ],
+    "prompt_tokens": 592,
+    "seconds": 0.834619082
+  },
+  {
+    "req_id": "TST-003",
+    "verdict": "clean",
+    "analysis": "The requirement is clear and testable. It specifies the action (send a reminder SMS), the recipient (the patient), and the timing (24 hours before the appointment start time). No ambiguity, untestability, or missing information was found.",
+    "n_findings": 0,
+    "context": [
+      "TST-004",
+      "TST-009",
+      "TST-030"
+    ],
+    "prompt_tokens": 597,
+    "seconds": 0.430853925
+  },
+  {
+    "req_id": "TST-004",
+    "verdict": "defective",
+    "analysis": "The requirement specifies a time limit for cancellation, which is measurable. However, it does not specify *how* the patient shall be able to cancel (e.g., via which interface, what steps are involved). This is a missing piece of information needed to write a complete test case.",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-003",
+      "TST-009"
+    ],
+    "prompt_tokens": 597,
+    "seconds": 0.78222111
+  },
+  {
+    "req_id": "TST-005",
+    "verdict": "defective",
+    "analysis": "The requirement TST-005 uses the vague quantifier 'promptly', which falls under the AMB category because it lacks a measurable threshold for response time.",
+    "n_findings": 1,
+    "context": [
+      "TST-017",
+      "TST-007",
+      "TST-001"
+    ],
+    "prompt_tokens": 567,
+    "seconds": 0.621511882
+  },
+  {
+    "req_id": "TST-006",
+    "verdict": "defective",
+    "analysis": "The requirement uses subjective qualities ('seamless' and 'delightful') which make it impossible to objectively test for a pass or fail condition. This falls under the UNT category.",
+    "n_findings": 1,
+    "context": [
+      "TST-028",
+      "TST-023",
+      "TST-027"
+    ],
+    "prompt_tokens": 578,
+    "seconds": 0.795710613
+  },
+  {
+    "req_id": "TST-007",
+    "verdict": "defective",
+    "analysis": "The requirement TST-007 refers to a 'required retention period' without defining what that period is. This is a missing piece of information needed to write a test case, fitting the GAP category. It is not vague (like 'promptly' or 'adequate'), but a specific missing value.",
+    "n_findings": 1,
+    "context": [
+      "TST-005",
+      "TST-017",
+      "TST-010"
+    ],
+    "prompt_tokens": 556,
+    "seconds": 0.769800813
+  },
+  {
+    "req_id": "TST-008",
+    "verdict": "clean",
+    "analysis": "The requirement is clear in its intent: prevent bookings during leave periods. It specifies the action (prevent new bookings) and the condition (clinician marked as leave). There are no vague quantifiers, subjective qualities, or missing definitions that would prevent testing. The concept of 'marked as leave' is assumed to be a state managed by the system, which is sufficient for testing the prevention mechanism.",
+    "n_findings": 0,
+    "context": [
+      "TST-001",
+      "TST-023",
+      "TST-030"
+    ],
+    "prompt_tokens": 586,
+    "seconds": 0.58910155
+  },
+  {
+    "req_id": "TST-009",
+    "verdict": "clean",
+    "analysis": "The requirement specifies a condition (patient not arriving within 15 minutes) and an action (receptionist may mark as no-show). The 15-minute threshold is a specific, measurable value, so it is not AMB. The action is observable (marking the appointment), so it is not UNT. The requirement clearly defines the trigger (no arrival within 15 minutes) and the actor (receptionist). No critical information seems missing that would prevent testing the core logic.",
+    "n_findings": 0,
+    "context": [
+      "TST-004",
+      "TST-003",
+      "TST-001"
+    ],
+    "prompt_tokens": 602,
+    "seconds": 0.676547482
+  },
+  {
+    "req_id": "TST-010",
+    "verdict": "defective",
+    "analysis": "The requirement states that the system shall always be available to patients. The word 'always' is an unbounded absolute, making the requirement untestable because it implies a condition that can never be objectively verified in a real-world system (e.g., downtime for maintenance, network outages).",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-012",
+      "TST-005"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 0.76748038
+  },
+  {
+    "req_id": "TST-011",
+    "verdict": "defective",
+    "analysis": "The requirement specifies support for a 'large number' of concurrent users. 'Large' is a vague quantifier without a defined threshold, which falls under the AMB category.",
+    "n_findings": 1,
+    "context": [
+      "TST-010",
+      "TST-016",
+      "TST-020"
+    ],
+    "prompt_tokens": 562,
+    "seconds": 0.651212968
+  },
+  {
+    "req_id": "TST-012",
+    "verdict": "defective",
+    "analysis": "The requirement TST-012 is clear regarding the action (sending the invoice) and the recipient (the patient's insurer). However, it lacks detail on the process, specifically when the invoice should be sent or what conditions must be met for it to be sent. This suggests missing information regarding the trigger or timing.",
+    "n_findings": 1,
+    "context": [
+      "TST-010",
+      "TST-001",
+      "TST-005"
+    ],
+    "prompt_tokens": 568,
+    "seconds": 0.844119231
+  },
+  {
+    "req_id": "TST-013",
+    "verdict": "clean",
+    "analysis": "The requirement specifies how appointment times should be stored (UTC) and how they should be displayed (clinic's local time zone). It is precise and testable based on the provided context. No ambiguity, untestability, or missing information was found.",
+    "n_findings": 0,
+    "context": [
+      "TST-001",
+      "TST-019",
+      "TST-003"
+    ],
+    "prompt_tokens": 595,
+    "seconds": 0.444520516
+  },
+  {
+    "req_id": "TST-014",
+    "verdict": "defective",
+    "analysis": "The requirement mentions exporting audit logs when they 'grow too big,' which is vague and lacks a measurable threshold. This falls under AMB. It also refers to an 'agreed format' without defining what that format is, which constitutes missing information (GAP).",
+    "n_findings": 2,
+    "context": [
+      "TST-020",
+      "TST-017",
+      "TST-007"
+    ],
+    "prompt_tokens": 570,
+    "seconds": 0.931954004
+  },
+  {
+    "req_id": "TST-015",
+    "verdict": "clean",
+    "analysis": "The requirement specifies a minimum password length (12 characters) and the requirement for a one-time code. This appears precise and testable based on the provided context and general security standards. No ambiguity, untestability, or missing information was found.",
+    "n_findings": 0,
+    "context": [
+      "TST-029",
+      "TST-021",
+      "TST-001"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 0.445171757
+  },
+  {
+    "req_id": "TST-016",
+    "verdict": "defective",
+    "analysis": "The requirement states the system shall be 'robust' against invalid input. 'Robust' is a subjective quality that does not define a measurable standard for success or failure, making the requirement untestable.",
+    "n_findings": 1,
+    "context": [
+      "TST-020",
+      "TST-005",
+      "TST-011"
+    ],
+    "prompt_tokens": 562,
+    "seconds": 0.737319928
+  },
+  {
+    "req_id": "TST-017",
+    "verdict": "defective",
+    "analysis": "The requirement TST-017 states that appointment confirmations shall be emailed in a 'timely manner'. The term 'timely manner' is vague and lacks a specific, measurable threshold, which falls under the AMB category. This is similar to TST-005 which uses 'promptly' without a defined time frame.",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-005",
+      "TST-003"
+    ],
+    "prompt_tokens": 570,
+    "seconds": 0.780768291
+  },
+  {
+    "req_id": "TST-018",
+    "verdict": "defective",
+    "analysis": "The requirement states that appointment fee waivers shall be approved, but it lacks any definition of what 'approved' means in a measurable or testable way. It does not specify the criteria, the process, or the expected outcome of the approval.",
+    "n_findings": 1,
+    "context": [
+      "TST-023",
+      "TST-017",
+      "TST-001"
+    ],
+    "prompt_tokens": 569,
+    "seconds": 0.863233137
+  },
+  {
+    "req_id": "TST-019",
+    "verdict": "defective",
+    "analysis": "The requirement specifies displaying the 'next three available time slots'. While it specifies a quantity ('three'), it does not define what 'next' means in terms of time (e.g., next 3 slots starting from now, or the next 3 slots available in the next week). This ambiguity needs clarification to ensure consistent testing.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-002",
+      "TST-013"
+    ],
+    "prompt_tokens": 593,
+    "seconds": 0.876334532
+  },
+  {
+    "req_id": "TST-020",
+    "verdict": "defective",
+    "analysis": "The requirement states that the log shall be 'easy to review.' This is a subjective quality that cannot be objectively tested, which falls under the UNT category. There are no other obvious defects.",
+    "n_findings": 1,
+    "context": [
+      "TST-021",
+      "TST-016",
+      "TST-005"
+    ],
+    "prompt_tokens": 564,
+    "seconds": 0.777240265
+  },
+  {
+    "req_id": "TST-021",
+    "verdict": "defective",
+    "analysis": "The requirement specifies that the system shall lock a patient account after 'several' failed login attempts. The term 'several' is a vague quantifier that lacks a specific threshold, making it ambiguous.",
+    "n_findings": 1,
+    "context": [
+      "TST-020",
+      "TST-015",
+      "TST-010"
+    ],
+    "prompt_tokens": 579,
+    "seconds": 0.62690394
+  },
+  {
+    "req_id": "TST-022",
+    "verdict": "defective",
+    "analysis": "The requirement specifies that appointment durations must be configurable per appointment type in 5-minute increments. While it mentions 'configurable per appointment type,' it does not specify *how* this configuration should occur (e.g., via an admin interface, API call, database entry), nor does it define the range or specific list of appointment types that are subject to this configuration. This suggests missing information regarding the mechanism or scope of the configuration.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-009",
+      "TST-002"
+    ],
+    "prompt_tokens": 597,
+    "seconds": 0.96341711
+  },
+  {
+    "req_id": "TST-023",
+    "verdict": "defective",
+    "analysis": "The requirement states that clinicians can override bookings only for urgent appointments. The term 'override' is used, but it is not defined in terms of what the override entails (e.g., change status, reschedule, delete). This lack of definition makes it difficult to determine the expected outcome of the action, suggesting a GAP. The scope of 'only for appointments classified as urgent' is clear based on TST-024, but the action itself is not fully specified.",
+    "n_findings": 1,
+    "context": [
+      "TST-008",
+      "TST-001",
+      "TST-024"
+    ],
+    "prompt_tokens": 592,
+    "seconds": 1.030894898
+  },
+  {
+    "req_id": "TST-024",
+    "verdict": "clean",
+    "analysis": "The requirement defines when an appointment is classified as urgent based on the triage nurse assigning a priority level (1 or 2). This seems precise and testable based on the provided context. The terms 'priority level 1 or 2' are specific, and the action ('assigns it priority level 1 or 2') is observable. No ambiguity, untestability, or missing information is apparent.",
+    "n_findings": 0,
+    "context": [
+      "TST-023",
+      "TST-009",
+      "TST-001"
+    ],
+    "prompt_tokens": 601,
+    "seconds": 0.591590455
+  },
+  {
+    "req_id": "TST-025",
+    "verdict": "defective",
+    "analysis": "The requirement states that prescription refills must follow the pharmacy workflow. The term 'pharmacy workflow' is used without any definition or specification of what that workflow entails. This is a missing piece of information needed to write a concrete test case.",
+    "n_findings": 1,
+    "context": [
+      "TST-028",
+      "TST-026",
+      "TST-010"
+    ],
+    "prompt_tokens": 552,
+    "seconds": 0.694285805
+  },
+  {
+    "req_id": "TST-026",
+    "verdict": "defective",
+    "analysis": "The requirement is vague because it uses the subjective term 'major' without defining what constitutes a 'major' schedule change. This falls under the AMB category.",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-003",
+      "TST-008"
+    ],
+    "prompt_tokens": 579,
+    "seconds": 0.656964512
+  },
+  {
+    "req_id": "TST-027",
+    "verdict": "clean",
+    "analysis": "The requirement TST-027 is clear, precise, and testable. It specifies a condition (missing patient identifier), an action (reject booking request), and a specific expected outcome (return error code 400). There are no ambiguous terms, subjective qualities, or missing necessary information.",
+    "n_findings": 0,
+    "context": [
+      "TST-006",
+      "TST-023",
+      "TST-008"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 0.459953065
+  },
+  {
+    "req_id": "TST-028",
+    "verdict": "defective",
+    "analysis": "The requirement TST-028 contains subjective qualities ('intuitive') and a vague performance metric ('load quickly'). 'Intuitive' is a subjective quality, and 'load quickly' lacks a measurable threshold, triggering UNT and AMB respectively. Since UNT takes precedence over AMB, I will flag it as UNT first, and then flag the performance aspect as AMB.",
+    "n_findings": 2,
+    "context": [
+      "TST-006",
+      "TST-010",
+      "TST-001"
+    ],
+    "prompt_tokens": 566,
+    "seconds": 1.189383183
+  },
+  {
+    "req_id": "TST-029",
+    "verdict": "clean",
+    "analysis": "The requirement TST-029 specifies a technical standard (AES-256) for encryption at rest. This is a precise, measurable statement. It does not contain vague quantifiers, subjective qualities, or missing necessary information that would prevent testing against the stated standard.",
+    "n_findings": 0,
+    "context": [
+      "TST-015",
+      "TST-021",
+      "TST-010"
+    ],
+    "prompt_tokens": 576,
+    "seconds": 0.490374955
+  },
+  {
+    "req_id": "TST-030",
+    "verdict": "defective",
+    "analysis": "The requirement TST-030 states that the system shall notify the clinician by email when a patient cancels an appointment. The term 'in a timely manner' is not present, but the related requirement TST-017 uses the phrase 'in a timely manner' regarding email confirmations. Since TST-030 does not specify *when* the notification must occur, and 'timely' is a vague qualifier, this constitutes an AMB finding. The system needs a defined threshold for 'timely' notification.",
+    "n_findings": 1,
+    "context": [
+      "TST-004",
+      "TST-008",
+      "TST-017"
+    ],
+    "prompt_tokens": 578,
+    "seconds": 1.052531562
+  }
+]

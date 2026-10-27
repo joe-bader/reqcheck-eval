@@ -1,0 +1,392 @@
+[
+  {
+    "req_id": "TST-001",
+    "verdict": "defective",
+    "analysis": "The requirement TST-001 is ambiguous because it does not specify what constitutes an 'available time slot' or how the system determines availability. It relies on other requirements (TST-002, TST-019, TST-013) for definitions, but the lack of explicit criteria for availability introduces ambiguity.",
+    "n_findings": 1,
+    "context": [
+      "TST-002",
+      "TST-019",
+      "TST-013"
+    ],
+    "prompt_tokens": 582,
+    "seconds": 4.736311936
+  },
+  {
+    "req_id": "TST-002",
+    "verdict": "defective",
+    "analysis": "The requirement TST-002 is ambiguous because it defines what constitutes an 'available' time slot but does not specify how to determine overlap or what constitutes an overlap. This leads to multiple interpretations of the same term, making it difficult to test without additional clarification.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-019",
+      "TST-008"
+    ],
+    "prompt_tokens": 584,
+    "seconds": 1.304738566
+  },
+  {
+    "req_id": "TST-003",
+    "verdict": "clean",
+    "analysis": "The requirement TST-003 is precise and testable as written. It specifies a measurable action (send a reminder SMS), a time frame (24 hours before the appointment start time), and a recipient (the patient). There are no ambiguous terms, untestable subjective qualities, or missing information that would prevent a tester from determining expected outcomes.",
+    "n_findings": 0,
+    "context": [
+      "TST-004",
+      "TST-009",
+      "TST-030"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 0.787915073
+  },
+  {
+    "req_id": "TST-004",
+    "verdict": "defective",
+    "analysis": "The requirement TST-004 is generally clear and testable. However, it lacks a definition for the term 'able to cancel,' which could be interpreted in different ways. Additionally, the requirement does not specify what happens if a patient cancels an appointment outside the 2-hour window, which is a missing information issue.",
+    "n_findings": 2,
+    "context": [
+      "TST-030",
+      "TST-003",
+      "TST-009"
+    ],
+    "prompt_tokens": 587,
+    "seconds": 1.989005221
+  },
+  {
+    "req_id": "TST-005",
+    "verdict": "defective",
+    "analysis": "The requirement TST-005 is ambiguous due to the use of the vague term 'promptly' without a defined threshold. This makes it unclear what constitutes a timely response, leading to potential misinterpretation by different testers.",
+    "n_findings": 1,
+    "context": [
+      "TST-017",
+      "TST-007",
+      "TST-001"
+    ],
+    "prompt_tokens": 557,
+    "seconds": 1.07472106
+  },
+  {
+    "req_id": "TST-006",
+    "verdict": "defective",
+    "analysis": "The requirement TST-006 contains subjective qualities that cannot be objectively tested. The terms 'seamless' and 'delightful' are vague and lack measurable criteria, making it impossible to determine a pass/fail outcome. This falls under the AMB category because the requirement names something measurable but lacks a definition or threshold.",
+    "n_findings": 1,
+    "context": [
+      "TST-028",
+      "TST-023",
+      "TST-027"
+    ],
+    "prompt_tokens": 566,
+    "seconds": 1.382813113
+  },
+  {
+    "req_id": "TST-007",
+    "verdict": "defective",
+    "analysis": "The requirement TST-007 is ambiguous because it refers to a measurable concept ('retention period') without specifying what that period is. This creates uncertainty about the expected outcome and makes it difficult to determine when the requirement is satisfied.",
+    "n_findings": 1,
+    "context": [
+      "TST-005",
+      "TST-017",
+      "TST-010"
+    ],
+    "prompt_tokens": 545,
+    "seconds": 1.125308351
+  },
+  {
+    "req_id": "TST-008",
+    "verdict": "defective",
+    "analysis": "The requirement is generally clear and testable. It specifies a measurable condition (preventing bookings during leave periods) and defines a clear outcome (no new bookings). However, it lacks a definition for 'leave' and does not specify how the system determines when a clinician has marked a period as leave. This introduces ambiguity and a gap in the requirement.",
+    "n_findings": 2,
+    "context": [
+      "TST-001",
+      "TST-023",
+      "TST-030"
+    ],
+    "prompt_tokens": 579,
+    "seconds": 2.087400776
+  },
+  {
+    "req_id": "TST-009",
+    "verdict": "defective",
+    "analysis": "The requirement TST-009 is ambiguous due to the use of the term 'may' and the lack of a clear definition for what constitutes a 'no-show' and how the receptionist is expected to handle the situation. The requirement does not specify the exact conditions under which the receptionist should mark the appointment as a no-show, nor does it define the process or outcome of marking it as a no-show. This leads to potential misinterpretation and lack of testability.",
+    "n_findings": 3,
+    "context": [
+      "TST-004",
+      "TST-003",
+      "TST-001"
+    ],
+    "prompt_tokens": 591,
+    "seconds": 2.89435862
+  },
+  {
+    "req_id": "TST-010",
+    "verdict": "defective",
+    "analysis": "The requirement TST-010 is flagged as UNT (untestable) because it states an unbounded absolute ('always') with no observable outcome. There is no measurable definition of 'availability' or a threshold for when the system is considered unavailable. This makes it impossible to determine a pass/fail result objectively.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-012",
+      "TST-005"
+    ],
+    "prompt_tokens": 556,
+    "seconds": 1.333962654
+  },
+  {
+    "req_id": "TST-011",
+    "verdict": "defective",
+    "analysis": "The requirement TST-011 is ambiguous because it uses the vague quantifier 'large number' without specifying a threshold. This makes it unclear what constitutes a 'large number' of concurrent users, leading to potential misinterpretation.",
+    "n_findings": 1,
+    "context": [
+      "TST-010",
+      "TST-016",
+      "TST-020"
+    ],
+    "prompt_tokens": 550,
+    "seconds": 1.105738347
+  },
+  {
+    "req_id": "TST-012",
+    "verdict": "defective",
+    "analysis": "The requirement TST-012 is ambiguous because it does not specify what constitutes a 'visit invoice' or under what conditions the invoice should be sent. The term 'visit invoice' is not defined, and there is no clarity on the process or timing for sending the invoice to the insurer. This creates a situation where different testers might interpret the requirement differently.",
+    "n_findings": 1,
+    "context": [
+      "TST-010",
+      "TST-001",
+      "TST-005"
+    ],
+    "prompt_tokens": 556,
+    "seconds": 1.558600554
+  },
+  {
+    "req_id": "TST-013",
+    "verdict": "clean",
+    "analysis": "The requirement TST-013 is precise and testable as written. It specifies a clear action (store in UTC, display in local time zone) without ambiguity, subjectivity, or missing information. There are no vague terms, unbounded absolutes, or undefined terms that would trigger a defect.",
+    "n_findings": 0,
+    "context": [
+      "TST-001",
+      "TST-019",
+      "TST-003"
+    ],
+    "prompt_tokens": 583,
+    "seconds": 0.701494777
+  },
+  {
+    "req_id": "TST-014",
+    "verdict": "defective",
+    "analysis": "The requirement TST-014 contains ambiguity due to the vague phrase 'when they grow too big.' This lacks a specific threshold or definition for what constitutes 'too big.' The requirement also lacks a clear definition of the 'agreed format,' which is referenced but not defined elsewhere in the related requirements.",
+    "n_findings": 2,
+    "context": [
+      "TST-020",
+      "TST-017",
+      "TST-007"
+    ],
+    "prompt_tokens": 559,
+    "seconds": 1.797206971
+  },
+  {
+    "req_id": "TST-015",
+    "verdict": "defective",
+    "analysis": "The requirement TST-015 is generally clear and testable, but it contains an ambiguity regarding the definition of 'one-time code'. While the minimum password length is specified, the nature and mechanism of the one-time code are not clearly defined, which could lead to different interpretations.",
+    "n_findings": 1,
+    "context": [
+      "TST-029",
+      "TST-021",
+      "TST-001"
+    ],
+    "prompt_tokens": 575,
+    "seconds": 1.275748945
+  },
+  {
+    "req_id": "TST-016",
+    "verdict": "defective",
+    "analysis": "The requirement TST-016 is subjective and lacks a measurable definition of what constitutes 'robustness' against invalid input. It does not specify thresholds, behaviors, or measurable outcomes, making it untestable and ambiguous.",
+    "n_findings": 1,
+    "context": [
+      "TST-020",
+      "TST-005",
+      "TST-011"
+    ],
+    "prompt_tokens": 550,
+    "seconds": 1.137961521
+  },
+  {
+    "req_id": "TST-017",
+    "verdict": "defective",
+    "analysis": "The requirement TST-017 is ambiguous because it uses the vague term 'in a timely manner' without defining what constitutes a 'timely' response. This makes it difficult to determine the exact expected behavior or threshold for timeliness. The requirement lacks a measurable definition, which is necessary for testing.",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-005",
+      "TST-003"
+    ],
+    "prompt_tokens": 561,
+    "seconds": 1.274446182
+  },
+  {
+    "req_id": "TST-018",
+    "verdict": "defective",
+    "analysis": "The requirement TST-018 is ambiguous because it states that 'appointment fee waivers shall be approved' without specifying under what conditions, by whom, or how the approval process works. This creates a lack of clarity about the scope and criteria for approval.",
+    "n_findings": 1,
+    "context": [
+      "TST-023",
+      "TST-017",
+      "TST-001"
+    ],
+    "prompt_tokens": 559,
+    "seconds": 1.350588316
+  },
+  {
+    "req_id": "TST-019",
+    "verdict": "defective",
+    "analysis": "The requirement TST-019 is ambiguous because it does not specify what constitutes an 'available time slot' or how the system should determine which time slots to display. The term 'next three available time slots' lacks a clear definition and measurable criteria, making it difficult to test or implement consistently.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-002",
+      "TST-013"
+    ],
+    "prompt_tokens": 582,
+    "seconds": 1.487591585
+  },
+  {
+    "req_id": "TST-020",
+    "verdict": "defective",
+    "analysis": "The requirement TST-020 contains ambiguity regarding what constitutes 'easy to review.' The term lacks a measurable definition or specific criteria, making it unclear what the system must achieve. This ambiguity prevents testers from determining whether the requirement is met or not.",
+    "n_findings": 1,
+    "context": [
+      "TST-021",
+      "TST-016",
+      "TST-005"
+    ],
+    "prompt_tokens": 552,
+    "seconds": 1.189878707
+  },
+  {
+    "req_id": "TST-021",
+    "verdict": "defective",
+    "analysis": "The requirement TST-021 is ambiguous because it lacks a specific definition of what constitutes 'several failed login attempts'. This creates uncertainty about the exact threshold that should be used to trigger the account lock. The term 'several' is vague and does not provide a measurable value or list, making it difficult to test or implement consistently.",
+    "n_findings": 1,
+    "context": [
+      "TST-020",
+      "TST-015",
+      "TST-010"
+    ],
+    "prompt_tokens": 566,
+    "seconds": 1.227195131
+  },
+  {
+    "req_id": "TST-022",
+    "verdict": "defective",
+    "analysis": "The requirement TST-022 is ambiguous because it mentions 'configurable per appointment type in 5-minute increments' without specifying the exact range of durations or the method of configuration. This leaves room for different interpretations about what constitutes a valid duration and how the configuration is performed.",
+    "n_findings": 1,
+    "context": [
+      "TST-001",
+      "TST-009",
+      "TST-002"
+    ],
+    "prompt_tokens": 586,
+    "seconds": 1.325214798
+  },
+  {
+    "req_id": "TST-023",
+    "verdict": "defective",
+    "analysis": "The requirement TST-023 is ambiguous because it refers to 'override a booking' without defining what constitutes an override, how it is performed, or under what conditions it can be done. The term 'override' is not clearly defined, and the requirement lacks specific criteria for when or how the override can occur. This ambiguity makes it difficult to determine the exact behavior expected from the system.",
+    "n_findings": 1,
+    "context": [
+      "TST-008",
+      "TST-001",
+      "TST-024"
+    ],
+    "prompt_tokens": 584,
+    "seconds": 1.689746187
+  },
+  {
+    "req_id": "TST-024",
+    "verdict": "defective",
+    "analysis": "The requirement TST-024 is ambiguous because it defines a classification criterion but does not specify what priority levels 1 or 2 mean. This creates a gap in understanding the exact conditions under which an appointment is considered urgent. The term 'priority level 1 or 2' is not defined elsewhere in the related requirements, making it unclear what constitutes an urgent appointment.",
+    "n_findings": 2,
+    "context": [
+      "TST-023",
+      "TST-009",
+      "TST-001"
+    ],
+    "prompt_tokens": 591,
+    "seconds": 1.880393293
+  },
+  {
+    "req_id": "TST-025",
+    "verdict": "defective",
+    "analysis": "The requirement TST-025 is ambiguous because it refers to 'pharmacy workflow' without defining what that entails. There is no measurable outcome or specific behavior described, making it difficult to determine what 'follow' means in this context. This ambiguity prevents testers from knowing what to check or how to verify compliance.",
+    "n_findings": 1,
+    "context": [
+      "TST-028",
+      "TST-026",
+      "TST-010"
+    ],
+    "prompt_tokens": 541,
+    "seconds": 1.291646008
+  },
+  {
+    "req_id": "TST-026",
+    "verdict": "defective",
+    "analysis": "The requirement TST-026 is ambiguous because it uses the term 'major schedule changes' without defining what constitutes a 'major' change. This leads to different interpretations of what needs to be notified, making it difficult to test or implement consistently.",
+    "n_findings": 1,
+    "context": [
+      "TST-030",
+      "TST-003",
+      "TST-008"
+    ],
+    "prompt_tokens": 571,
+    "seconds": 1.105043873
+  },
+  {
+    "req_id": "TST-027",
+    "verdict": "clean",
+    "analysis": "The requirement is precise and testable as written. It specifies a measurable action (reject booking request without patient identifier) and a defined outcome (return error code 400). There are no ambiguous terms, untestable subjective qualities, or missing information that would require further clarification.",
+    "n_findings": 0,
+    "context": [
+      "TST-006",
+      "TST-023",
+      "TST-008"
+    ],
+    "prompt_tokens": 577,
+    "seconds": 0.658360193
+  },
+  {
+    "req_id": "TST-028",
+    "verdict": "defective",
+    "analysis": "The requirement TST-028 contains ambiguous terms that lack measurable definitions. 'Intuitive' and 'load quickly' are subjective and do not specify thresholds or criteria for evaluation, making it difficult to determine what constitutes a pass or fail scenario.",
+    "n_findings": 1,
+    "context": [
+      "TST-006",
+      "TST-010",
+      "TST-001"
+    ],
+    "prompt_tokens": 555,
+    "seconds": 1.172891907
+  },
+  {
+    "req_id": "TST-029",
+    "verdict": "clean",
+    "analysis": "The requirement TST-029 is precise and testable as written. It specifies a clear encryption standard (AES-256) and a measurable action (encrypting patient records at rest). There are no ambiguous terms, untestable subjective qualities, or missing information that would require further clarification.",
+    "n_findings": 0,
+    "context": [
+      "TST-015",
+      "TST-021",
+      "TST-010"
+    ],
+    "prompt_tokens": 563,
+    "seconds": 0.69933525
+  },
+  {
+    "req_id": "TST-030",
+    "verdict": "clean",
+    "analysis": "The requirement TST-030 is **testable** and **precise** as written. It specifies a measurable action (notify the clinician by email) and a condition (when a patient cancels an appointment). There is no ambiguity, untestable quality, or missing information that would prevent testing. The requirement is clear and actionable.",
+    "n_findings": 0,
+    "context": [
+      "TST-004",
+      "TST-008",
+      "TST-017"
+    ],
+    "prompt_tokens": 571,
+    "seconds": 0.776589104
+  }
+]

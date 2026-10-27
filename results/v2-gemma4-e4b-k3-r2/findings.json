@@ -1,0 +1,112 @@
+{
+  "findings": [
+    {
+      "req_id": "REQ-004",
+      "category": "UNT",
+      "evidence": "quickly",
+      "suggested_fix": "Replace 'quickly' with a specific, measurable time limit (e.g., 'within 2 seconds')."
+    },
+    {
+      "req_id": "REQ-005",
+      "category": "UNT",
+      "evidence": "user-friendly and intuitive",
+      "suggested_fix": "Define measurable criteria for user-friendliness and intuitiveness (e.g., 'The system shall achieve a System Usability Scale (SUS) score of 80 or higher in user acceptance testing')."
+    },
+    {
+      "req_id": "REQ-006",
+      "category": "AMB",
+      "evidence": "standard timeout",
+      "suggested_fix": "Define the specific duration of the standard timeout (e.g., 'Exported reports shall use a standard timeout of 15 minutes when generation takes too long')."
+    },
+    {
+      "req_id": "REQ-008",
+      "category": "UNT",
+      "evidence": "as appropriate",
+      "suggested_fix": "Define the specific conditions or criteria that mandate account deactivation (e.g., 'Administrators shall be able to deactivate user accounts if the account has not been logged in for 90 days')."
+    },
+    {
+      "req_id": "REQ-010",
+      "category": "UNT",
+      "evidence": "gracefully",
+      "suggested_fix": "Define specific behaviors for error handling (e.g., 'The system shall display an error message to the user detailing the error code and suggest a resolution' or 'The system shall log all errors to the administrative console')."
+    },
+    {
+      "req_id": "REQ-012",
+      "category": "AMB",
+      "evidence": "using a link sent to their registered email address",
+      "suggested_fix": "Specify the validity period for the password reset link (e.g., 'using a link valid for 15 minutes')."
+    },
+    {
+      "req_id": "REQ-013",
+      "category": "AMB",
+      "evidence": "all major web browsers",
+      "suggested_fix": "Specify a definitive list of supported browsers (e.g., Chrome (latest 2 versions), Firefox (latest 2 versions), Safari (latest 2 versions), Edge (latest 2 versions))."
+    },
+    {
+      "req_id": "REQ-014",
+      "category": "AMB",
+      "evidence": "calculate sales tax at checkout based on the shipping address",
+      "suggested_fix": "Specify the tax calculation logic, such as 'calculate sales tax using the current state/province tax rate database' or 'calculate sales tax at a rate of X%.'"
+    },
+    {
+      "req_id": "REQ-016",
+      "category": "GAP",
+      "evidence": "notify the user of the result",
+      "suggested_fix": "Specify the mechanism and content of the notification (e.g., 'notify the user via an on-screen message displaying the transaction ID and status')."
+    },
+    {
+      "req_id": "REQ-017",
+      "category": "AMB",
+      "evidence": "sorted by relevance",
+      "suggested_fix": "Define a measurable metric or algorithm for 'relevance' (e.g., relevance score based on keyword match percentage, or a specific ranking algorithm)."
+    },
+    {
+      "req_id": "REQ-018",
+      "category": "AMB",
+      "evidence": "highly available",
+      "suggested_fix": "Define a specific availability metric (e.g., 'The system shall maintain 99.99% uptime')."
+    },
+    {
+      "req_id": "REQ-019",
+      "category": "AMB",
+      "evidence": "at any time",
+      "suggested_fix": "Specify the exact conditions or time limits under which cancellation is permitted (e.g., 'within 1 hour of order placement' or 'before the order status changes to Processing')."
+    },
+    {
+      "req_id": "REQ-020",
+      "category": "AMB",
+      "evidence": "in a timely manner",
+      "suggested_fix": "Define a specific time limit for the update (e.g., 'within 5 seconds' or 'immediately')."
+    },
+    {
+      "req_id": "REQ-021",
+      "category": "AMB",
+      "evidence": "applicable data protection regulations",
+      "suggested_fix": "Specify the exact data protection regulations the system must comply with (e.g., GDPR, CCPA, HIPAA)."
+    },
+    {
+      "req_id": "REQ-022",
+      "category": "GAP",
+      "evidence": "payment error handling section",
+      "suggested_fix": "Specify the exact behavior for handling failed payment attempts (e.g., 'The system shall display error code XXX and allow the user to retry the payment up to three times')."
+    },
+    {
+      "req_id": "REQ-025",
+      "category": "AMB",
+      "evidence": "appropriately",
+      "suggested_fix": "Define the target dimensions or scaling factor for the resized photos (e.g., 'resized to a maximum dimension of 500x500 pixels')."
+    },
+    {
+      "req_id": "REQ-026",
+      "category": "AMB",
+      "evidence": "encrypt sensitive data",
+      "suggested_fix": "Specify the required encryption standard (e.g., AES-256) and algorithm to be used for sensitive data."
+    },
+    {
+      "req_id": "REQ-030",
+      "category": "UNT",
+      "evidence": "never",
+      "suggested_fix": "Define the acceptable data loss tolerance (e.g., 'The system shall ensure zero data loss during normal operation,' or specify recovery time objectives)."
+    }
+  ]
+}

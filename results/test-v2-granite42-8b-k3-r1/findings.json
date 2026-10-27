@@ -1,0 +1,172 @@
+{
+  "findings": [
+    {
+      "req_id": "TST-002",
+      "category": "AMB",
+      "evidence": "A time slot shall be considered available if no other appointment for the same clinician overlaps it.",
+      "suggested_fix": "Define overlap for time slots (e.g., two appointments overlap if their intervals intersect in any way, excluding back-to-back slots that touch only at the boundary)."
+    },
+    {
+      "req_id": "TST-004",
+      "category": "AMB",
+      "evidence": "up to 2 hours",
+      "suggested_fix": "Specify whether the cancellation deadline is inclusive (e.g., patients may cancel up to and including 2 hours before start time) or exclusive (e.g., patients may cancel no later than 2 hours before start time). Provide a clear boundary definition, e.g., 'Patients may cancel an appointment no later than 2 hours before the scheduled start time.' or 'Patients may cancel an appointment at any time up to 2 hours prior to the start time.' Choose one and use consistent wording."
+    },
+    {
+      "req_id": "TST-005",
+      "category": "AMB",
+      "evidence": "promptly",
+      "suggested_fix": "Define a measurable response time threshold (e.g., \u2264 2 seconds for 95% of searches)."
+    },
+    {
+      "req_id": "TST-006",
+      "category": "AMB",
+      "evidence": "seamless",
+      "suggested_fix": "Define 'seamless' as e.g., 'no more than two steps to complete booking, all fields pre-filled where possible, error messages clear.'"
+    },
+    {
+      "req_id": "TST-006",
+      "category": "UNT",
+      "evidence": "seamless and delightful",
+      "suggested_fix": "Define objective criteria, e.g., patient satisfaction \u226580% in post-booking survey, and measurable steps (\u22642 steps, \u2264X seconds load)."
+    },
+    {
+      "req_id": "TST-007",
+      "category": "GAP",
+      "evidence": "The system shall retain appointment records for the required retention period.",
+      "suggested_fix": "Define the required retention period (e.g., retain records for 7 years per HIPAA, or per internal policy X)."
+    },
+    {
+      "req_id": "TST-008",
+      "category": "GAP",
+      "evidence": "any period the clinician has marked as leave",
+      "suggested_fix": "Define what constitutes a leave period (e.g., start date/time and end date/time fields, or a status flag with validation rules)."
+    },
+    {
+      "req_id": "TST-009",
+      "category": "GAP",
+      "evidence": "If a patient does not arrive within 15 minutes of the start time, the receptionist may mark the appointment as a no-show.",
+      "suggested_fix": "Define what 'mark as no-show' means (e.g., set appointment status to 'no-show' in the system)."
+    },
+    {
+      "req_id": "TST-010",
+      "category": "UNT",
+      "evidence": "always",
+      "suggested_fix": "Define availability as uptime \u2265 99.9% over a rolling 30-day period, or maximum allowable downtime of X minutes per month."
+    },
+    {
+      "req_id": "TST-011",
+      "category": "AMB",
+      "evidence": "large number of concurrent users",
+      "suggested_fix": "Define a specific number or range (e.g., support 1,000 concurrent users under normal operating conditions)."
+    },
+    {
+      "req_id": "TST-012",
+      "category": "AMB",
+      "evidence": "The system shall send the visit invoice to the patient's insurer.",
+      "suggested_fix": "Define the insurer(s) (e.g., the patient's primary payer insurer), the method of sending (e.g., via the secure billing API), the timing (e.g., within 24 hours of visit completion), and the required content (e.g., include visit date, CPT codes, amount)."
+    },
+    {
+      "req_id": "TST-013",
+      "category": "AMB",
+      "evidence": "clinic's local time zone",
+      "suggested_fix": "Define the clinic's local time zone as the IANA time zone identifier (e.g., 'America/New_York') associated with each clinic entity, stored in the clinic record. The system shall use this identifier to convert stored UTC appointment times to local time for display, applying daylight saving time rules as per the IANA database."
+    },
+    {
+      "req_id": "TST-014",
+      "category": "AMB",
+      "evidence": "grow too big",
+      "suggested_fix": "Define a specific size threshold (e.g., when the audit log reaches 10,000 records or 5 MB) at which export using the agreed format shall occur."
+    },
+    {
+      "req_id": "TST-015",
+      "category": "AMB",
+      "evidence": "one-time code",
+      "suggested_fix": "Define the type of one-time code (e.g., 6-digit numeric code delivered via SMS or authenticator app, expires in 5 minutes)."
+    },
+    {
+      "req_id": "TST-016",
+      "category": "UNT",
+      "evidence": "The system shall be robust against invalid input.",
+      "suggested_fix": "Define what 'robust' means in this context (e.g., the system shall not crash, shall return a consistent error message, and shall maintain performance within X% degradation when receiving invalid input)."
+    },
+    {
+      "req_id": "TST-017",
+      "category": "AMB",
+      "evidence": "timely manner",
+      "suggested_fix": "Email appointment confirmations within 15 minutes of appointment confirmation creation."
+    },
+    {
+      "req_id": "TST-018",
+      "category": "GAP",
+      "evidence": "Appointment fee waivers shall be approved.",
+      "suggested_fix": "Define who must approve fee waivers (e.g., a designated clinical officer or finance manager) and what constitutes approval (e.g., entry in system with status 'approved', email notification, documented decision). Also define under what circumstances fee waivers are considered (e.g., eligible patients, reason codes). If the requirement is about the system allowing approval, specify the workflow steps."
+    },
+    {
+      "req_id": "TST-019",
+      "category": "AMB",
+      "evidence": "next three available time slots",
+      "suggested_fix": "Define 'next' relative to current time (e.g., the three earliest available time slots that start after the current time)."
+    },
+    {
+      "req_id": "TST-020",
+      "category": "AMB",
+      "evidence": "the log shall be easy to review",
+      "suggested_fix": "Define what 'easy to review' means, e.g., 'The log shall allow a reviewer to locate any login attempt within 30 seconds using no more than two clicks, and shall present entries in chronological order with clear fields.' Or simpler: 'The log shall be searchable by date/time and user ID, and shall display entries in a clear, consistent format.' Provide a measurable or testable criterion."
+    },
+    {
+      "req_id": "TST-021",
+      "category": "AMB",
+      "evidence": "several failed login attempts",
+      "suggested_fix": "Specify the exact number of failed login attempts after which the patient account is locked (e.g., 5 failed attempts)."
+    },
+    {
+      "req_id": "TST-022",
+      "category": "GAP",
+      "evidence": "\"Appointment durations shall be configurable per appointment type in 5-minute increments.\", ",
+      "suggested_fix": "Define 'appointment type' (e.g., list of types or reference to existing types) and specify the actor(s) allowed to configure the duration (e.g., system administrators)."
+    },
+    {
+      "req_id": "TST-023",
+      "category": "AMB",
+      "evidence": "Clinicians shall be able to override a booking only for appointments classified as urgent.",
+      "suggested_fix": "Define 'override a booking' precisely (e.g., 'override the system-generated prevention of new bookings for a clinician during their leave period') and explicitly reference the urgent classification per TST-024."
+    },
+    {
+      "req_id": "TST-024",
+      "category": "AMB",
+      "evidence": "priority level 1 or 2",
+      "suggested_fix": "Define priority level 1 and priority level 2 (e.g., level 1 = highest priority, level 2 = second highest priority) or provide a list of all priority levels and indicate which are urgent."
+    },
+    {
+      "req_id": "TST-025",
+      "category": "GAP",
+      "evidence": "Prescription refills shall follow the pharmacy workflow.",
+      "suggested_fix": "Define 'pharmacy workflow' or reference the exact workflow steps (e.g., request \u2192 verification \u2192 dispensing \u2192 notification)."
+    },
+    {
+      "req_id": "TST-026",
+      "category": "AMB",
+      "evidence": "major schedule changes",
+      "suggested_fix": "Define what qualifies as a major schedule change (e.g., any schedule change that alters the appointment date/time by more than 48 hours or changes the assigned clinician)."
+    },
+    {
+      "req_id": "TST-028",
+      "category": "AMB",
+      "evidence": "intuitive",
+      "suggested_fix": "Define intuitive as e.g., \"90% of first-time users can complete a typical task (e.g., book an appointment) without assistance or error on first try, based on a usability test with \u22655 users.\""
+    },
+    {
+      "req_id": "TST-028",
+      "category": "AMB",
+      "evidence": "quickly",
+      "suggested_fix": "Define quickly as e.g., \"Page load time \u22642 seconds for 95% of loads under normal network conditions (measured using Lighthouse or equivalent tool).\""
+    },
+    {
+      "req_id": "TST-030",
+      "category": "AMB",
+      "evidence": "when a patient cancels an appointment",
+      "suggested_fix": "when a patient cancels an appointment within 2 hours of its start time"
+    }
+  ]
+}

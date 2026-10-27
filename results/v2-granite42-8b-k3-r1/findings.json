@@ -1,0 +1,142 @@
+{
+  "findings": [
+    {
+      "req_id": "REQ-004",
+      "category": "AMB",
+      "evidence": "Search results should be returned quickly.",
+      "suggested_fix": "Search results should be returned within 2 seconds for 95th percentile load time, consistent with REQ-028."
+    },
+    {
+      "req_id": "REQ-005",
+      "category": "UNT",
+      "evidence": "The system shall be user-friendly and intuitive.",
+      "suggested_fix": "Define measurable criteria, e.g., at least 85% of users complete a typical task on first attempt without assistance, or achieve a task success rate of X% in usability testing."
+    },
+    {
+      "req_id": "REQ-006",
+      "category": "AMB",
+      "evidence": "standard timeout",
+      "suggested_fix": "Define the exact timeout value (e.g., 5 minutes) or reference the exact timeout defined in REQ-029."
+    },
+    {
+      "req_id": "REQ-006",
+      "category": "AMB",
+      "evidence": "when generation takes too long",
+      "suggested_fix": "Define a concrete threshold (e.g., if report generation exceeds X seconds/minutes, then apply the standard timeout)."
+    },
+    {
+      "req_id": "REQ-007",
+      "category": "GAP",
+      "evidence": "The system shall send a confirmation email within 60 seconds of order placement.",
+      "suggested_fix": "Define what a confirmation email includes (e.g., order number, itemized total, estimated delivery date, possibly reference to REQ-011)."
+    },
+    {
+      "req_id": "REQ-008",
+      "category": "AMB",
+      "evidence": "as appropriate",
+      "suggested_fix": "Define criteria for when administrators may deactivate user accounts (e.g., user violates policy, account compromised, inactive for >30 days, admin request approved)."
+    },
+    {
+      "req_id": "REQ-009",
+      "category": "AMB",
+      "evidence": "All passwords shall be stored using a salted hash.",
+      "suggested_fix": "Specify the hash algorithm (e.g., bcrypt version 2.x with default cost), the salt generation method (e.g., cryptographically random 16 bytes), and the iteration count if not part of the algorithm. Example: 'Passwords shall be stored as a bcrypt hash with a randomly generated salt.' Or 'Passwords shall be stored using SHA-256 with a per-user random salt of 16 bytes.' Choose one standard approach."
+    },
+    {
+      "req_id": "REQ-010",
+      "category": "UNT",
+      "evidence": "The system shall handle errors gracefully.",
+      "suggested_fix": "Define what 'gracefully' means for error handling, e.g., 'When an error occurs, the system shall display a clear error message to the user, preserve user input, and continue operation or allow recovery without crashing.' Provide specific criteria (e.g., no crash, user can retry, error message is understandable)."
+    },
+    {
+      "req_id": "REQ-012",
+      "category": "AMB",
+      "evidence": "Users should be able to reset their password using a link sent to their registered email address.",
+      "suggested_fix": "Specify the maximum validity period (e.g., the password reset link expires after 24 hours)."
+    },
+    {
+      "req_id": "REQ-013",
+      "category": "AMB",
+      "evidence": "support all major web browsers",
+      "suggested_fix": "Specify the list of browsers (e.g., Chrome, Firefox, Safari, Edge on desktop; iOS Safari and Android Chrome on mobile) or define 'major' with a threshold (e.g., browsers with >5% global market share)."
+    },
+    {
+      "req_id": "REQ-015",
+      "category": "GAP",
+      "evidence": "Order history shall be retained for 7 years.",
+      "suggested_fix": "Define 'order history' (e.g., all fields of an order record), specify storage location (e.g., persistent database table), and define post-retention action (e.g., archive to cold storage or delete after 7 years with audit log). Also specify responsible party (e.g., data management team)."
+    },
+    {
+      "req_id": "REQ-016",
+      "category": "AMB",
+      "evidence": "notify the user of the result",
+      "suggested_fix": "Define what constitutes the result (e.g., success, failure, pending) and specify the notification channel (e.g., email, in-app message) or reference existing notification standard."
+    },
+    {
+      "req_id": "REQ-017",
+      "category": "AMB",
+      "evidence": "shall be sorted by relevance",
+      "suggested_fix": "Define 'relevance' explicitly, e.g., 'sorted primarily by a match score calculated from query terms, then by product rating, then alphabetically by product name for ties.' Or list the criteria: relevance = exact term match > partial match > product rating > price."
+    },
+    {
+      "req_id": "REQ-018",
+      "category": "AMB",
+      "evidence": "highly available",
+      "suggested_fix": "Define availability target (e.g., 99.9% uptime over a rolling 30-day period)."
+    },
+    {
+      "req_id": "REQ-020",
+      "category": "AMB",
+      "evidence": "timely",
+      "suggested_fix": "updated within 5 minutes of sale completion"
+    },
+    {
+      "req_id": "REQ-021",
+      "category": "GAP",
+      "evidence": "The system shall comply with applicable data protection regulations.",
+      "suggested_fix": "Specify the exact regulations (e.g., GDPR, CCPA, HIPAA as applicable) and define compliance criteria (e.g., encryption of personal data at rest, data subject rights implementation) or reference a compliance checklist with measurable criteria."
+    },
+    {
+      "req_id": "REQ-022",
+      "category": "GAP",
+      "evidence": "Failed payment attempts shall be handled as described in the payment error handling section.",
+      "suggested_fix": "Include the content of the payment error handling section directly in REQ-022 or reference it by ID within the same document set."
+    },
+    {
+      "req_id": "REQ-023",
+      "category": "AMB",
+      "evidence": "number of orders placed in the last 24 hours",
+      "suggested_fix": "Define what constitutes an 'order placed' for this metric (e.g., orders that have been successfully placed and confirmed per REQ-007/REQ-011, i.e., orders that have received a confirmation email)."
+    },
+    {
+      "req_id": "REQ-025",
+      "category": "AMB",
+      "evidence": "Uploaded photos shall be resized appropriately for display.",
+      "suggested_fix": "Define the target dimensions (e.g., max width 800px, max height 600px) and preserve aspect ratio; optionally specify quality (e.g., JPEG quality \u2264 85) and ensure no upscaling of small images."
+    },
+    {
+      "req_id": "REQ-026",
+      "category": "AMB",
+      "evidence": "sensitive data",
+      "suggested_fix": "Define which data types are considered sensitive (e.g., personal data, financial information, health records) or reference a standard/classification used by the system."
+    },
+    {
+      "req_id": "REQ-027",
+      "category": "GAP",
+      "evidence": "preserve the shopping cart contents for 30 days",
+      "suggested_fix": "Define how shopping cart contents are preserved (e.g., stored server-side linked to authenticated user account or temporary token that survives session expiry), specify what constitutes shopping cart contents (e.g., item IDs, quantities, promotion codes), and define expiration behavior (e.g., automatically purge after 30 days from creation or last activity). Also clarify if preservation applies only to users whose session expires or all users."
+    },
+    {
+      "req_id": "REQ-028",
+      "category": "AMB",
+      "evidence": "concurrent users",
+      "suggested_fix": "Define 'concurrent users' explicitly (e.g., number of active authenticated sessions or unique users with an active request at the same time)."
+    },
+    {
+      "req_id": "REQ-029",
+      "category": "AMB",
+      "evidence": "The admin console shall use the same inactivity timeout as user sessions.",
+      "suggested_fix": "The admin console shall use an inactivity timeout of 15 minutes, matching the user session timeout defined in REQ-003."
+    }
+  ]
+}

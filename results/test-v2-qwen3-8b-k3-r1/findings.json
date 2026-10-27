@@ -1,0 +1,190 @@
+{
+  "findings": [
+    {
+      "req_id": "TST-001",
+      "category": "AMB",
+      "evidence": "The system shall allow a patient to book an appointment with a clinician by selecting an available time slot.",
+      "suggested_fix": "Define 'available time slot' explicitly, e.g., 'An available time slot is one that does not overlap with any other appointment for the same clinician (as defined in TST-002).'"
+    },
+    {
+      "req_id": "TST-002",
+      "category": "AMB",
+      "evidence": "A time slot shall be considered available if no other appointment for the same clinician overlaps it.",
+      "suggested_fix": "Define what constitutes an overlap (e.g., time slot must not overlap by more than 5 minutes, or must not start before the previous ends)."
+    },
+    {
+      "req_id": "TST-004",
+      "category": "AMB",
+      "evidence": "Patients shall be able to cancel an appointment up to 2 hours before its start time.",
+      "suggested_fix": "Define 'able to cancel' as 'the system shall allow the patient to initiate a cancellation process through the interface.'"
+    },
+    {
+      "req_id": "TST-004",
+      "category": "GAP",
+      "evidence": "Patients shall be able to cancel an appointment up to 2 hours before its start time.",
+      "suggested_fix": "Specify the consequences of cancelling outside the 2-hour window, such as the appointment being marked as a no-show or the patient being charged a fee."
+    },
+    {
+      "req_id": "TST-005",
+      "category": "AMB",
+      "evidence": "The system shall respond to appointment searches promptly.",
+      "suggested_fix": "Define a specific time threshold, such as 'The system shall respond to appointment searches within 2 seconds.'"
+    },
+    {
+      "req_id": "TST-006",
+      "category": "AMB",
+      "evidence": "The booking page shall be seamless and delightful for patients.",
+      "suggested_fix": "Define what 'seamless' and 'delightful' mean in terms of user experience, such as response time thresholds, error rates, or specific UI guidelines."
+    },
+    {
+      "req_id": "TST-007",
+      "category": "AMB",
+      "evidence": "The system shall retain appointment records for the required retention period.",
+      "suggested_fix": "Define the retention period, e.g., 'The system shall retain appointment records for a minimum of 7 years.'"
+    },
+    {
+      "req_id": "TST-008",
+      "category": "AMB",
+      "evidence": "The system shall prevent new bookings for a clinician during any period the clinician has marked as leave.",
+      "suggested_fix": "Define 'leave' as a specific time period (e.g., start and end dates) marked by the clinician in the system."
+    },
+    {
+      "req_id": "TST-008",
+      "category": "GAP",
+      "evidence": "The system shall prevent new bookings for a clinician during any period the clinician has marked as leave.",
+      "suggested_fix": "Specify how the system identifies and tracks periods marked as leave by the clinician (e.g., through a leave calendar or status field)."
+    },
+    {
+      "req_id": "TST-009",
+      "category": "AMB",
+      "evidence": "the receptionist may mark the appointment as a no-show",
+      "suggested_fix": "Define the exact conditions under which the receptionist must mark the appointment as a no-show (e.g., 'if the patient does not arrive within 15 minutes and no contact is made')."
+    },
+    {
+      "req_id": "TST-009",
+      "category": "AMB",
+      "evidence": "If a patient does not arrive within 15 minutes of the start time",
+      "suggested_fix": "Define what constitutes 'not arriving' (e.g., no check-in, no contact, etc.) and whether this is a threshold or a continuous condition."
+    },
+    {
+      "req_id": "TST-009",
+      "category": "GAP",
+      "evidence": "the receptionist may mark the appointment as a no-show",
+      "suggested_fix": "Define the process for marking an appointment as a no-show, including any system actions, notifications, or updates to the patient's record."
+    },
+    {
+      "req_id": "TST-010",
+      "category": "UNT",
+      "evidence": "The system shall always be available to patients.",
+      "suggested_fix": "Define 'availability' with measurable thresholds (e.g., '99.9% uptime during business hours') and specify the conditions under which availability is considered compromised."
+    },
+    {
+      "req_id": "TST-011",
+      "category": "AMB",
+      "evidence": "The system shall support a large number of concurrent users.",
+      "suggested_fix": "Define a specific threshold, such as 'The system shall support at least 1000 concurrent users.'"
+    },
+    {
+      "req_id": "TST-012",
+      "category": "AMB",
+      "evidence": "The system shall send the visit invoice to the patient's insurer.",
+      "suggested_fix": "Define 'visit invoice' (e.g., as a document containing specific fields such as date, service, cost, and patient details) and specify the conditions under which it should be sent (e.g., after the visit is completed)."
+    },
+    {
+      "req_id": "TST-014",
+      "category": "AMB",
+      "evidence": "'when they grow too big' \u2014 vague quantifier with no threshold",
+      "suggested_fix": "Define a specific size threshold, e.g., 'when audit logs exceed 1 GB in size.'"
+    },
+    {
+      "req_id": "TST-014",
+      "category": "AMB",
+      "evidence": "'agreed format' \u2014 term referenced but not defined in related requirements",
+      "suggested_fix": "Define the format, e.g., 'CSV format with the following fields: timestamp, user, action, IP address.'"
+    },
+    {
+      "req_id": "TST-015",
+      "category": "AMB",
+      "evidence": "a one-time code",
+      "suggested_fix": "Define the one-time code as a time-based one-time password (TOTP) generated via an authentication app or SMS, with a 6-digit code valid for 30 seconds."
+    },
+    {
+      "req_id": "TST-016",
+      "category": "UNT",
+      "evidence": "The system shall be robust against invalid input.",
+      "suggested_fix": "Define 'robust' with specific behaviors, such as 'the system shall reject invalid input within 1 second and log an error message.'"
+    },
+    {
+      "req_id": "TST-017",
+      "category": "AMB",
+      "evidence": "Appointment confirmations shall be emailed in a timely manner.",
+      "suggested_fix": "Define 'timely manner' with a specific time threshold, e.g., 'within 1 hour of the appointment being confirmed'."
+    },
+    {
+      "req_id": "TST-018",
+      "category": "AMB",
+      "evidence": "Appointment fee waivers shall be approved.",
+      "suggested_fix": "Define the conditions, process, and responsible parties for approving fee waivers (e.g., 'Fee waivers shall be approved by an administrator for appointments classified as urgent, and the approval must be recorded in the system within 24 hours of request')."
+    },
+    {
+      "req_id": "TST-019",
+      "category": "AMB",
+      "evidence": "The system shall display the clinician's next three available time slots on the search results page.",
+      "suggested_fix": "Define what constitutes an 'available time slot' (e.g., based on TST-002) and specify whether 'next three' refers to chronological order, proximity to current time, or any other criteria."
+    },
+    {
+      "req_id": "TST-020",
+      "category": "AMB",
+      "evidence": "the log shall be easy to review",
+      "suggested_fix": "Define 'easy to review' with specific criteria, such as 'the log shall be searchable by date, user, and action type within 5 seconds.'"
+    },
+    {
+      "req_id": "TST-021",
+      "category": "AMB",
+      "evidence": "several failed login attempts",
+      "suggested_fix": "Define a specific number, such as '5 failed login attempts', to make the requirement measurable."
+    },
+    {
+      "req_id": "TST-022",
+      "category": "AMB",
+      "evidence": "Appointment durations shall be configurable per appointment type in 5-minute increments.",
+      "suggested_fix": "Define the range of allowable durations (e.g., 10 to 60 minutes) and specify the mechanism for configuration (e.g., admin panel, API)."
+    },
+    {
+      "req_id": "TST-023",
+      "category": "AMB",
+      "evidence": "Clinicians shall be able to override a booking only for appointments classified as urgent.",
+      "suggested_fix": "Define 'override a booking' (e.g., as a specific action such as 'cancel, reschedule, or modify an appointment') and specify the conditions under which the override is allowed (e.g., 'only if the clinician has administrative privileges')."
+    },
+    {
+      "req_id": "TST-024",
+      "category": "AMB",
+      "evidence": "priority level 1 or 2",
+      "suggested_fix": "Define priority levels 1 and 2 (e.g., 'Priority level 1: Life-threatening condition; Priority level 2: Severe but not life-threatening condition')"
+    },
+    {
+      "req_id": "TST-024",
+      "category": "GAP",
+      "evidence": "priority level 1 or 2",
+      "suggested_fix": "Define what priority levels 1 and 2 mean in the context of appointment classification"
+    },
+    {
+      "req_id": "TST-025",
+      "category": "AMB",
+      "evidence": "Prescription refills shall follow the pharmacy workflow.",
+      "suggested_fix": "Define 'pharmacy workflow' (e.g., as a specific sequence of steps, a documented process, or a set of defined actions)."
+    },
+    {
+      "req_id": "TST-026",
+      "category": "AMB",
+      "evidence": "Patients shall receive notifications for major schedule changes.",
+      "suggested_fix": "Define 'major schedule changes' (e.g., rescheduling, cancellation, or addition of appointments)."
+    },
+    {
+      "req_id": "TST-028",
+      "category": "AMB",
+      "evidence": "The patient portal shall be intuitive and load quickly.",
+      "suggested_fix": "Define 'intuitive' (e.g., as per usability standards) and specify 'load quickly' (e.g., within 2 seconds)."
+    }
+  ]
+}

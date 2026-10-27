@@ -1,0 +1,16 @@
+{
+  "data": "data/labeled/starter_v1.json",
+  "model": "granite4.2:8b",
+  "prompt": "v2",
+  "out": "results/v2-granite42-8b-k3-r2",
+  "k": 3,
+  "num_ctx": 8192,
+  "temperature": 0.0,
+  "seed": 0,
+  "think": false,
+  "limit": null,
+  "n_requirements": 30,
+  "wall_seconds": 150.4,
+  "verdict_findings_mismatch": 0,
+  "gpu_fraction": 1.0
+}

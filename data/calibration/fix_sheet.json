@@ -1,0 +1,185 @@
+{
+  "scale": "You grade suggested fixes for defective software requirements.\nScale:\n1 = wrong or unusable (does not address the defect, introduces new problems, or just restates the requirement)\n2 = right direction but vague or incomplete (names the problem, but a tester could still not write a definite pass/fail check)\n3 = concrete, correct and testable (specific value, definition, actor or condition that resolves the defect)\nJudge only the fix, against the defect category and quoted evidence.",
+  "items": [
+    {
+      "id": 0,
+      "req_id": "REQ-016",
+      "requirement": "The system shall process payments through the payment gateway and notify the user of the result.",
+      "category": "GAP",
+      "evidence": "notify the user of the result",
+      "suggested_fix": "Specify the mechanism and content of the notification (e.g., 'notify the user via an on-screen message displaying the transaction ID and status').",
+      "human_grade": null
+    },
+    {
+      "id": 1,
+      "req_id": "TST-010",
+      "requirement": "The system shall always be available to patients.",
+      "category": "UNT",
+      "evidence": "always",
+      "suggested_fix": "Replace 'always' with specific uptime requirements (e.g., 'The system shall maintain 99.9% uptime during business hours').",
+      "human_grade": null
+    },
+    {
+      "id": 2,
+      "req_id": "REQ-030",
+      "requirement": "The system shall never lose customer data.",
+      "category": "UNT",
+      "evidence": "never",
+      "suggested_fix": "Define the acceptable data loss tolerance (e.g., 'The system shall ensure zero data loss during normal operation,' or specify recovery time objectives).",
+      "human_grade": null
+    },
+    {
+      "id": 3,
+      "req_id": "TST-014",
+      "requirement": "Audit logs shall be exported using the agreed format when they grow too big.",
+      "category": "AMB",
+      "evidence": "grow too big",
+      "suggested_fix": "Define a specific size threshold (e.g., 'when the log file size exceeds 100MB').",
+      "human_grade": null
+    },
+    {
+      "id": 4,
+      "req_id": "REQ-018",
+      "requirement": "The system shall be highly available.",
+      "category": "AMB",
+      "evidence": "highly available",
+      "suggested_fix": "Define a specific availability metric (e.g., 'The system shall maintain 99.99% uptime').",
+      "human_grade": null
+    },
+    {
+      "id": 5,
+      "req_id": "REQ-005",
+      "requirement": "The system shall be user-friendly and intuitive.",
+      "category": "UNT",
+      "evidence": "user-friendly and intuitive",
+      "suggested_fix": "Define measurable criteria for user-friendliness and intuitiveness (e.g., 'The system shall achieve a System Usability Scale (SUS) score of 80 or higher in user acceptance testing').",
+      "human_grade": null
+    },
+    {
+      "id": 6,
+      "req_id": "REQ-021",
+      "requirement": "The system shall comply with applicable data protection regulations.",
+      "category": "AMB",
+      "evidence": "applicable data protection regulations",
+      "suggested_fix": "Specify the exact data protection regulations the system must comply with (e.g., GDPR, CCPA, HIPAA).",
+      "human_grade": null
+    },
+    {
+      "id": 7,
+      "req_id": "TST-020",
+      "requirement": "The system shall log every login attempt, and the log shall be easy to review.",
+      "category": "UNT",
+      "evidence": "easy to review",
+      "suggested_fix": "Define 'easy to review' with measurable criteria, such as 'The log shall be reviewable within 5 seconds by an authorized user' or 'The log shall include fields X, Y, and Z for easy review.'",
+      "human_grade": null
+    },
+    {
+      "id": 8,
+      "req_id": "TST-016",
+      "requirement": "The system shall be robust against invalid input.",
+      "category": "UNT",
+      "evidence": "robust",
+      "suggested_fix": "Define what 'robust' means in this context. For example, specify that the system shall return a specific error code (e.g., 400 Bad Request) and display a user-friendly message when invalid input is provided.",
+      "human_grade": null
+    },
+    {
+      "id": 9,
+      "req_id": "TST-014",
+      "requirement": "Audit logs shall be exported using the agreed format when they grow too big.",
+      "category": "GAP",
+      "evidence": "agreed format",
+      "suggested_fix": "Specify the exact format (e.g., 'CSV format compliant with ISO 8601').",
+      "human_grade": null
+    },
+    {
+      "id": 10,
+      "req_id": "TST-025",
+      "requirement": "Prescription refills shall follow the pharmacy workflow.",
+      "category": "GAP",
+      "evidence": "pharmacy workflow",
+      "suggested_fix": "Define the specific steps, rules, and actors involved in the 'pharmacy workflow' that prescription refills must follow.",
+      "human_grade": null
+    },
+    {
+      "id": 11,
+      "req_id": "TST-028",
+      "requirement": "The patient portal shall be intuitive and load quickly.",
+      "category": "UNT",
+      "evidence": "intuitive",
+      "suggested_fix": "Define 'intuitive' by providing specific usability criteria or success metrics (e.g., 'The patient portal shall allow a first-time user to complete the booking process in under 3 steps').",
+      "human_grade": null
+    },
+    {
+      "id": 12,
+      "req_id": "REQ-017",
+      "requirement": "Product search results shall be sorted by relevance, with ties broken alphabetically by product name.",
+      "category": "AMB",
+      "evidence": "sorted by relevance",
+      "suggested_fix": "Define a measurable metric or algorithm for 'relevance' (e.g., relevance score based on keyword match percentage, or a specific ranking algorithm).",
+      "human_grade": null
+    },
+    {
+      "id": 13,
+      "req_id": "REQ-013",
+      "requirement": "The system shall support all major web browsers.",
+      "category": "AMB",
+      "evidence": "all major web browsers",
+      "suggested_fix": "Specify a definitive list of supported browsers (e.g., Chrome (latest 2 versions), Firefox (latest 2 versions), Safari (latest 2 versions), Edge (latest 2 versions)).",
+      "human_grade": null
+    },
+    {
+      "id": 14,
+      "req_id": "TST-021",
+      "requirement": "The system shall lock a patient account after several failed login attempts.",
+      "category": "AMB",
+      "evidence": "several",
+      "suggested_fix": "Specify the exact number of failed login attempts that will trigger the account lock (e.g., 'after 5 failed login attempts').",
+      "human_grade": null
+    },
+    {
+      "id": 15,
+      "req_id": "REQ-020",
+      "requirement": "The inventory count shall be updated in a timely manner after each sale.",
+      "category": "AMB",
+      "evidence": "in a timely manner",
+      "suggested_fix": "Define a specific time limit for the update (e.g., 'within 5 seconds' or 'immediately').",
+      "human_grade": null
+    },
+    {
+      "id": 16,
+      "req_id": "TST-005",
+      "requirement": "The system shall respond to appointment searches promptly.",
+      "category": "AMB",
+      "evidence": "promptly",
+      "suggested_fix": "Define a specific maximum response time (e.g., 'within 2 seconds').",
+      "human_grade": null
+    },
+    {
+      "id": 17,
+      "req_id": "TST-017",
+      "requirement": "Appointment confirmations shall be emailed in a timely manner.",
+      "category": "AMB",
+      "evidence": "in a timely manner",
+      "suggested_fix": "Define a specific time frame for sending the confirmation email (e.g., 'within 5 minutes of the appointment being confirmed').",
+      "human_grade": null
+    },
+    {
+      "id": 18,
+      "req_id": "REQ-025",
+      "requirement": "Uploaded photos shall be resized appropriately for display.",
+      "category": "AMB",
+      "evidence": "appropriately",
+      "suggested_fix": "Define the target dimensions or scaling factor for the resized photos (e.g., 'resized to a maximum dimension of 500x500 pixels').",
+      "human_grade": null
+    },
+    {
+      "id": 19,
+      "req_id": "TST-028",
+      "requirement": "The patient portal shall be intuitive and load quickly.",
+      "category": "AMB",
+      "evidence": "load quickly",
+      "suggested_fix": "Specify a measurable time threshold for loading (e.g., 'The patient portal shall load within 3 seconds under normal network conditions').",
+      "human_grade": null
+    }
+  ]
+}
