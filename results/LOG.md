@@ -25,3 +25,29 @@ Each row is one scored run. Newest last. Labels are frozen at data/labeled/start
 - The agent flagged 25 of 30 requirements. A model told to "report problems" reports problems; removing the verdict gate moved the failure from "never flags" to "always flags".
 - F1 0.320 is *below* a flag-everything agent (0.349 on this set). Recall improved from 0.0 to 0.42 but the agent is not yet better than a lazy baseline on F1.
 - The v1 code was already committed (aaaa8b6) before I applied it a second time; a duplicate class resulted and was removed. I had wrongly told Joe nothing was applied without checking git log.
+
+## v2 and later (prompt v2 = labeling-rule definitions, no worked examples; analysis then findings; think off; T=0, seed 0; k = related requirements retrieved)
+
+Dev set = data/labeled/starter_v1.json (labels by Joe). Test set = data/labeled/test_synthetic_v1.json (written and labeled by Claude, sealed until the config was frozen, then run once per model).
+
+| Run | Model | Set | P / R / F1 | Note |
+|---|---|---|---|---|
+| v2 k=3, 3 repeats | qwen3:8b | dev | 0.464 / 0.684 / 0.553 (sd 0.000) | UNT F1 1.00, AMB 0.53, GAP 0.36 |
+| v2 k=10, 1 run | qwen3:8b | dev | 0.417 / 0.526 / 0.465 | |
+| v2 k=29 (whole set), 3 repeats | qwen3:8b | dev | 0.423 / 0.474 / 0.447 (sd 0.017) | more context scored worse; GAP recall 0 |
+| v2 k=3, 3 repeats | gemma4:e4b | dev | 0.611 / 0.579 / 0.595 (sd 0.000) | |
+| v2 k=3, 3 repeats | granite4.2:8b | dev | 0.402 / 0.491 / 0.442 (sd 0.040) | ~4x slower |
+| v2 k=3 via n8n | qwen3:8b | dev | 0.464 / 0.684 / 0.553 | identical 28 pairs to the Python path |
+| v2 k=3, 1 run | gemma4:e4b | test | 0.667 / 0.941 / 0.780 | |
+| v2 k=3, 1 run | granite4.2:8b | test | 0.481 / 0.765 / 0.591 | |
+| v2 k=3, 1 run | qwen3:8b | test | 0.310 / 0.529 / 0.391 | AMB 16 FP; GAP 0 TP |
+
+Flag-everything baseline F1: 0.349 on dev, 0.318 on test.
+Seconds per requirement (mean over 3 dev runs, includes model load amortized): gemma4:e4b 0.71, qwen3:8b 1.31, granite4.2:8b 5.14. All at 100% GPU.
+
+## Things to remember when reading these numbers
+- Prompt versions v0 to v2 were developed against qwen3:8b on the dev set. qwen3:8b dropped from 0.553 (dev) to 0.391 (test); the models not tuned against did not drop (gemma up, granite up). That pattern is what overfitting to the dev set looks like, but with 17 gold pairs on test it is one sample, not proof.
+- The model ranking on dev (gemma > qwen > granite) and on test (gemma > granite > qwen) agree only on the winner.
+- Repeat runs at T=0, seed=0 were identical for qwen3 and gemma4, and varied for granite. The earlier non-determinism (v0, verdict-first schema) was on borderline inputs.
+- Test labels are Claude's, not Joe's, and the requirements are synthetic. Differences between dev and test can partly come from the labeler, not only the agent.
+- Third-party sources said gemma4:e4b was 9.6 GB; ollama list shows 6.6 GB.
