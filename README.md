@@ -1,164 +1,150 @@
 # reqcheck-eval
 
-**Status: in progress.** The agent, scorer, model comparison, n8n workflow and judge calibration are done. The labeler self-consistency check is not done yet (see "How quality is scored").
+**Status: in progress.** Everything below works except one check: re-labeling a sample of my own labels to measure how consistent I was.
 
-Self-hosted requirements-review agent (Ollama + Qdrant + n8n) that flags gaps, ambiguity, and untestable statements, with an eval harness that scores its output against hand-labeled ground truth.
+A self-hosted agent that reviews software requirements and flags three kinds of defects: ambiguity, untestable wording, and missing information. It runs entirely on one workstation (Ollama, Qdrant, n8n). The main point of the project is the evaluation harness that scores the agent against labels I wrote by hand, so every claim about quality is backed by a number.
+
+For a plain-English walkthrough aimed at non-engineers and architects, see [docs/overview.md](docs/overview.md).
 
 ## Results
 
-Best configuration so far: **gemma4:e4b (Q4_K_M), prompt v2, 3 related requirements as context, temperature 0.**
+The best setup is **gemma4:e4b** with prompt v2, 3 related requirements as context, and temperature 0.
 
-| Metric | Dev set (30 reqs, labeled by me) | Test set (30 reqs, synthetic, labeled by Claude) |
+| | Dev set (labeled by me) | Test set (labeled by Claude) |
 |---|---|---|
-| Gold issue pairs | 19 | 17 |
-| Precision (flagged issues that were real) | 0.611 | 0.667 |
-| Recall (real issues the agent caught) | 0.579 | 0.941 |
+| Requirements / real defects | 30 / 19 | 30 / 17 |
+| Precision (share of flags that were real) | 0.611 | 0.667 |
+| Recall (share of real defects caught) | 0.579 | 0.941 |
 | F1 | 0.595 (3 identical runs) | 0.780 (1 run) |
-| Flag-everything baseline F1 | 0.349 | 0.318 |
-| Avg. time per requirement | 0.71 s | 1.05 s |
-| Hardware | Ryzen 7 7800X3D, 32 GB RAM, RTX 3080 10 GB, 100% GPU | same |
+| F1 of an agent that flags everything | 0.349 | 0.318 |
+| Time per requirement | 0.71 s | 1.05 s |
 
-All three models, same prompt, same settings:
+All three models, same prompt and settings, on a Ryzen 7 7800X3D with an RTX 3080 (10 GB), fully on the GPU:
 
-| Model (Q4_K_M) | Dev F1 (mean of 3 runs) | Test F1 (1 run) | s / requirement (dev) |
+| Model (all Q4_K_M) | Dev F1 (average of 3 runs) | Test F1 (1 run) | Time per requirement |
 |---|---|---|---|
-| gemma4:e4b | 0.595 | 0.780 | 0.71 |
-| granite4.2:8b | 0.442 (sd 0.04) | 0.591 | 5.14 |
-| qwen3:8b | 0.553 | 0.391 | 1.31 |
+| gemma4:e4b | 0.595 | 0.780 | 0.71 s |
+| qwen3:8b | 0.553 | 0.391 | 1.31 s |
+| granite4.2:8b | 0.442 (±0.04) | 0.591 | 5.14 s |
 
-Takeaway: gemma4:e4b was best on both sets and fastest, but with 19 and 17 gold pairs a single pair moves a score by 2 to 5 points, so only the large gaps (gemma vs. granite on dev, qwen's drop from dev to test) should be believed. The prompt was developed against qwen3:8b on the dev set, and qwen3:8b is the model that lost the most on the held-out test set.
+gemma4:e4b was best on both sets and also the fastest. With fewer than 20 real defects per set, one requirement can move a score by 2 to 5 points, so only the large differences mean much. The most telling one: I developed the prompt against qwen3:8b, and that model is the one that dropped sharply on the test set it had never seen.
 
-Full run history, including failed attempts: [results/LOG.md](results/LOG.md). A plain-English overview for non-engineers and architects: [docs/overview.md](docs/overview.md).
+Every run, including the failures, is logged in [results/LOG.md](results/LOG.md).
 
-## What it does
+## What it flags
 
-Takes a requirements document, retrieves related context from a vector store, and flags:
+| Code | Defect | Example |
+|---|---|---|
+| `AMB` | Ambiguity: something measurable is named but its value is missing | "respond **promptly**" |
+| `UNT` | Untestable: subjective or unlimited wording with no pass/fail test | "must be **seamless**", "**always** available" |
+| `GAP` | Missing information a tester would need | "follow **the pharmacy workflow**" (defined nowhere) |
 
-1. **Gaps** (`GAP`): missing information needed to design tests (an undefined term, a missing trigger, actor, or failure behavior)
-2. **Ambiguity** (`AMB`): a measurable property with a missing value ("promptly", "several")
-3. **Untestable statements** (`UNT`): subjective or unbounded wording with no observable pass/fail criterion
+Each finding names the requirement and category, quotes the words that triggered it, and suggests a fix. The full definitions are in [eval/labeling-rules.md](eval/labeling-rules.md).
 
-Each flag includes the requirement ID, category, quoted evidence, and a suggested fix.
-
-## Architecture
+## How it works
 
 ```
-POST {req_id, text} -> n8n webhook
-                          |
-                          +-> Ollama embed (nomic-embed-text) -> Qdrant top-k similar requirements
-                          |
-                          +-> build prompt (rules + related requirements) -> Ollama chat
-                                                                              |
-                                                          JSON-schema-constrained findings
-                                                                              |
-                                                               findings.json -> eval/score.py
+requirement -> embed (nomic-embed-text) -> Qdrant: 3 most similar other requirements
+            -> prompt = labeling rules + related requirements + this requirement
+            -> Ollama, with output forced into a JSON schema: { analysis, findings[] }
+            -> findings.json -> scorer
 ```
 
-The same pipeline exists as plain Python (`agent/run.py`) and as an n8n workflow (`workflows/reqcheck.json`, generated from the Python prompt and schema by `workflows/build_workflow.py` so they cannot drift). On the dev set both produce identical findings.
-
-**Stack:** Ollama (model runtime), Qdrant (vector DB), n8n (orchestration), Python (agent and eval harness).
-
-**Design choices that came from measurements, not assumptions**
-- The LLM checks every requirement; retrieval only supplies cross-reference context. Retrieval alone finds topical neighbors, not defects.
-- Retrieval depth matters: k=3 beat k=29 (the whole set) for qwen3:8b, F1 0.553 vs 0.447. More context was not better.
-- The agent code reads only `req_id` and `text`; it cannot see the labels.
+- **The model reviews every requirement.** Retrieval only adds context, such as whether a term is defined elsewhere. Searching the vector database for "vague requirements" found topical neighbors, not defects.
+- **The model writes its analysis before its findings**, and an empty list means the requirement is clean.
+- **The agent never sees the labels.** It reads only the ID and text of each requirement.
+- **The pipeline also runs as an n8n workflow.** The workflow is generated from the Python prompt and schema, so the two can't drift. On the dev set both versions produced identical findings.
 
 ## How quality is scored
 
-### Ground truth
-- **Dev set:** 30 requirements for a customer-order portal (synthetic), labeled by me by hand before any agent run. Labels are `AMB`, `UNT`, `GAP`; one requirement can carry several.
-- **Test set:** 30 requirements for a clinic scheduler, written and labeled by Claude, labeled by construction (each defect planted) under my labeling rules. Sealed until the configuration was frozen, then run once per model. These are not my labels; I made an exception to my own rule because I was short on time.
-- Labeling rules, precedence between categories, and worked examples: [eval/labeling-rules.md](eval/labeling-rules.md)
+**Ground truth.**
+- **Dev set:** I labeled 30 requirements by hand before the agent ever ran.
+- **Test set:** a separate set of 30, which Claude wrote and labeled by planting each defect deliberately. It stayed sealed until the setup was final, and then each model ran on it once. That makes it the one honest check on whether the prompt tuning carries over to new text.
 
-### Metrics
-- **Precision / recall / F1** per category and overall; overall is micro-averaged.
-- The unit is the `(req_id, category)` pair. A flag is correct only if both match. Right requirement with the wrong category counts as one false positive and one false negative.
-- F1 is 0 (not n/a) when there are pairs but no true positives. Full rules: [eval/matching.md](eval/matching.md)
-- A naive baseline is reported next to every score: an agent that flags everything gets F1 0.349 on dev.
+**Scoring.**
+- A finding counts only if both the requirement and the category match a label. Flagging the right requirement with the wrong category counts as one false alarm plus one miss.
+- I report precision, recall and F1 overall and per category, always next to the flag-everything baseline.
+- The detailed rules are in [eval/matching.md](eval/matching.md), and the scorer has unit tests.
 
-### LLM-as-judge (suggested-fix quality only)
-- Tooling is built ([eval/judge.py](eval/judge.py)): 20 true-positive fixes sampled into [data/calibration/fix_sheet.json](data/calibration/fix_sheet.json), graded 1 to 3. The judge (qwen3:8b, a different model from the one that wrote the fixes) writes its grades to a separate file so the human grades blind.
-- **Calibration (20 fixes, my grades vs. the judge's):** exact agreement 0.65, within one grade 0.95, Cohen's kappa **0.15**. The judge gave a 3 to 19 of 20 fixes; I gave 3 to 12, a 2 to 7 and a 1 to 1. The raw agreement mostly reflects the judge answering 3 almost every time, which kappa corrects for. **The judge failed calibration, so no judge score is reported as a quality number.**
-- To retry, I would tighten the rubric or change the judge and re-check on a fresh sample of fixes, not on these 20 (tuning on them would just fit my grades).
+**Repeatability.** At temperature 0 with a fixed seed:
+- Three repeat runs were identical for gemma4 and qwen3, and varied slightly for granite.
+- The small number of labeled defects is a much bigger source of uncertainty than run-to-run noise.
 
-### Run-to-run variance
-- At temperature 0 with a fixed seed, three repeats were identical for gemma4:e4b and qwen3:8b (sd 0.000) and varied for granite4.2:8b (F1 sd 0.040).
-- Identical repeats do not mean the numbers are precise: the sampling error from only 17 to 19 gold pairs is much larger than the run-to-run spread.
-
-### Labeler consistency
-- Re-labeling a random 10 requirements after 48 hours to measure self-agreement: TODO (not done).
+**AI judge for fix quality.**
+- Suggested fixes have no single right answer, so I tried having a second model (qwen3:8b) grade them from 1 to 3.
+- I then graded the same 20 fixes myself without seeing its grades.
+- We agreed 65% of the time, but only because the judge gave nearly everything (19 of 20) the top grade.
+- Corrected for chance agreement, Cohen's kappa was **0.15**, which is barely better than chance. The judge failed, so I don't report any judge scores.
 
 ## What I got wrong
 
-- **The first baseline scored F1 0.000.** My schema made the model write `clean` or `defective` before any reasoning, and for obviously vague requirements it said "clean" 29 of 30 times. I had chosen that design to give the model a legitimate way to say "no issues". Fix: write an analysis first, drop the verdict field. That swung the failure the other way (25 of 30 requirements flagged, F1 0.320, below the flag-everything baseline of 0.349).
-- **Putting the labeling rules into the prompt did the most good** (F1 0.320 to 0.553 on qwen3:8b). I deliberately left out the rules file's worked examples because they are nearly the same wording as dev items, which would leak answers.
-- **More retrieved context made it worse**, which I did not expect (k=29: F1 0.447 vs k=3: 0.553; GAP recall fell to 0). I have not isolated the cause.
-- **I tuned on one model and one dataset.** qwen3:8b fell from 0.553 on dev to 0.391 on the sealed test set while the other two models rose. The prompt is probably fitted to qwen3 and the dev wording.
-- **Temperature 0 and a fixed seed did not guarantee identical output** on borderline inputs in the verdict-first version (same prompt, same seed, different verdict).
-- **Ollama silently ran on CPU** after a kernel update left the NVIDIA module missing for the new kernel, and a stale GPU scan kept it on CPU even after the driver was fixed. Only `ollama ps` showed it. Every run now records the GPU fraction.
-- **Process slips:** I took a third-party model size (gemma4:e4b at 9.6 GB) as fact; it is 6.6 GB. I also applied the v1 change twice, because I did not check `git log` first.
-- TODO: where my own labels turned out to be inconsistent (needs the self-consistency check).
+- **The first version scored F1 0.0.** I asked the model to say "clean" or "defective" before giving any reasoning, and it said "clean" for 29 of 30 requirements. Letting it write an analysis first fixed that, but it then flagged 25 of 30 and scored 0.320, which is worse than flagging everything.
+- **Adding my written labeling rules to the prompt made the biggest difference** (0.320 to 0.553). I left out the rules file's examples, because they are worded almost the same as dev-set items and would have leaked answers.
+- **More context made it worse.** Showing the model all the other requirements instead of the 3 most similar ones dropped F1 from 0.553 to 0.447, and it stopped finding gaps entirely. I haven't pinned down why.
+- **I tuned on one model and one dataset**, and the test set exposed it: qwen3:8b fell from 0.553 to 0.391 while the other two models improved.
+- **Temperature 0 and a fixed seed didn't guarantee the same answer** on borderline cases in the first version.
+- **Ollama silently fell back to the CPU** after a kernel update left the NVIDIA driver module missing. Only `ollama ps` showed it. Every run now records how much of it ran on the GPU.
 
 ## Quickstart
 
 ```bash
-# 1. Run the models
-ollama pull nomic-embed-text gemma4:e4b qwen3:8b granite4.2:8b
+# Models
+for m in nomic-embed-text gemma4:e4b qwen3:8b granite4.2:8b; do ollama pull $m; done
 
-# 2. Start Qdrant
+# Qdrant and Python
 docker run -d -p 6333:6333 qdrant/qdrant
-
-# 3. Python environment
 python -m venv .venv && .venv/bin/pip install ollama qdrant-client pydantic
 
-# 4. Run the agent on the dev set and score it
+# Run the agent on the dev set and score it
 .venv/bin/python -m agent.run --data data/labeled/starter_v1.json --model gemma4:e4b --prompt v2 --out results/my-run
 .venv/bin/python -m eval.score --labels data/labeled/starter_v1.json --findings results/my-run/findings.json
 
-# 5. Optional: the same pipeline in n8n (host network so it can reach Ollama and Qdrant on localhost)
-docker run -d --name n8n --network host -v n8n_data:/home/node/.n8n -v "$PWD/workflows:/workflows:ro" docker.n8n.io/n8nio/n8n
-docker exec n8n n8n import:workflow --input=/workflows/reqcheck.json
-docker exec n8n n8n publish:workflow --id=<id from: docker exec n8n n8n list:workflow> && docker restart n8n
-.venv/bin/python workflows/run_via_n8n.py --data data/labeled/starter_v1.json --out results/my-n8n-run
-
-# 6. Tests and repeat-run summary
+# Tests, and a summary across repeat runs
 .venv/bin/python -m unittest discover -s eval/tests -t .
-.venv/bin/python -m eval.summarize --labels data/labeled/starter_v1.json results/runA-r1 results/runA-r2
+.venv/bin/python -m eval.summarize --labels data/labeled/starter_v1.json results/run-r1 results/run-r2
 ```
 
-The n8n workflow is generated for qwen3:8b by default; regenerate with `python workflows/build_workflow.py --model gemma4:e4b > workflows/reqcheck.json` to match the best configuration.
+To run the same pipeline through n8n:
+
+```bash
+.venv/bin/python workflows/build_workflow.py --model gemma4:e4b > workflows/reqcheck.json
+docker run -d --name n8n --network host -v n8n_data:/home/node/.n8n -v "$PWD/workflows:/workflows:ro" docker.n8n.io/n8nio/n8n
+docker exec n8n n8n import:workflow --input=/workflows/reqcheck.json
+docker exec n8n n8n list:workflow            # note the workflow ID
+docker exec n8n n8n publish:workflow --id=<ID> && docker restart n8n
+.venv/bin/python workflows/run_via_n8n.py --data data/labeled/starter_v1.json --out results/my-n8n-run
+```
+
+n8n uses host networking so it can reach Ollama and Qdrant on localhost. It retrieves context from whichever requirements file `agent.run` indexed last.
 
 ## Repo layout
 
 ```
-reqcheck-eval/
-  data/
-    labeled/          # ground truth: starter_v1.json (dev, my labels), test_synthetic_v1.json (sealed test)
-    calibration/      # fix-quality grading sheet for the judge calibration
-  workflows/          # n8n workflow JSON, its generator, and a driver script
-  agent/              # prompts, schema, retrieval, runner
-  eval/               # scorer, matching rules, labeling rules, judge, tests
-  results/            # one folder per run, plus LOG.md
-  README.md
+agent/        prompts, output schema, retrieval, runner
+eval/         scorer, labeling and matching rules, AI judge, tests
+data/labeled/ dev set (my labels) and sealed test set
+data/calibration/  fixes graded by me and by the AI judge
+workflows/    n8n workflow, its generator, and a driver script
+results/      one folder per run, plus LOG.md
+docs/         plain-English project overview
 ```
 
 ## Limitations
 
-- Small labeled sets (30 requirements each, 17 to 19 gold pairs): results are directional, not statistically strong.
-- Single labeler per set and no inter-annotator agreement. The test set is labeled by Claude, not me.
-- Both sets are synthetic and tidier than real documents; real client documents will differ.
-- Three models of similar size (7.5B to 8.8B, all Q4_K_M); no larger models and no hosted models tested.
-- Prompts were tuned against the dev set on one model; the test set was run once per model after freezing, but it is small.
-- Set-level gaps (whole requirements missing) are out of scope.
+- Small sets (30 requirements each, under 20 real defects), so the results are directional rather than statistically strong.
+- Each set has a single labeler, and the test set was labeled by Claude rather than by me.
+- Both sets are synthetic and tidier than real project documents.
+- Only three models, all around 8B parameters and 4-bit quantized.
+- All runs share one Qdrant collection, rebuilt from whichever file was processed last. A real deployment needs one per document.
+- The agent checks individual requirements, so it can't notice that a whole requirement is missing.
 
 ## Next steps
 
-- Retry the fix-quality judge with a stricter rubric or different model, calibrated on a fresh sample
-- Re-label 10 requirements for the self-consistency check
-- Try `think=True` as a separate experiment and test the context-distraction hypothesis for the k=29 drop
-- Check the test set against real requirement text (for example sentences sampled from the public PURE dataset)
-- Add a test-design agent that turns accepted requirements into test cases
-- Write findings to Jira via API
+- Re-label 10 requirements to measure my own consistency
+- Retry the fix-quality judge with a stricter rubric, checked against a fresh sample
+- Test the model's built-in reasoning mode, and find out why more context hurt
+- Run against real requirement text, such as the public PURE dataset
+- Turn accepted requirements into test cases, and write findings to Jira
 
 ## License
 
