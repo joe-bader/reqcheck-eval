@@ -16,7 +16,12 @@
 
 ## Does it work?
 
-Five local models, same prompt and settings. F1 combines "share of flags that were real" (precision) and "share of real defects caught" (recall) into one number:
+Five local models on the same dev and sealed test sets. F1 combines "share of flags that were real" (precision) and "share of real defects caught" (recall) into one number:
+
+![Dev and sealed-test F1 with runtime for five local models. Gemma4 has the highest observed test F1 (0.78) at 0.7 seconds per requirement; qwen3.6 leads on dev (0.77); Kev-9B is fastest (0.15 seconds) and returns probabilities only.](docs/charts/model-results.svg)
+
+<details>
+<summary>Exact values</summary>
 
 | Model | Dev set F1 (my labels) | Sealed test set F1 | Seconds per requirement |
 |---|---|---|---|
@@ -26,6 +31,8 @@ Five local models, same prompt and settings. F1 combines "share of flags that we
 | granite4.2:8b | 0.44 | 0.59 | 5.1 |
 | Kev-9B (System 1, see below) | 0.54 | 0.49 | **0.15** |
 | *An agent that flags everything* | *0.35* | *0.32* | |
+
+</details>
 
 qwen3.6 is the most accurate on my own labels. gemma4:e4b matches it on the test set at an eighth of the time, so it is the practical pick for this hardware. Either is good enough as a first-pass assistant for a human reviewer, but not to run unattended.
 
